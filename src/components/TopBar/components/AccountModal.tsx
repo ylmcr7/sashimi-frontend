@@ -1,7 +1,13 @@
 import React, { useCallback } from 'react'
+import {
+  Button
+} from 'antd';
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 import useYam from '../../../hooks/useYam'
+import {
+  LogoImg
+} from '../../Logo/Logo';
 import { getSushiAddress } from '../../../sushi/utils'
 
 import useTokenBalance from '../../../hooks/useTokenBalance'
@@ -10,7 +16,6 @@ import {
   getBalanceNumber,
 } from '../../../utils/formatBalance'
 
-import Button from '../../Button'
 import CardIcon from '../../CardIcon'
 import Label from '../../Label'
 import Modal, { ModalProps } from '../../Modal'
@@ -20,6 +25,11 @@ import ModalTitle from '../../ModalTitle'
 import Separator from '../../Separator'
 import Spacer from '../../Spacer'
 import Value from '../../Value'
+import {getEthChainInfo} from "../../../utils/getEthChainInfo";
+
+const {
+  ethscanType
+} = getEthChainInfo();
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, reset } = useWallet()
@@ -41,30 +51,39 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <div style={{ display: 'flex' }}>
           <StyledBalanceWrapper>
             <CardIcon>
-              <span>🍣</span>
+              <LogoImg />
             </CardIcon>
             <StyledBalance>
               <Value value={getBalanceNumber(sushiBalance)} />
-              <Label text="SUSHI Balance" />
+              {/*<Label text="SUSHI Balance" />*/}
+              <Label text="SASHIMI Balance" />
             </StyledBalance>
           </StyledBalanceWrapper>
         </div>
 
         <Spacer />
         <Button
-          href={`https://etherscan.io/address/${account}`}
-          text="View on Etherscan"
-          variant="secondary"
-        />
+          href={`https://${ethscanType}etherscan.io/address/${account}`}
+          size="large"
+          block
+          type="primary"
+        >View on Etherscan</Button>
         <Spacer />
         <Button
           onClick={handleSignOutClick}
-          text="Sign out"
-          variant="secondary"
-        />
+          block
+          size="large"
+          type="primary"
+        >Sign out</Button>
       </ModalContent>
       <ModalActions>
-        <Button onClick={onDismiss} text="Cancel" />
+        <Button
+          onClick={onDismiss}
+          size="large"
+          block
+        >
+          Cancel
+        </Button>
       </ModalActions>
     </Modal>
   )

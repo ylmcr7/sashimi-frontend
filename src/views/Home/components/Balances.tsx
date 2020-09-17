@@ -93,51 +93,56 @@ const Balances: React.FC = () => {
     }
   }, [yam, setTotalSupply])
 
-  return (
-    <StyledWrapper>
-      <Card>
-        <CardContent>
-          <StyledBalances>
-            <StyledBalance>
-              <YamIcon />
-              <Spacer />
-              <div style={{ flex: 1 }}>
-                <Label text="Your SUSHI Balance" />
-                <Value
-                  value={!!account ? getBalanceNumber(sushiBalance) : 'Locked'}
-                />
-              </div>
-            </StyledBalance>
-          </StyledBalances>
-        </CardContent>
-        <Footnote>
-          Pending harvest
-          <FootnoteValue>
-            <PendingRewards /> SUSHI
-          </FootnoteValue>
-        </Footnote>
-      </Card>
-      <Spacer />
+  const circulatingPercent = totalSupply
+    ? `(${(getBalanceNumber(totalSupply) / (10**6)).toFixed(2)}%)` : '';
 
-      <Card>
-        <CardContent>
-          <Label text="Total SUSHI Supply" />
-          <Value
-            value={totalSupply ? getBalanceNumber(totalSupply) : 'Locked'}
-          />
-        </CardContent>
-        <Footnote>
-          New rewards per block
-          <FootnoteValue>1,000 SUSHI</FootnoteValue>
-        </Footnote>
-      </Card>
-    </StyledWrapper>
+  return (
+    <>
+      <TotalSupply>Total Sashimi Supply: 100,000,000</TotalSupply>
+      <StyledWrapper>
+        <Card>
+          <CardContent>
+            <StyledBalances>
+              <StyledBalance>
+                <div style={{ flex: 1 }}>
+                  <Label text="Your SASHIMI Balance" />
+                  <Value
+                    value={!!account ? getBalanceNumber(sushiBalance) : 'Locked'}
+                  />
+                </div>
+              </StyledBalance>
+            </StyledBalances>
+            <Footnote>
+              Pending harvest
+              <FootnoteValue>
+                <PendingRewards /> SASHIMI
+              </FootnoteValue>
+            </Footnote>
+          </CardContent>
+        </Card>
+        <Spacer />
+
+        <Card>
+          <CardContent>
+            <Label text={`Circulating SASHIMI Supply ${circulatingPercent}`} />
+            <Value
+              value={totalSupply ? getBalanceNumber(totalSupply) : 'Locked'}
+            />
+            <Footnote>
+              New rewards per block
+              {/* TODO: Follow the plan */}
+              <FootnoteValue>500 SASHIMI</FootnoteValue>
+            </Footnote>
+          </CardContent>
+        </Card>
+      </StyledWrapper>
+    </>
   )
 }
 
 const Footnote = styled.div`
   font-size: 14px;
-  padding: 8px 20px;
+  padding: 12px 0 0 0;
   color: ${(props) => props.theme.color.grey[400]};
   border-top: solid 1px ${(props) => props.theme.color.grey[300]};
 `
@@ -164,6 +169,16 @@ const StyledBalance = styled.div`
   align-items: center;
   display: flex;
   flex: 1;
+`
+
+const TotalSupply = styled.div`
+  color: #aa9585;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  padding-bottom: ${(props) => props.theme.spacing[6]}px;
 `
 
 export default Balances

@@ -19,7 +19,7 @@ const useAllEarnings = () => {
   const fetchAllBalances = useCallback(async () => {
     const balances: Array<BigNumber> = await Promise.all(
       farms.map(({ pid }: { pid: number }) =>
-        getEarned(masterChefContract, pid, account),
+        getEarned(masterChefContract, pid, account).catch(() => new BigNumber(0)),
       ),
     )
     setBalance(balances)

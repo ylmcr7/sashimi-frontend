@@ -26,18 +26,18 @@ const StyledPageHeader = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding-bottom: ${(props) => props.theme.spacing[6]}px;
   padding-top: ${(props) => props.theme.spacing[6]}px;
   margin: 0 auto;
 `
+// padding-bottom: ${(props) => props.theme.spacing[6]}px;
 
 const StyledIcon = styled.div`
   font-size: 120px;
   height: 120px;
   line-height: 120px;
   text-align: center;
-  width: 120px;
 `
+//  width: 120px;
 
 const StyledTitle = styled.h1`
   font-family: 'Kaushan Script', sans-serif;

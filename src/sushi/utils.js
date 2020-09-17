@@ -56,7 +56,8 @@ export const getFarms = (sushi) => {
           tokenAddress,
           tokenSymbol,
           tokenContract,
-          earnToken: 'sushi',
+          // earnToken: 'sushi',
+          earnToken: 'sashimi',
           earnTokenAddress: sushi.contracts.sushi.options.address,
           icon,
         }),
@@ -70,14 +71,22 @@ export const getPoolWeight = async (masterChefContract, pid) => {
     const totalAllocPoint = await masterChefContract.methods
       .totalAllocPoint()
       .call()
-    return new BigNumber(allocPoint).div(new BigNumber(totalAllocPoint))
+    return {
+      poolWeight: new BigNumber(allocPoint).div(new BigNumber(totalAllocPoint)),
+      allocPoint: new BigNumber(allocPoint),
+      totalAllocPoint: new BigNumber(totalAllocPoint)
+    }
   } catch {
-    return new BigNumber(0)
+    return {
+      poolWeight: new BigNumber(0),
+      allocPoint: new BigNumber(0),
+      totalAllocPoint: new BigNumber(0)
+    }
   }
 }
 
 export const getEarned = async (masterChefContract, pid, account) => {
-  return masterChefContract.methods.pendingSushi(pid, account).call()
+  return masterChefContract.methods.pendingSashimi(pid, account).call();
 }
 
 export const getTotalLPWethValue = async (
@@ -114,12 +123,16 @@ export const getTotalLPWethValue = async (
   const wethAmount = new BigNumber(lpContractWeth)
     .times(portionLp)
     .div(new BigNumber(10).pow(18))
+
+  const poolWeightInfo = await getPoolWeight(masterChefContract, pid);
   return {
     tokenAmount,
     wethAmount,
     totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
     tokenPriceInWeth: wethAmount.div(tokenAmount),
-    poolWeight: await getPoolWeight(masterChefContract, pid),
+    poolWeight: poolWeightInfo.poolWeight,
+    allocPoint: poolWeightInfo.allocPoint,
+    totalAllocPoint: poolWeightInfo.totalAllocPoint,
   }
 }
 

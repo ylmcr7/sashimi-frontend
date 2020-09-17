@@ -3,19 +3,29 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import chef from '../../assets/img/chef.png'
+import exp from "constants";
+
+export const LogoImg = () => (
+  <StyledLogo src={chef} />
+)
 
 const Logo: React.FC = () => {
   return (
-    <StyledLogo to="/">
-      <img src={chef} height="32" style={{ marginTop: -4 }} />
+    <StyledLink to="/">
+      <LogoImg />
       <StyledText>
-        SushiSwap <MasterChefText>MasterChef</MasterChefText>
+          SashimiSwap<MasterChefText>MasterChef</MasterChefText>
       </StyledText>
-    </StyledLogo>
+    </StyledLink>
   )
 }
 
-const StyledLogo = styled(Link)`
+const StyledLogo = styled.img`
+  height: 32px;
+  margin-top: -4
+`
+
+const StyledLink = styled(Link)`
   align-items: center;
   display: flex;
   justify-content: center;
@@ -33,7 +43,7 @@ const StyledText = styled.span`
   font-weight: 700;
   letter-spacing: 0.03em;
   margin-left: ${(props) => props.theme.spacing[2]}px;
-  @media (max-width: 400px) {
+  @media (max-width: 414px) {
     display: none;
   }
 `

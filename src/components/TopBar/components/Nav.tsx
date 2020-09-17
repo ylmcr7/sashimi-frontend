@@ -12,10 +12,10 @@ const Nav: React.FC = () => {
         Menu
       </StyledLink>
       <StyledAbsoluteLink
-        href="https://medium.com/sushiswap/the-sushiswap-project-c4049ea9941e"
+        href="https://snapshot.sashimi.cool/#/sashimi"
         target="_blank"
       >
-        About
+          Proposals
       </StyledAbsoluteLink>
     </StyledNav>
   )
@@ -38,9 +38,9 @@ const StyledLink = styled(NavLink)`
   &.active {
     color: ${(props) => props.theme.color.primary.main};
   }
-  @media (max-width: 400px) {
-    padding-left: ${(props) => props.theme.spacing[2]}px;
-    padding-right: ${(props) => props.theme.spacing[2]}px;
+  @media (max-width: 414px) {
+    padding-left: ${(props) => props.theme.spacing[1]}px;
+    padding-right: ${(props) => props.theme.spacing[1]}px;
   }
 `
 
@@ -56,9 +56,9 @@ const StyledAbsoluteLink = styled.a`
   &.active {
     color: ${(props) => props.theme.color.primary.main};
   }
-  @media (max-width: 400px) {
-    padding-left: ${(props) => props.theme.spacing[2]}px;
-    padding-right: ${(props) => props.theme.spacing[2]}px;
+  @media (max-width: 414px) {
+    padding-left: ${(props) => props.theme.spacing[1]}px;
+    padding-right: ${(props) => props.theme.spacing[1]}px;
   }
 `
 

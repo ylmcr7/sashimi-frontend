@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
-import Button from '../../components/Button'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 
@@ -83,7 +82,7 @@ const Farm: React.FC = () => {
         <Spacer size="lg" />
         <StyledInfo>
           ⭐️ Every time you stake and unstake LP tokens, the contract will
-          automagically harvest SUSHI rewards for you!
+          automagically harvest SASHIMI rewards for you!
         </StyledInfo>
         <Spacer size="lg" />
       </StyledFarm>
