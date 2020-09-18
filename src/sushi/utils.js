@@ -33,6 +33,10 @@ export const getSushiContract = (sushi) => {
   return sushi && sushi.contracts && sushi.contracts.sushi
 }
 
+export const getSashimiBarContract = (sushi) => {
+  return sushi && sushi.contracts && sushi.contracts.sashimiBar
+}
+
 export const getFarms = (sushi) => {
   return sushi
     ? sushi.contracts.pools.map(

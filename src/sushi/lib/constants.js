@@ -40,9 +40,16 @@
 
 export const contractAddresses = {
   sushi: {
-    42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2', // aelf sushi new one 9.9
+    42: '0x4E05EbD1e42b4674B829E4d2B1b67CD686bF101c', // aelf sushi new one 9.9
     // 42: '0x43a7903E3a839a67192151eE300e11198985E54b', // sushi
     1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2', // aelf sashimi
+    // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
+  },
+  sashimiBar: {
+    42: '0x79F006926F7a8CDf4055469C34c9609C6488DB15', // aelf sushi new one 9.18
+    // 42: '0x43a7903E3a839a67192151eE300e11198985E54b', // sushi
+    // TODO: change address
+    1: '0x79F006926F7a8CDf4055469C34c9609C6488DB15', // aelf sashimi
     // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
   },
   masterChef: {

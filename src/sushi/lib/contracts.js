@@ -13,6 +13,8 @@ import SushiAbi from './abi/sushi.json'
 import MasterChefAbi from './abi/masterchef.json'
 import ERC20Abi from './abi/erc20.json'
 import WETHAbi from './abi/weth.json'
+import SashimiBarAbi from './abi/sashimiBar.json'
+// TODO: ADD SASHIMI BAR ABI
 
 export class Contracts {
   constructor(provider, networkId, web3, options) {
@@ -27,6 +29,7 @@ export class Contracts {
     this.sushi = new this.web3.eth.Contract(SushiAbi)
     this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
     this.weth = new this.web3.eth.Contract(WETHAbi)
+    this.sashimiBar = new this.web3.eth.Contract(SashimiBarAbi)
 
     this.pools = supportedPools.map((pool) =>
       Object.assign(pool, {
@@ -51,6 +54,7 @@ export class Contracts {
     setProvider(this.sushi, contractAddresses.sushi[networkId])
     setProvider(this.masterChef, contractAddresses.masterChef[networkId])
     setProvider(this.weth, contractAddresses.weth[networkId])
+    setProvider(this.sashimiBar, contractAddresses.sashimiBar[networkId])
 
     this.pools.forEach(
       ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
@@ -63,6 +67,7 @@ export class Contracts {
   setDefaultAccount(account) {
     this.sushi.options.from = account
     this.masterChef.options.from = account
+    this.sashimiBar.options.from = account
   }
 
   // async callContractFunction(method, options) {

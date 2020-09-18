@@ -21,6 +21,7 @@ import useModal from './hooks/useModal'
 import FAQ from './views/FAQ'
 import Farms from './views/Farms'
 import Home from './views/Home'
+import Staking from './views/Staking'
 
 import { getEthChainInfo } from './utils/getEthChainInfo'
 
@@ -59,6 +60,9 @@ const App: React.FC = () => {
               </Route>
               <Route path="/farms">
                 <Farms />
+              </Route>
+              <Route path="/staking">
+                <Staking />
               </Route>
               <Route path="/faq">
                 <FAQ />
