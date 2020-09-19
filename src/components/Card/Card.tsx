@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Card: React.FC = ({ children }) => (
-  <StyledCard>
+const Card: React.FC<{
+  className?: string
+}> = ({ children, className }) => (
+  <StyledCard className={className}>
     {children}
   </StyledCard>
 )

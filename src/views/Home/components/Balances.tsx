@@ -19,11 +19,17 @@ import useAllEarnings from '../../../hooks/useAllEarnings'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
 
 import { bnToDec } from '../../../utils'
+import { getBalance } from '../../../utils/erc20';
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import { getSushiSupply, getSushiContract } from '../../../sushi/utils'
 import { getSushiAddress } from '../../../sushi/utils'
 import BigNumber from 'bignumber.js'
 import CountUp from 'react-countup'
+import { getEthChainInfo } from '../../../utils/getEthChainInfo';
+
+const {
+  stakingPool
+} = getEthChainInfo();
 
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
@@ -85,8 +91,14 @@ const Balances: React.FC = () => {
 
   useEffect(() => {
     async function fetchTotalSupply() {
-      const supply = await getSushiSupply(yam)
-      setTotalSupply(supply)
+      const [
+        supply,
+        stakedBalance
+      ] = await Promise.all([
+        getSushiSupply(yam),
+        getBalance(ethereum, getSushiAddress(yam), stakingPool).then(res => new BigNumber(res))
+      ]);
+      setTotalSupply(supply.minus(stakedBalance))
     }
     if (yam) {
       fetchTotalSupply()
@@ -100,7 +112,7 @@ const Balances: React.FC = () => {
     <>
       <TotalSupply>Total Sashimi Supply: 100,000,000</TotalSupply>
       <StyledWrapper>
-        <Card>
+        <StyledCard>
           <CardContent>
             <StyledBalances>
               <StyledBalance>
@@ -119,10 +131,10 @@ const Balances: React.FC = () => {
               </FootnoteValue>
             </Footnote>
           </CardContent>
-        </Card>
+        </StyledCard>
         <Spacer />
 
-        <Card>
+        <StyledCard>
           <CardContent>
             <Label text={`Circulating SASHIMI Supply ${circulatingPercent}`} />
             <Value
@@ -131,10 +143,10 @@ const Balances: React.FC = () => {
             <Footnote>
               New rewards per block
               {/* TODO: Follow the plan */}
-              <FootnoteValue>500 SASHIMI</FootnoteValue>
+              <FootnoteValue>200 SASHIMI</FootnoteValue>
             </Footnote>
           </CardContent>
-        </Card>
+        </StyledCard>
       </StyledWrapper>
     </>
   )
@@ -153,12 +165,19 @@ const FootnoteValue = styled.div`
 
 const StyledWrapper = styled.div`
   align-items: center;
+  width: 100%;
   display: flex;
+  justify-content: center;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
     align-items: stretch;
+    padding: 0 16px;
   }
+`
+
+const StyledCard = styled(Card)`
+  max-width: 450px;
 `
 
 const StyledBalances = styled.div`
