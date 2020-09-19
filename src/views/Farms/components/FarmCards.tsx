@@ -52,8 +52,9 @@ const StyledLogo = styled.img`
 `
 
 let burnPoolPercent: BigNumber = new BigNumber(0);
-const waitingPool = [22, 23, 24];
+const waitingPool = [25];
 
+const startTime = 1600536810000;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const {account} = useWallet()
@@ -161,7 +162,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm}) => {
 
   let poolActive = true // startTime * 1000 - Date.now() <= 0
   if (waitingPool.includes(farm.pid)) {
-    poolActive = 1600347600000 - Date.now() <= 0;
+    poolActive = startTime - Date.now() <= 0;
   }
 
   let farmApy: any;
@@ -202,7 +203,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm}) => {
                     {
                       poolActive ? 'Select' : (
                         <Countdown
-                          date={new Date(1600347600000)}
+                          date={new Date(startTime)}
                           renderer={renderer}
                         />
                       )

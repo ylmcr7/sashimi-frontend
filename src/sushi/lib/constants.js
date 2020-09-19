@@ -174,6 +174,23 @@ export const supportedPools = [
     tokenSymbol: 'ELF',
     icon: '🍱',
   },
+
+  {
+    pid: 25,
+    lpAddresses: {
+      42: '0xd9f91070371987eee3e500e90de5333e0c43d031',
+      1: '0xd9f91070371987eee3e500e90de5333e0c43d031',
+    },
+    tokenAddresses: {
+      42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'MXC!',
+    symbol: 'MXC-ETH UNI-V2 LP',
+    tokenSymbol: 'MXC',
+    icon: '🌱'
+  },
+
   // SASHIMI new
   {
     pid: 12,
