@@ -33,7 +33,8 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => 
 
   useEffect(() => {
     (async () => {
-      if (!sashimiBarContract) {
+      if (!sashimiBarContract || !account) {
+        setTokenBalance(new BigNumber(0));
         return;
       }
       const tokenBalance = await sashimiBarContract.methods

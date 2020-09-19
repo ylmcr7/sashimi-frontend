@@ -53,7 +53,7 @@ export const contractAddresses = {
     // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
   },
   masterChef: {
-    42: '0x1DaeD74ed1dD7C9Dabbe51361ac90A69d851234D', // aelf sushi new one 9.9
+    42: '0xBaE9a1D141DD0dEc43e3AD93Cd8C75BBb2Eb135E', // aelf sushi new one 9.9
     // 42: '0x245A074cA9814fB46A21562bC70fAB92F8A3F779', // sushi
     1: '0x1daed74ed1dd7c9dabbe51361ac90a69d851234d', // aelf master
     // 1: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd', // sushi use

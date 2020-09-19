@@ -77,6 +77,7 @@ const StyledFarm = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  max-width: 1200px;
   @media (max-width: 768px) {
     width: 100%;
   }
