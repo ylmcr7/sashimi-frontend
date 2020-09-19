@@ -120,7 +120,7 @@ const FarmCards: React.FC = () => {
 
   return (
     <StyledCards>
-      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2)} WETH valued assets are making Sashimi</ValueETH>
+      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2) || 0} WETH valued assets are making Sashimi</ValueETH>
       {!!rows[0].length ? (
         rows.map((farmRow, i) => (
           <StyledRow key={i}>
@@ -214,6 +214,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm}) => {
                 <Button
                   size="large"
                   type="primary"
+                  // todo: 修改为sashimi swap地址
                   href={`https://uniswap.info/pair/${farm.lpTokenAddress}`}
                   target="_blank"
                   block

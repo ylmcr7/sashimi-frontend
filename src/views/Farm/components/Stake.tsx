@@ -84,15 +84,16 @@ const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
           </StyledCardHeader>
           <StyledCardActions>
             {!allowance.toNumber() ? (
-              <Button
+              <EllipsisButton
                 disabled={requestedApproval}
                 onClick={handleApprove}
                 type="primary"
                 size="large"
                 block
+                title={`Approve ${tokenName}`}
               >
                 {`Approve ${tokenName}`}
-              </Button>
+              </EllipsisButton>
             ) : (
               <>
                 <Button
@@ -124,6 +125,12 @@ const StyledCardHeader = styled.div`
   display: flex;
   flex-direction: column;
 `
+
+const EllipsisButton = styled(Button)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 const StyledCardActions = styled.div`
   display: flex;
   justify-content: center;

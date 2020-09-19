@@ -70,7 +70,6 @@ const Farm: React.FC = () => {
           <StyledCardWrapper>
             <Harvest pid={pid} />
           </StyledCardWrapper>
-          <Spacer />
           <StyledCardWrapper>
             <Stake
               lpContract={lpContract}
@@ -102,6 +101,7 @@ const StyledFarm = styled.div`
 const StyledCardsWrapper = styled.div`
   display: flex;
   width: 600px;
+  justify-content: space-around;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
@@ -111,8 +111,8 @@ const StyledCardsWrapper = styled.div`
 
 const StyledCardWrapper = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
+  width: 48%;
   @media (max-width: 768px) {
     width: 80%;
   }
