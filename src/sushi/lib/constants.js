@@ -52,6 +52,10 @@ export const contractAddresses = {
     1: '0x79F006926F7a8CDf4055469C34c9609C6488DB15', // aelf sashimi
     // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
   },
+  investment: {
+    42: '0x46641A3aA421beA0207Ead6d807c847a2f599943',
+    1: '0x46641A3aA421beA0207Ead6d807c847a2f599943' // TODO: use mainnet address
+  },
   masterChef: {
     42: '0x042036D6F0b5C246aA07Dd9688b46cf86Bd179C3', // aelf sushi new one 9.9
     // 42: '0x245A074cA9814fB46A21562bC70fAB92F8A3F779', // sushi
@@ -82,6 +86,53 @@ UNI-V2 LP Address on mainnet for reference
 11 YFI  0x2fdbadf3c4d5a8666bc06645b8358ab803996e28
 12 SUSHI 0xce84867c3c02b05dc570d0135103d3fb9cc19433
 */
+
+export const supportedInvestmentPools = [
+  {
+    // CANDY - SASHIMI? pair
+    lpAddresses: {
+      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+    },
+    depositAddresses: {
+      42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
+      1: '0xA050886815CFc52a24B9C4aD044ca199990B6690'
+    },
+    tokenAddresses: {
+      42: '0xf48dFe5E2fB756a59B387754c4a37f951793F417',
+      1: '0xf48dFe5E2fB756a59B387754c4a37f951793F417', // TODO: mainnet address
+    },
+    depositTokenSymbol: 'WETH',
+    tokenSymbol: 'CANDY', // Which token will I get, when I do the harvest？
+    symbol: 'Hello CANDY',
+    name: 'Hello CANDY',
+    icon: '👜',
+    sashimiIndex: 1,
+  },
+  {
+    // XYZ - SASHIMI pair
+    lpAddresses: {
+      42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
+      1: '0xb819c827a0dc04e403099310317bd75b8a0a43fa', // TODO
+    },
+    // XYZ Token
+    depositAddresses: {
+      42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
+      1: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5'
+    },
+    // Golff Token
+    tokenAddresses: {
+      42: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e',
+      1: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e', // TODO: mainnet address
+    },
+    depositTokenSymbol: 'XYZ',
+    tokenSymbol: 'Golff', // Which token will I get, when I do the harvest？
+    symbol: 'Hello Golff',
+    name: 'Hello Golff',
+    icon: '👝',
+    sashimiIndex: 1,
+  }
+];
 
 export const supportedPools = [
   // Test Only

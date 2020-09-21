@@ -5,6 +5,7 @@ import {
   // SUBTRACT_GAS_LIMIT,
   contractAddresses,
   supportedPools,
+  supportedInvestmentPools,
 } from './constants.js'
 
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
@@ -14,7 +15,7 @@ import MasterChefAbi from './abi/masterchef.json'
 import ERC20Abi from './abi/erc20.json'
 import WETHAbi from './abi/weth.json'
 import SashimiBarAbi from './abi/sashimiBar.json'
-// TODO: ADD SASHIMI BAR ABI
+import InvestmentAbi from './abi/investment.json'
 
 export class Contracts {
   constructor(provider, networkId, web3, options) {
@@ -30,11 +31,22 @@ export class Contracts {
     this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
     this.weth = new this.web3.eth.Contract(WETHAbi)
     this.sashimiBar = new this.web3.eth.Contract(SashimiBarAbi)
+    this.investment = new this.web3.eth.Contract(InvestmentAbi)
 
     this.pools = supportedPools.map((pool) =>
       Object.assign(pool, {
         lpAddress: pool.lpAddresses[networkId],
         tokenAddress: pool.tokenAddresses[networkId],
+        lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
+        tokenContract: new this.web3.eth.Contract(ERC20Abi),
+      }),
+    )
+
+    this.investmentPools = supportedInvestmentPools.map((pool) =>
+      Object.assign(pool, {
+        lpAddress: pool.lpAddresses[networkId],
+        tokenAddress: pool.tokenAddresses[networkId],
+        depositAddress: pool.depositAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
         tokenContract: new this.web3.eth.Contract(ERC20Abi),
       }),
@@ -55,8 +67,16 @@ export class Contracts {
     setProvider(this.masterChef, contractAddresses.masterChef[networkId])
     setProvider(this.weth, contractAddresses.weth[networkId])
     setProvider(this.sashimiBar, contractAddresses.sashimiBar[networkId])
+    setProvider(this.investment, contractAddresses.investment[networkId])
 
     this.pools.forEach(
+      ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
+        setProvider(lpContract, lpAddress)
+        setProvider(tokenContract, tokenAddress)
+      },
+    )
+
+    this.investmentPools.forEach(
       ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
         setProvider(lpContract, lpAddress)
         setProvider(tokenContract, tokenAddress)
@@ -68,6 +88,7 @@ export class Contracts {
     this.sushi.options.from = account
     this.masterChef.options.from = account
     this.sashimiBar.options.from = account
+    this.investment.options.from = account
   }
 
   // async callContractFunction(method, options) {

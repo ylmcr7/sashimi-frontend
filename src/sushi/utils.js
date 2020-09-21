@@ -37,6 +37,10 @@ export const getSashimiBarContract = (sushi) => {
   return sushi && sushi.contracts && sushi.contracts.sashimiBar
 }
 
+export const getInvestmentContract = (sushi) => {
+  return sushi && sushi.contracts && sushi.contracts.investment
+}
+
 export const getFarms = (sushi) => {
   return sushi
     ? sushi.contracts.pools.map(
@@ -66,6 +70,42 @@ export const getFarms = (sushi) => {
           icon,
         }),
       )
+    : []
+}
+
+export const getInvestments = (sushi) => {
+  return sushi
+    ? sushi.contracts.investmentPools.map(
+      ({
+         name,
+         symbol,
+         icon,
+         tokenAddress,
+         tokenSymbol,
+         tokenContract,
+         lpAddress,
+         lpContract,
+         depositAddress,
+         depositTokenSymbol,
+         sashimiIndex,
+       }) => ({
+        id: symbol,
+        name,
+        lpToken: symbol,
+        lpTokenAddress: lpAddress,
+        lpContract,
+        tokenAddress,
+        tokenSymbol,
+        tokenContract,
+        depositAddress,
+        depositTokenSymbol,
+        sashimiIndex,
+        // earnToken: 'sushi',
+        earnToken: 'sashimi',
+        earnTokenAddress: sushi.contracts.sushi.options.address,
+        icon,
+      }),
+    )
     : []
 }
 
@@ -101,6 +141,7 @@ export const getTotalLPWethValue = async (
   pid,
 ) => {
   // Get balance of the token address
+  // TODO: use new method
   const tokenAmountWholeLP = await tokenContract.methods
     .balanceOf(lpContract.options.address)
     .call()
