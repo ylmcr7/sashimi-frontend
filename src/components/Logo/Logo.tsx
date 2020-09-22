@@ -43,13 +43,13 @@ const StyledText = styled.span`
   font-weight: 700;
   letter-spacing: 0.03em;
   margin-left: ${(props) => props.theme.spacing[2]}px;
-  @media (max-width: 414px) {
-    display: none;
-  }
 `
 
 const MasterChefText = styled.span`
   font-family: 'Kaushan Script', sans-serif;
+  @media (max-width: 414px) {
+    display: none;
+  }
 `
 
 export default Logo

@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { UseWalletProvider } from 'use-wallet'
 
 import DisclaimerModal from './components/DisclaimerModal'
-import MobileMenu from './components/MobileMenu'
+import Mobile from './contexts/Mobile';
 import TopBar from './components/TopBar'
 import SashimiFooter from './components/Footer';
 
@@ -36,25 +36,14 @@ const {
 } = Layout;
 
 const App: React.FC = () => {
-  const [mobileMenu, setMobileMenu] = useState(false)
-
-  const handleDismissMobileMenu = useCallback(() => {
-    setMobileMenu(false)
-  }, [setMobileMenu])
-
-  const handlePresentMobileMenu = useCallback(() => {
-    setMobileMenu(true)
-  }, [setMobileMenu])
-
   return (
     <Providers>
       <Router>
         <StyledLayout>
           <StyledHeader>
-            <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
+            <TopBar />
           </StyledHeader>
           <StyledContent>
-            <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
             <Switch>
               <Route path="/" exact>
                 <Home />
@@ -93,22 +82,24 @@ const Providers: React.FC = ({ children }) => {
   } = getEthChainInfo();
 
   return (
-    <ThemeProvider theme={theme}>
-      <UseWalletProvider
-        chainId={chainId}
-        connectors={{
-          walletconnect: { rpcUrl },
-        }}
-      >
-        <YamProvider>
-          <TransactionProvider>
-            <FarmsProvider>
-              <ModalsProvider>{children}</ModalsProvider>
-            </FarmsProvider>
-          </TransactionProvider>
-        </YamProvider>
-      </UseWalletProvider>
-    </ThemeProvider>
+    <Mobile>
+      <ThemeProvider theme={theme}>
+        <UseWalletProvider
+          chainId={chainId}
+          connectors={{
+            walletconnect: { rpcUrl },
+          }}
+        >
+          <YamProvider>
+            <TransactionProvider>
+              <FarmsProvider>
+                <ModalsProvider>{children}</ModalsProvider>
+              </FarmsProvider>
+            </TransactionProvider>
+          </YamProvider>
+        </UseWalletProvider>
+      </ThemeProvider>
+    </Mobile>
   )
 }
 
