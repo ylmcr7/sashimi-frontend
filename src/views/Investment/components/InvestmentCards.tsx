@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {
   Button,
   Divider,
@@ -106,7 +106,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [depositAmount, setDepositAmount] = useState(new BigNumber(0));
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     if (yam && investmentContract) {
       (async () => {
         const result = await investmentContract.methods.earned(investment.depositAddress).call();
@@ -128,6 +128,37 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
       })();
     }
   }, [investment, yam, investmentContract, sashimiContract]);
+
+  // let preEarnd = new BigNumber(0);
+  // let currentEarnd = new BigNumber(1);
+  // let apyReady = false;
+  //
+  // const sleep = (time: number) => {
+  //   return new Promise(resolve => {
+  //     setTimeout(resolve, time);
+  //   });
+  // };
+  //
+  // const getAPY = useCallback(async () => {
+  //   if (yam && investmentContract) {
+  //     const preEarndResult = await investmentContract.methods.earned(investment.depositAddress).call();
+  //     const {amount: preAmount} = preEarndResult;
+  //     const preProfit = new BigNumber(preAmount);
+  //     await sleep(5000);
+  //     const currentEarndResult = await investmentContract.methods.earned(investment.depositAddress).call();
+  //     const {amount: currentAmount} = preEarndResult;
+  //     const currentProfit = new BigNumber(preAmount);
+  //
+  //   }
+  // }, [investment, yam, investmentContract, sashimiContract]);
+
+  useEffect(() => {
+    fetchData();
+    // const interval = setInterval(() => {
+    //   getAPY();
+    // }, 60 * 1000);
+  // }, [fetchData, getAPY]);
+  }, [fetchData]);
 
   return (
     <StyledCardWrapper>
@@ -164,12 +195,12 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                 {getBalanceNumber(depositAmount).toFixed(2)} {investment.depositTokenSymbol}
               </span>
             </StyledInsight>
-            <StyledInsight>
-              <span>Profit</span>
-              <span>
-                {getBalanceNumber(profit).toFixed(2)} {investment.tokenSymbol}
-              </span>
-            </StyledInsight>
+            {/*<StyledInsight>*/}
+            {/*  <span>Profit</span>*/}
+            {/*  <span>*/}
+            {/*    {getBalanceNumber(profit).toFixed(2)} {investment.tokenSymbol}*/}
+            {/*  </span>*/}
+            {/*</StyledInsight>*/}
             {/* TODO: Get sashimi amount of xxx-sashimi  */}
             <StyledInsight>
               <span>Sashimi valued</span>
