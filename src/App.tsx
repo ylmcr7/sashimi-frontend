@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { UseWalletProvider } from 'use-wallet'
 
 import DisclaimerModal from './components/DisclaimerModal'
-import MobileMenu from './components/MobileMenu'
+import Mobile from './contexts/Mobile';
 import TopBar from './components/TopBar'
 import SashimiFooter from './components/Footer';
 
@@ -22,8 +22,8 @@ import FAQ from './views/FAQ'
 import Farms from './views/Farms/Farms'
 import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
-// import Staking from './views/Staking'
-// import Investment from './views/Investment'
+import Staking from './views/Staking'
+import Investment from './views/Investment'
 
 import { getEthChainInfo } from './utils/getEthChainInfo'
 
@@ -37,25 +37,14 @@ const {
 } = Layout;
 
 const App: React.FC = () => {
-  const [mobileMenu, setMobileMenu] = useState(false)
-
-  const handleDismissMobileMenu = useCallback(() => {
-    setMobileMenu(false)
-  }, [setMobileMenu])
-
-  const handlePresentMobileMenu = useCallback(() => {
-    setMobileMenu(true)
-  }, [setMobileMenu])
-
   return (
     <Providers>
       <Router>
         <StyledLayout>
           <StyledHeader>
-            <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
+            <TopBar />
           </StyledHeader>
           <StyledContent>
-            <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
             <Switch>
               <Route path="/" exact>
                 <Home />
@@ -66,12 +55,12 @@ const App: React.FC = () => {
               <Route path="/double-farms">
                 <DoubleFarms />
               </Route>
-              {/*<Route path="/staking">*/}
-              {/*  <Staking />*/}
-              {/*</Route>*/}
-              {/*<Route path="/investment">*/}
-              {/*  <Investment />*/}
-              {/*</Route>*/}
+              <Route path="/staking">
+                <Staking />
+              </Route>
+              <Route path="/investment">
+                <Investment />
+              </Route>
               <Route path="/faq">
                 <FAQ />
               </Route>
@@ -97,22 +86,24 @@ const Providers: React.FC = ({ children }) => {
   } = getEthChainInfo();
 
   return (
-    <ThemeProvider theme={theme}>
-      <UseWalletProvider
-        chainId={chainId}
-        connectors={{
-          walletconnect: { rpcUrl },
-        }}
-      >
-        <YamProvider>
-          <TransactionProvider>
-            <FarmsProvider>
-              <ModalsProvider>{children}</ModalsProvider>
-            </FarmsProvider>
-          </TransactionProvider>
-        </YamProvider>
-      </UseWalletProvider>
-    </ThemeProvider>
+    <Mobile>
+      <ThemeProvider theme={theme}>
+        <UseWalletProvider
+          chainId={chainId}
+          connectors={{
+            walletconnect: { rpcUrl },
+          }}
+        >
+          <YamProvider>
+            <TransactionProvider>
+              <FarmsProvider>
+                <ModalsProvider>{children}</ModalsProvider>
+              </FarmsProvider>
+            </TransactionProvider>
+          </YamProvider>
+        </UseWalletProvider>
+      </ThemeProvider>
+    </Mobile>
   )
 }
 
