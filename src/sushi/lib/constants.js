@@ -133,7 +133,11 @@ export const supportedInvestmentPools = [
     sashimiIndex: 1,
   }
 ];
-
+// These pools get 0 point; [type pid]
+export const unStakeOnlyPools = [3, 4, 5, 6, 13, 14, 15, 16, 18, 19, 20, 21];
+// If is xxx-Sashimi Pool; [type pid]
+// Support sashimi pair only. Used in FarmCards.tsx
+export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24];
 export const supportedPools = [
   // Test Only
   // {
@@ -342,6 +346,21 @@ export const supportedPools = [
 //     symbol: 'SASHIMI-ELF UNI-V2 LP',
 //     tokenSymbol: 'ELF',
 //     icon: '🍱',
+//   },
+//   {
+//     pid: 25,
+//     lpAddresses: {
+//       42: '0xd9f91070371987eee3e500e90de5333e0c43d031',
+//       1: '0xd9f91070371987eee3e500e90de5333e0c43d031',
+//     },
+//     tokenAddresses: {
+//       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
+//       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+//     },
+//     name: 'MX!',
+//     symbol: 'MXC-ETH UNI-V2 LP',
+//     tokenSymbol: 'MXC',
+//     icon: '🌱'
 //   },
 //   // SASHIMI new
 //   {

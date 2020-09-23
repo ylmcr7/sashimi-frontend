@@ -13,7 +13,6 @@ import Countdown, {CountdownRenderProps} from 'react-countdown'
 import {useWallet} from 'use-wallet'
 import numeral from 'numeral'
 
-
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
@@ -33,6 +32,7 @@ import useAllStakedValue, {
 } from '../../../hooks/useAllStakedValue'
 
 import {BASIC_TOKEN} from '../../../constants/config';
+import {notETHPairPools, unStakeOnlyPools} from '../../../sushi/lib/constants';
 import uni from '../../../assets/img/logo_uniswap.png';
 
 interface FarmWithStakedValue extends Farm, StakedValue {
@@ -45,6 +45,14 @@ const UniLogo = () => (
   <StyledLogo src={uni} />
 )
 
+function setFarmRows(farmRows: FarmWithStakedValue[][], rowsValue: FarmWithStakedValue): void {
+  if (farmRows[farmRows.length - 1].length === 3) {
+    farmRows.push([rowsValue])
+  } else {
+    farmRows[farmRows.length - 1].push(rowsValue)
+  }
+}
+
 const StyledLogo = styled.img`
   height: 16px;
   margin-top: -4px;
@@ -52,8 +60,9 @@ const StyledLogo = styled.img`
 `
 
 let burnPoolPercent: BigNumber = new BigNumber(0);
-const waitingPool = [22, 23, 24];
+const waitingPool = [25];
 
+const startTime = 1600536810000;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const {account} = useWallet()
@@ -69,10 +78,10 @@ const FarmCards: React.FC = () => {
       : new BigNumber(0)
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
-  // TODO: After block height xxxx, SUSHI_PER_BLOCK = 100;
   const SASHIMI_PER_BLOCK = new BigNumber(1000)
 
   let ethValueInSashimiNoWeight = new BigNumber(0);
+  const unStakeOnlyPoolsRows: FarmWithStakedValue[][] = [[]];
   const rows = farms.reduce<FarmWithStakedValue[][]>(
     (farmRows, farm, i) => {
       const newFarmRows = [...farmRows]
@@ -84,7 +93,7 @@ const FarmCards: React.FC = () => {
         return newFarmRows;
       }
 
-      const notETHTokenPair = [10, 12, 13, 14, 15, 16, 22, 23, 24].includes(farm.pid);
+      const notETHTokenPair = notETHPairPools.includes(farm.pid);
       // TODO: Better code to get weth value of tokenNotEth-tokenNotEth
       if (stakedValue[i] && !notETHTokenPair ) {
         ethValueInSashimiNoWeight = ethValueInSashimiNoWeight.plus(stakedValue[i].totalWethValue);
@@ -108,44 +117,54 @@ const FarmCards: React.FC = () => {
           : null,
       }
 
-      if (newFarmRows[newFarmRows.length - 1].length === 3) {
-        newFarmRows.push([farmWithStakedValue])
-      } else {
-        newFarmRows[newFarmRows.length - 1].push(farmWithStakedValue)
+      if (unStakeOnlyPools.includes(farm.pid)) {
+        setFarmRows(unStakeOnlyPoolsRows, farmWithStakedValue);
+        return newFarmRows;
       }
+
+      setFarmRows(newFarmRows, farmWithStakedValue);
       return newFarmRows
     },
     [[]],
   )
 
+  function getStyleRow(farmRow: FarmWithStakedValue[], i: number, unStakeOnly?: boolean) {
+    return <StyledRow key={`${Math.random()}${i}`}>
+      {farmRow.map((farm, j) => (
+        <React.Fragment key={`${farm.id}${j}`}>
+          <FarmCard farm={farm} unStakeOnly={unStakeOnly}/>
+          {(j === 0 || j === 1) && <StyledSpacer/>}
+        </React.Fragment>
+      ))}
+    </StyledRow>;
+  }
+
   return (
     <StyledCards>
-      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2) || 0} WETH valued assets are making Sashimi</ValueETH>
-      {!!rows[0].length ? (
-        rows.map((farmRow, i) => (
-          <StyledRow key={i}>
-            {farmRow.map((farm, j) => (
-              <React.Fragment key={j}>
-                <FarmCard farm={farm}/>
-                {(j === 0 || j === 1) && <StyledSpacer/>}
-              </React.Fragment>
-            ))}
-          </StyledRow>
-        ))
-      ) : (
+      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2)} WETH valued assets are making Sashimi</ValueETH>
+      {!!rows[0].length ? rows.map((farmRow, i) => getStyleRow(farmRow, i, false))
+      : (
         <StyledLoadingWrapper>
           <Loader text="Cooking the rice ..."/>
         </StyledLoadingWrapper>
+      )}
+
+      <Line />
+      <ValueETH>Pools with no profit of sashimi temporarily</ValueETH>
+
+      {!!unStakeOnlyPoolsRows[0].length && (
+        unStakeOnlyPoolsRows.map((farmRow, i) => getStyleRow(farmRow, i, true))
       )}
     </StyledCards>
   )
 }
 
 interface FarmCardProps {
-  farm: FarmWithStakedValue
+  farm: FarmWithStakedValue,
+  unStakeOnly?: Boolean
 }
 
-const FarmCard: React.FC<FarmCardProps> = ({farm}) => {
+const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const {hours, minutes, seconds} = countdownProps
@@ -161,7 +180,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm}) => {
 
   let poolActive = true // startTime * 1000 - Date.now() <= 0
   if (waitingPool.includes(farm.pid)) {
-    poolActive = 1600347600000 - Date.now() <= 0;
+    poolActive = startTime - Date.now() <= 0;
   }
 
   let farmApy: any;
@@ -202,7 +221,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm}) => {
                     {
                       poolActive ? 'Select' : (
                         <Countdown
-                          date={new Date(1600347600000)}
+                          date={new Date(startTime)}
                           renderer={renderer}
                         />
                       )
@@ -258,6 +277,14 @@ const ValueETH = styled.div`
   padding: 0;
   text-align: center;
   padding-bottom: ${(props) => props.theme.spacing[6]}px;
+`
+
+const Line = styled.div`
+    border-bottom: 1px solid #aa9585;
+    width: 100%;
+    height: 1px;
+    opacity: 0.3;
+    margin: 32px 0 16px 0;
 `
 
 const ButtonContainer = styled(Row)`
