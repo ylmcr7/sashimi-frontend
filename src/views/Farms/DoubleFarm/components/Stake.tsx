@@ -7,54 +7,68 @@ import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 
 import { Contract } from 'web3-eth-contract'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Label from '../../../components/Label'
-import Value from '../../../components/Value'
-import DepositModal from '../../../components/DepositModal'
-import WithdrawModal from '../../../components/WithdrawModal'
+import Card from '../../../../components/Card'
+import CardContent from '../../../../components/CardContent'
+import CardIcon from '../../../../components/CardIcon'
+import Label from '../../../../components/Label'
+import Value from '../../../../components/Value'
+import DepositModal from '../../../../components/DepositModal'
+import WithdrawModal from '../../../../components/WithdrawModal'
 
-import useAllowance from '../../../hooks/useAllowance'
-import useApprove from '../../../hooks/useApprove'
-import useModal from '../../../hooks/useModal'
-import useStake from '../../../hooks/useStake'
-import useStakedBalance from '../../../hooks/useStakedBalance'
-import useTokenBalance from '../../../hooks/useTokenBalance'
-import useUnstake from '../../../hooks/useUnstake'
+import useAllowance from '../../../../hooks/useAllowance'
+import useApprove from '../../../../hooks/useApprove'
+import useModal from '../../../../hooks/useModal'
+import useTokenBalance from '../../../../hooks/useTokenBalance'
 
-import { getBalanceNumber } from '../../../utils/formatBalance'
+import { getBalanceNumber } from '../../../../utils/formatBalance'
+
+import useEnter from "../../../../hooks/sashimiBar/useEnter";
+import useBarTokenBalance from "../../../../hooks/sashimiBar/useBarTokenBalance";
+import useLeave from "../../../../hooks/sashimiBar/useLeave";
 
 interface StakeProps {
+  lpBarContract: Contract
   lpContract: Contract
   pid: number
   tokenName: string
 }
 
-const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
+const Stake: React.FC<StakeProps> = ({lpBarContract, lpContract, pid, tokenName }) => {
   const [requestedApproval, setRequestedApproval] = useState(false)
 
-  const allowance = useAllowance(lpContract)
-  const { onApprove } = useApprove(lpContract)
+  const { onEnter } = useEnter(lpBarContract);
+  const { onLeave } = useLeave(lpBarContract);
 
-  const tokenBalance = useTokenBalance(lpContract.options.address)
-  const stakedBalance = useStakedBalance(pid)
+  const allowance = useAllowance(lpContract, lpBarContract);
+  const { onApprove } = useApprove(lpContract, lpBarContract);
 
-  const { onStake } = useStake(pid)
-  const { onUnstake } = useUnstake(pid)
+  const tokenBalance = useTokenBalance(lpContract ? lpContract.options.address : null);
+  const stakedBalance = useBarTokenBalance(lpBarContract, 'lpBalance');
 
   const [onPresentDeposit] = useModal(
     <DepositModal
       max={tokenBalance}
-      onConfirm={onStake}
+      // onConfirm={onStake}
+      onConfirm={async (amount) => {
+        console.log('amount', amount, typeof amount);
+        if (!amount || parseFloat(amount) <= 0) {
+          return;
+        }
+        await onEnter(amount, 18)
+      }}
       tokenName={tokenName}
     />,
   )
-
   const [onPresentWithdraw] = useModal(
     <WithdrawModal
       max={stakedBalance}
-      onConfirm={onUnstake}
+      onConfirm={async (amount) => {
+        console.log('amount', amount, typeof amount);
+        if (!amount || parseFloat(amount) <= 0) {
+          return;
+        }
+        await onLeave(amount, 18);
+      }}
       tokenName={tokenName}
     />,
   )

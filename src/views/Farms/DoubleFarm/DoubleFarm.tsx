@@ -5,14 +5,11 @@ import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
-import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
+import PageHeader from '../../../components/PageHeader'
+import Spacer from '../../../components/Spacer'
 
-import useYam from '../../hooks/useYam'
-import useFarm from '../../hooks/useFarm'
-import useRedeem from '../../hooks/useRedeem'
-import { getContract } from '../../utils/erc20'
-import { getMasterChefContract } from '../../sushi/utils'
+import useFarm from '../../../hooks/useFarm'
+import { getContract } from '../../../utils/erc20'
 
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
@@ -23,8 +20,6 @@ const DoubleFarm: React.FC = () => {
     pid,
     lpToken,
     lpTokenAddress,
-    tokenAddress,
-    lpBarAddress,
     lpBarContract,
     earnToken,
     name,

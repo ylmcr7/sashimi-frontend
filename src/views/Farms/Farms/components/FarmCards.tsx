@@ -11,33 +11,31 @@ import {
 import styled, {keyframes} from 'styled-components'
 import Countdown, {CountdownRenderProps} from 'react-countdown'
 import {useWallet} from 'use-wallet'
+import numeral from 'numeral'
 
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Loader from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
+import Card from '../../../../components/Card'
+import CardContent from '../../../../components/CardContent'
+import CardIcon from '../../../../components/CardIcon'
+import Loader from '../../../../components/Loader'
+import Spacer from '../../../../components/Spacer'
 
-import useFarms from '../../../hooks/useFarms'
+import useFarms from '../../../../hooks/useFarms'
 import BigNumber from 'bignumber.js'
 
-import {Farm} from '../../../contexts/Farms'
+import {Farm} from '../../../../contexts/Farms'
 
 import useAllStakedValue, {
   StakedValue,
-} from '../../../hooks/useAllStakedValue'
+} from '../../../../hooks/useAllStakedValue'
 
-import {BASIC_TOKEN} from '../../../constants/config';
-import {
-  notETHPairPools, hiddenPools,
-  doublePools, unStakeOnlyDoublePools} from '../../../sushi/lib/constants';
-import uni from '../../../assets/img/logo_uniswap.png';
+import {BASIC_TOKEN} from '../../../../constants/config';
+import {notETHPairPools, unStakeOnlyPools, hiddenPools, doublePools} from '../../../../sushi/lib/constants';
+import uni from '../../../../assets/img/logo_uniswap.png';
 
 interface FarmWithStakedValue extends Farm, StakedValue {
   apy: BigNumber,
   allocPoint: BigNumber
   totalAllocPoint: BigNumber
-  extraApy: BigNumber
 }
 
 const UniLogo = () => (
@@ -64,23 +62,17 @@ const waitingPool = [25];
 const startTime = 1600536810000;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
+  const {account} = useWallet()
   const stakedValue = useAllStakedValue()
 
   const sushiIndex = farms.findIndex(
     ({tokenSymbol}) => tokenSymbol === BASIC_TOKEN,
-  );
+  )
+
   const sushiPrice =
     sushiIndex >= 0 && stakedValue[sushiIndex]
       ? stakedValue[sushiIndex].tokenPriceInWeth
-      : new BigNumber(0);
-
-  const uniIndex = farms.findIndex(
-    ({tokenSymbol}) => tokenSymbol === 'UNI',
-  );
-  const uniPrice =
-    uniIndex >= 0 && stakedValue[uniIndex]
-      ? stakedValue[uniIndex].tokenPriceInWeth
-      : new BigNumber(0);
+      : new BigNumber(0)
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
   const SASHIMI_PER_BLOCK = new BigNumber(1000)
@@ -97,8 +89,9 @@ const FarmCards: React.FC = () => {
         }
         return newFarmRows;
       }
-      // Not double pool. No hidden Pool
-      if (!doublePools.includes(farm.pid) || hiddenPools.includes(farm.pid)) {
+
+      // No hidden Pool
+      if (hiddenPools.includes(farm.pid) || doublePools.includes(farm.pid)) {
         return newFarmRows;
       }
 
@@ -114,8 +107,6 @@ const FarmCards: React.FC = () => {
         ethValueInSashimiNoWeight = ethValueInSashimiNoWeight.plus(stakedValueCurrentTotalWethValue);
       }
 
-      const extraSashimiPerBlock = stakedValue[i]
-        ? stakedValue[i].portionLp.times(13.5).times(2).times(uniPrice).div(sushiPrice) : new BigNumber(0);
       let farmWithStakedValue = {
         ...farm,
         ...stakedValue[i],
@@ -126,15 +117,9 @@ const FarmCards: React.FC = () => {
             .times(stakedValue[i].poolWeight)
             .div(stakedValueCurrentTotalWethValue)
           : null,
-        extraApy: stakedValue[i]
-        ? sushiPrice
-          .times(extraSashimiPerBlock)
-          .times(BLOCKS_PER_YEAR)
-          .div(stakedValueCurrentTotalWethValue)
-        : null,
       }
 
-      if (unStakeOnlyDoublePools.includes(farm.pid)) {
+      if (unStakeOnlyPools.includes(farm.pid)) {
         setFarmRows(unStakeOnlyPoolsRows, farmWithStakedValue);
         return newFarmRows;
       }
@@ -158,7 +143,7 @@ const FarmCards: React.FC = () => {
 
   return (
     <StyledCards>
-      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2)} WETH valued assets are making Sashimi in Beta.</ValueETH>
+      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2)} WETH valued assets are making Sashimi in traditional farm.</ValueETH>
       {!!rows[0].length ? rows.map((farmRow, i) => getStyleRow(farmRow, i, false))
       : (
         <StyledLoadingWrapper>
@@ -166,11 +151,12 @@ const FarmCards: React.FC = () => {
         </StyledLoadingWrapper>
       )}
 
-      {!!unStakeOnlyPoolsRows[0].length && [
-        <Line />,
-        <ValueETH>Pools with no profit of sashimi temporarily</ValueETH>,
+      <Line />
+      <ValueETH>Pools with no profit of sashimi temporarily</ValueETH>
+
+      {!!unStakeOnlyPoolsRows[0].length && (
         unStakeOnlyPoolsRows.map((farmRow, i) => getStyleRow(farmRow, i, true))
-      ]}
+      )}
     </StyledCards>
   )
 }
@@ -200,20 +186,11 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
   }
 
   let farmApy: any;
-  let extraApy: any;
   if (farm.apy && farm.apy.isNaN()) {
     farmApy = '- %';
-    extraApy = '- %';
   } else {
     farmApy = farm.apy
       ? `${farm.apy
-        .times(new BigNumber(100))
-        .toNumber()
-        .toLocaleString('en-US')
-        .slice(0, -1) || '-'}%`
-      : 'Loading ...';
-    extraApy = farm.extraApy
-      ? `${farm.extraApy
         .times(new BigNumber(100))
         .toNumber()
         .toLocaleString('en-US')
@@ -223,6 +200,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   return (
     <StyledCardWrapper>
+      {farm.tokenSymbol === 'SASHIMI' && <StyledCardAccent/>}
       <Card>
         <CardContent>
           <StyledContent>
@@ -241,7 +219,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
                   disabled={!poolActive}
                   block
                 >
-                  <Link to={`/double-farms/${farm.id}`}>
+                  <Link to={`/farms/${farm.id}`}>
                     {
                       poolActive ? 'Select' : (
                         <Countdown
@@ -271,12 +249,6 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
               <span>APY</span>
               <span>
                 {farmApy}
-              </span>
-            </StyledInsight>
-            <StyledInsight>
-              <span>Extra</span>
-              <span>
-                {extraApy}
               </span>
             </StyledInsight>
           </StyledContent>

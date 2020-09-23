@@ -5,18 +5,18 @@ import {
 } from 'antd';
 
 import { Contract } from 'web3-eth-contract'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Label from '../../../components/Label'
-import Value from '../../../components/Value'
+import Card from '../../../../components/Card'
+import CardContent from '../../../../components/CardContent'
+import CardIcon from '../../../../components/CardIcon'
+import Label from '../../../../components/Label'
+import Value from '../../../../components/Value'
 
 import {
   getBalanceNumber,
-} from '../../../utils/formatBalance'
-import {LogoImg} from "../../../components/Logo/Logo";
-import useEarned from "../../../hooks/sashimiBar/useEarned";
-import useLeave from "../../../hooks/sashimiBar/useLeave";
+} from '../../../../utils/formatBalance'
+import {LogoImg} from "../../../../components/Logo/Logo";
+import useEarned from "../../../../hooks/sashimiBar/useEarned";
+import useLeave from "../../../../hooks/sashimiBar/useLeave";
 
 interface HarvestProps {
   pid: number

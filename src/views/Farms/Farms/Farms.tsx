@@ -5,13 +5,13 @@ import {
 } from 'antd';
 import { useWallet } from 'use-wallet'
 
-import chef from '../../assets/img/chef.png'
+import chef from '../../../assets/img/chef.png'
 
-import Page from '../../components/Page'
-import PageHeader from '../../components/PageHeader'
-import WalletProviderModal from '../../components/WalletProviderModal'
+import Page from '../../../components/Page'
+import PageHeader from '../../../components/PageHeader'
+import WalletProviderModal from '../../../components/WalletProviderModal'
 
-import useModal from '../../hooks/useModal'
+import useModal from '../../../hooks/useModal'
 
 import Farm from '../Farm'
 
