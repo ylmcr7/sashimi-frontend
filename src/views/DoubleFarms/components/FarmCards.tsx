@@ -166,12 +166,11 @@ const FarmCards: React.FC = () => {
         </StyledLoadingWrapper>
       )}
 
-      <Line />
-      <ValueETH>Pools with no profit of sashimi temporarily</ValueETH>
-
-      {!!unStakeOnlyPoolsRows[0].length && (
+      {!!unStakeOnlyPoolsRows[0].length && [
+        <Line />,
+        <ValueETH>Pools with no profit of sashimi temporarily</ValueETH>,
         unStakeOnlyPoolsRows.map((farmRow, i) => getStyleRow(farmRow, i, true))
-      )}
+      ]}
     </StyledCards>
   )
 }

@@ -56,8 +56,6 @@ const Stake: React.FC<StakeProps> = ({lpBarContract, lpContract, pid, tokenName 
   // const stakedBalance = useTokenBalance(lpBarContract ? lpBarContract.options.address : null);
   const stakedBalance = useBarTokenBalance(lpBarContract, 'lpBalance');
 
-  console.log('stakedBalance: ', stakedBalance);
-
   const [onPresentDeposit] = useModal(
     <DepositModal
       max={tokenBalance}

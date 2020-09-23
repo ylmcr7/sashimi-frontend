@@ -29,7 +29,10 @@ const DoubleFarms: React.FC = () => {
           <>
             <Route exact path={path}>
               <PageHeader
-                icon={[<img src={chef} height="120" />, <img src={chef} height="80" />]}
+                icon={[
+                    <img src={chef} height="120" key="1" alt="sashimi-big"/>,
+                    <img src={chef} height="80" key="2" alt="sashimi-small"/>
+                  ]}
                 subtitle="Earn more SASHIMI by staking LP. (Beta. Use at your own risk)"
                 title="Select Your Favorite Table (Beta)"
               />
