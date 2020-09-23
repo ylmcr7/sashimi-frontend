@@ -43,7 +43,7 @@ interface InvestmentRow extends Investment {
 
 }
 
-const FarmCards: React.FC = () => {
+const InvestmentCards: React.FC = () => {
 
   const yam = useYam();
   const {account} = useWallet();
@@ -321,4 +321,4 @@ const StyledDivider = styled(Divider)`
   margin-bottom:  7px;
 `
 
-export default FarmCards
+export default InvestmentCards

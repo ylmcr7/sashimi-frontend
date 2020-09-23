@@ -20,6 +20,7 @@ import useModal from './hooks/useModal'
 
 import FAQ from './views/FAQ'
 import Farms from './views/Farms'
+// import DoubleFarms from './views/DoubleFarms'
 import Home from './views/Home'
 import Staking from './views/Staking'
 import Investment from './views/Investment'
@@ -60,6 +61,10 @@ const App: React.FC = () => {
                 <Home />
               </Route>
               <Route path="/farms">
+                <Farms />
+              </Route>
+              <Route path="/double-farms">
+                {/*<DoubleFarms />*/}
                 <Farms />
               </Route>
               <Route path="/staking">

@@ -133,6 +133,8 @@ export const getEarned = async (masterChefContract, pid, account) => {
   return masterChefContract.methods.pendingSashimi(pid, account).call();
 }
 
+// TODO: 1.If we use xxxSwap not fork from uniswap, we need new methods to get value.
+// TODO: 2.TokenAmountWholeLP, need change the way to get balance. Because the token in lp may be transfer to vault
 export const getTotalLPWethValue = async (
   masterChefContract,
   wethContract,

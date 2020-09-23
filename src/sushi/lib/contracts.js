@@ -5,6 +5,7 @@ import {
   // SUBTRACT_GAS_LIMIT,
   contractAddresses,
   supportedPools,
+  supportedDoublePools,
   supportedInvestmentPools,
 } from './constants.js'
 
@@ -16,6 +17,7 @@ import ERC20Abi from './abi/erc20.json'
 import WETHAbi from './abi/weth.json'
 import SashimiBarAbi from './abi/sashimiBar.json'
 import InvestmentAbi from './abi/investment.json'
+// TODO: add LPBarAbi.json
 
 export class Contracts {
   constructor(provider, networkId, web3, options) {
@@ -39,6 +41,19 @@ export class Contracts {
         tokenAddress: pool.tokenAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
         tokenContract: new this.web3.eth.Contract(ERC20Abi),
+      }),
+    )
+
+    // TODO: Remove useless Contract
+    // TODO: Replace SashimiBarAbi -> LPBarAbi
+    this.doubleFarmPools = supportedDoublePools.map((pool) =>
+      Object.assign(pool, {
+        lpAddress: pool.lpAddresses[networkId],
+        tokenAddress: pool.tokenAddresses[networkId],
+        lpBarAddress: pool.lpBarAddresses[networkId],
+        lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
+        tokenContract: new this.web3.eth.Contract(ERC20Abi),
+        lpBarContract: new this.web3.eth.Contract(SashimiBarAbi),
       }),
     )
 
@@ -73,6 +88,15 @@ export class Contracts {
       ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
         setProvider(lpContract, lpAddress)
         setProvider(tokenContract, tokenAddress)
+      },
+    )
+
+    // TODO: TokenBar
+    this.doubleFarmPools.forEach(
+      ({ lpContract, lpAddress, tokenContract, tokenAddress, lpBarContract, lpBarAddress }) => {
+        setProvider(lpContract, lpAddress)
+        setProvider(tokenContract, tokenAddress)
+        setProvider(lpBarContract, lpBarAddress)
       },
     )
 

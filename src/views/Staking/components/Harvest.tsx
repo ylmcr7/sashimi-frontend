@@ -19,6 +19,7 @@ import {LogoImg} from "../../../components/Logo/Logo";
 import WithdrawModal from './WithdrawModal'
 import useModal from "../../../hooks/useModal";
 import {useWallet} from "use-wallet";
+import useBlock from "../../../hooks/useBlock";
 
 interface HarvestProps {
   sashimiBarContract: Contract
@@ -29,6 +30,7 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => {
 
   const { account } = useWallet();
+  const block = useBlock();
   const [tokenBalance, setTokenBalance] = useState(new BigNumber(0));
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => 
         .call();
       setTokenBalance(new BigNumber(tokenBalance));
     })();
-  }, [account, sashimiBarContract]);
+  }, [account, sashimiBarContract, block]);
 
   const [onPresentWithdraw] = useModal(
     <WithdrawModal

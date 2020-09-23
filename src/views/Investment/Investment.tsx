@@ -13,9 +13,7 @@ import WalletProviderModal from '../../components/WalletProviderModal'
 
 import useModal from '../../hooks/useModal'
 
-import Farm from '../Farm'
-
-import FarmCards from './components/InvestmentCards'
+import InvestmentCards from './components/InvestmentCards'
 import styled from "styled-components";
 
 const Investment: React.FC = () => {
@@ -32,7 +30,7 @@ const Investment: React.FC = () => {
               subtitle="Earn extra SASHIMI tokens by Investment."
               title="Some delicate snacks"
             />
-            <FarmCards />
+            <InvestmentCards />
           </>
         ) : (
           <StyledDiv>

@@ -21,6 +21,7 @@ import { getBalanceNumber } from '../../../utils/formatBalance'
 
 import WithdrawModal from './WithdrawModal'
 import {useWallet} from "use-wallet";
+import useBlock from "../../../hooks/useBlock";
 
 interface StakeProps {
   sashimiBarContract: Contract
@@ -44,11 +45,9 @@ const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletL
         if (!amount || parseInt(amount, 10) <= 0) {
           return;
         }
-
         await sashimiBarContract.methods.enter(
             new BigNumber(amount).times(new BigNumber(10).pow(18)).toString()
           ).send({ from: account }).on('transactionHash', () => {});
-
       }}
       tokenName={'SASHIMI'}
     />,
@@ -56,11 +55,9 @@ const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletL
 
   const handleApprove = useCallback(async () => {
     try {
-      setRequestedApproval(true)
-      const txHash = await onApprove()
-      if (!txHash) {
-        setRequestedApproval(false)
-      }
+      setRequestedApproval(true);
+      await onApprove()
+      setRequestedApproval(false);
     } catch (e) {
       console.log(e)
     }

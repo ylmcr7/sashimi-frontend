@@ -139,6 +139,34 @@ export const unStakeOnlyPools = [3, 4, 5, 6, 13, 14, 15, 16, 18, 19, 20, 21];
 // Support sashimi pair only. Used in FarmCards.tsx
 export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24];
 
+export const supportedDoublePools = [
+  {
+    // pid: 1,
+    lpAddresses: {
+      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+    },
+    tokenAddresses: {
+      42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    // This is sushiBar
+    lpBarAddresses: {
+      42: '0xfaC2681cB05Ba08De504e7FDBc2186B22d868f2A', // aelf sushi new one 9.18
+      // 42: '0x43a7903E3a839a67192151eE300e11198985E54b', // sushi
+      // TODO: change address
+      1: '0x79F006926F7a8CDf4055469C34c9609C6488DB15', // aelf sashimi
+      // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
+    },
+    name: 'XYZ-ETH!',
+    symbol: 'XYZ-ETH SashimiSwap LP Token',
+    tokenSymbol: 'XYZ',
+    icon: '🍣',
+    // may be uniswap/sushiswap/moonswap etc.
+    lpUrl: 'https://uniswap.info/pair/0x4b618087dae7765823bc47ffbf38c8ee8489f5ca',
+  },
+];
+
 export const supportedPools = [
   // Test Only
   // {
