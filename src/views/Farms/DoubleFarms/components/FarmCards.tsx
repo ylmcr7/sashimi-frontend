@@ -115,7 +115,7 @@ const FarmCards: React.FC = () => {
       }
 
       const extraSashimiPerBlock = stakedValue[i]
-        ? stakedValue[i].portionLp.times(13.5).times(2).times(uniPrice).div(sushiPrice) : new BigNumber(0);
+        ? stakedValue[i].portionLp.times(13.5).times(uniPrice).div(sushiPrice) : new BigNumber(0);
       let farmWithStakedValue = {
         ...farm,
         ...stakedValue[i],
@@ -201,9 +201,11 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   let farmApy: any;
   let extraApy: any;
+  let totalApy: any;
   if (farm.apy && farm.apy.isNaN()) {
     farmApy = '- %';
     extraApy = '- %';
+    totalApy = '- %';
   } else {
     farmApy = farm.apy
       ? `${farm.apy
@@ -214,6 +216,13 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
       : 'Loading ...';
     extraApy = farm.extraApy
       ? `${farm.extraApy
+        .times(new BigNumber(100))
+        .toNumber()
+        .toLocaleString('en-US')
+        .slice(0, -1) || '-'}%`
+      : 'Loading ...';
+    totalApy = farm.apy && farm.extraApy ? `${farm.extraApy
+        .plus(farm.apy)
         .times(new BigNumber(100))
         .toNumber()
         .toLocaleString('en-US')
@@ -277,6 +286,12 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
               <span>Extra</span>
               <span>
                 {extraApy}
+              </span>
+            </StyledInsight>
+            <StyledInsight>
+              <span>Total</span>
+              <span>
+                {totalApy}
               </span>
             </StyledInsight>
           </StyledContent>

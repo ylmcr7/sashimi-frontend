@@ -27,7 +27,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_CHAIN_ENV=main craco start",
     "start:kovan": "cross-env REACT_APP_CHAIN_ENV=kovan craco start",
-    "start:online-test": "cross-env REACT_APP_CHAIN_ENV=kovan craco online-test",
+    "start:online-test": "cross-env REACT_APP_CHAIN_ENV=online-test craco start",
     "build": "cross-env REACT_APP_CHAIN_ENV=main CI= GENERATE_SOURCEMAP=false craco build",
     "build:kovan": "cross-env REACT_APP_CHAIN_ENV=kovan CI= GENERATE_SOURCEMAP=false craco build",
     "build:online-test": "cross-env REACT_APP_CHAIN_ENV=online-test CI= GENERATE_SOURCEMAP=false craco build",
