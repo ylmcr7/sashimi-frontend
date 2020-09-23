@@ -46,7 +46,8 @@ const links:Link[] = [
   },
   {
     link: 'https://snapshot.sashimi.cool/#/sashimi',
-    text: 'Proposals'
+    text: 'Proposals',
+    isExternal: true
   }
 ];
 
@@ -77,9 +78,6 @@ const Nav: React.FC = () => {
   const {
     isMobile
   } = useContext(Context)
-  function toggleDrawer() {
-
-  }
   return (
     <If condition={isMobile}>
       <Then>
@@ -87,7 +85,6 @@ const Nav: React.FC = () => {
           <Button
             type="primary"
             icon={<MenuOutlined />}
-            onClick={toggleDrawer}
           />
         </Dropdown>
       </Then>

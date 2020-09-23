@@ -14,7 +14,7 @@ const Logo: React.FC = () => {
     <StyledLink to="/">
       <LogoImg />
       <StyledText>
-          SashimiSwap<MasterChefText>MasterChef</MasterChefText>
+          SashimiSwap
       </StyledText>
     </StyledLink>
   )
