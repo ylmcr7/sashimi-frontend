@@ -12,7 +12,7 @@ const Nav: React.FC = () => {
         Menu
       </StyledLink>
       <StyledLink exact activeClassName="active" to="/double-farms">
-        Double Farm
+        Double&nbsp;Farm(Beta)
       </StyledLink>
       {/*<StyledLink exact activeClassName="active" to="/staking">*/}
       {/*  Staking*/}
