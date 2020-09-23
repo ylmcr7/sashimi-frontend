@@ -12,6 +12,8 @@ export interface Farm {
   icon: React.ReactNode
   id: string
   tokenSymbol: string
+  lpBarAddress?: string
+  lpBarContract?: Contract
 }
 
 export interface FarmsContext {

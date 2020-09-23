@@ -42,7 +42,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
   return (
     <Modal>
-      <ModalTitle text={'Convert SASHIMI to xSASHIMI'} />
+      <ModalTitle text={`Withdraw ${tokenName}`} />
       <TokenInput
         onSelectMax={handleSelectMax}
         onChange={handleChange}

@@ -15,6 +15,7 @@ import useYam from './useYam'
 import useBlock from './useBlock'
 
 export interface StakedValue {
+  portionLp: BigNumber
   tokenAmount: BigNumber
   wethAmount: BigNumber
   totalWethValue: BigNumber
@@ -40,10 +41,12 @@ const useAllStakedValue = () => {
           pid,
           lpContract,
           tokenContract,
+           lpBarContract
         }: {
           pid: number
           lpContract: Contract
           tokenContract: Contract
+          lpBarContract?: Contract
         }) =>
           getTotalLPWethValue(
             masterChefContract,
@@ -51,6 +54,7 @@ const useAllStakedValue = () => {
             lpContract,
             tokenContract,
             pid,
+            lpBarContract
           ),
       ),
     )

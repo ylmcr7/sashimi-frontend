@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
+import BigNumber from 'bignumber.js';
 import {
   Button
 } from 'antd';
@@ -11,49 +12,29 @@ import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
 
+import useEarnings from '../../../hooks/useEarnings'
+import useReward from '../../../hooks/useReward'
+
 import {
+  getDisplayBalance,
   getBalanceNumber,
 } from '../../../utils/formatBalance'
+import Logo from "../../../components/Logo";
 import {LogoImg} from "../../../components/Logo/Logo";
-import WithdrawModal from './WithdrawModal'
-import useModal from "../../../hooks/useModal";
 import {useWallet} from "use-wallet";
-import useTokenBalance from "../../../hooks/useTokenBalance";
+import useBlock from "../../../hooks/useBlock";
+import useEarned from "../../../hooks/sashimiBar/useEarned";
 import useLeave from "../../../hooks/sashimiBar/useLeave";
 
 interface HarvestProps {
-  sashimiBarContract: Contract
-  walletLocked: React.ReactElement
+  pid: number
+  lpBarContract: Contract
 }
 
-const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => {
-
-  const { account } = useWallet();
-  const { onLeave } = useLeave(sashimiBarContract);
-  const tokenBalance = useTokenBalance(sashimiBarContract ? sashimiBarContract.options.address : null);
-
-  const [onPresentWithdraw] = useModal(
-    <WithdrawModal
-      max={tokenBalance}
-      onConfirm={async (amount) => {
-        if (!amount || parseFloat(amount) <= 0) {
-          return;
-        }
-        await onLeave(amount, 18);
-      }}
-      tokenName={'SASHIMI'}
-    />,
-  )
-
-  const covertButton = <Button
-    disabled={!tokenBalance.toNumber() || tokenBalance.isEqualTo(0)}
-    type="primary"
-    size="large"
-    block
-    onClick={onPresentWithdraw}
-  >
-    {'Convert to SASHIMI'}
-  </Button>;
+const Harvest: React.FC<HarvestProps> = ({ pid , lpBarContract}) => {
+  const earnings = useEarned(lpBarContract);
+  const [pendingTx, setPendingTx] = useState(false);
+  const { onLeave } = useLeave(lpBarContract);
 
   return (
     <Card>
@@ -63,11 +44,23 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => 
             <CardIcon>
               <LogoImg />
             </CardIcon>
-            <Value value={getBalanceNumber(tokenBalance)} />
-            <Label text="xSASHIMI(Sashimi Bar) Available" />
+            <Value value={getBalanceNumber(earnings)} />
+            <Label text="SASHIMI Earned" />
           </StyledCardHeader>
           <StyledCardActions>
-            { account ? covertButton : walletLocked}
+            <Button
+              disabled={!earnings.toNumber() || pendingTx}
+              type="primary"
+              size="large"
+              block
+              onClick={async () => {
+                setPendingTx(true);
+                await onLeave(0);
+                setPendingTx(false);
+              }}
+            >
+              {pendingTx ? 'Collecting SASHIMI' : 'Harvest'}
+            </Button>
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>
@@ -85,6 +78,11 @@ const StyledCardActions = styled.div`
   justify-content: center;
   margin-top: ${(props) => props.theme.spacing[6]}px;
   width: 100%;
+`
+
+const StyledSpacer = styled.div`
+  height: ${(props) => props.theme.spacing[4]}px;
+  width: ${(props) => props.theme.spacing[4]}px;
 `
 
 const StyledCardContentInner = styled.div`

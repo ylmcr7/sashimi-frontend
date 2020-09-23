@@ -43,7 +43,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
   return (
     <Modal>
-      <ModalTitle text={`Covert xSASHIMI to SASHIMI`} />
+      <ModalTitle text={`Convert xSASHIMI to SASHIMI`} />
       <TokenInput
         value={val}
         onSelectMax={handleSelectMax}

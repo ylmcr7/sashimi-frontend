@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react'
+import {
+  Button
+} from 'antd';
 
 import BigNumber from 'bignumber.js'
-
-import Button from '../../../components/Button'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
 import ModalTitle from '../../../components/ModalTitle'
@@ -10,16 +11,16 @@ import TokenInput from '../../../components/TokenInput'
 
 import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
-interface WithdrawModalProps extends ModalProps {
+interface DepositModalProps extends ModalProps {
   max: BigNumber
   onConfirm: (amount: string) => void
   tokenName?: string
 }
 
-const WithdrawModal: React.FC<WithdrawModalProps> = ({
+const DepositModal: React.FC<DepositModalProps> = ({
+  max,
   onConfirm,
   onDismiss,
-  max,
   tokenName = '',
 }) => {
   const [val, setVal] = useState('')
@@ -42,29 +43,39 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
   return (
     <Modal>
-      <ModalTitle text={'Convert SASHIMI to xSASHIMI'} />
+      <ModalTitle text={`Deposit ${tokenName} Tokens`} />
       <TokenInput
+        value={val}
         onSelectMax={handleSelectMax}
         onChange={handleChange}
-        value={val}
         max={fullBalance}
         symbol={tokenName}
       />
       <ModalActions>
-        <Button text="Cancel" variant="secondary" onClick={onDismiss} />
+        <Button
+          onClick={onDismiss}
+          size="large"
+          block
+        >
+          Cancel
+        </Button>
         <Button
           disabled={pendingTx}
-          text={pendingTx ? 'Pending Confirmation' : 'Confirm'}
+          type="primary"
+          size="large"
+          block
           onClick={async () => {
             setPendingTx(true)
             await onConfirm(val)
             setPendingTx(false)
             onDismiss()
           }}
-        />
+        >
+          {pendingTx ? 'Pending Confirmation' : 'Confirm'}
+        </Button>
       </ModalActions>
     </Modal>
   )
 }
 
-export default WithdrawModal
+export default DepositModal

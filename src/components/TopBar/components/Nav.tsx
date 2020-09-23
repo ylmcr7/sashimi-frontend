@@ -14,12 +14,12 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName="active" to="/double-farms">
         Double Farm
       </StyledLink>
-      <StyledLink exact activeClassName="active" to="/staking">
-        Staking
-      </StyledLink>
-      <StyledLink exact activeClassName="active" to="/investment">
-        Investment
-      </StyledLink>
+      {/*<StyledLink exact activeClassName="active" to="/staking">*/}
+      {/*  Staking*/}
+      {/*</StyledLink>*/}
+      {/*<StyledLink exact activeClassName="active" to="/investment">*/}
+      {/*  Investment*/}
+      {/*</StyledLink>*/}
       <StyledAbsoluteLink
         href="https://snapshot.sashimi.cool/#/sashimi"
         target="_blank"

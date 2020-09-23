@@ -54,6 +54,8 @@ export const getFarms = (sushi) => {
           tokenContract,
           lpAddress,
           lpContract,
+          lpBarAddress,
+          lpBarContract
         }) => ({
           pid,
           id: symbol,
@@ -64,7 +66,8 @@ export const getFarms = (sushi) => {
           tokenAddress,
           tokenSymbol,
           tokenContract,
-          // earnToken: 'sushi',
+          lpBarAddress,
+          lpBarContract,
           earnToken: 'sashimi',
           earnTokenAddress: sushi.contracts.sushi.options.address,
           icon,
@@ -133,23 +136,23 @@ export const getEarned = async (masterChefContract, pid, account) => {
   return masterChefContract.methods.pendingSashimi(pid, account).call();
 }
 
-// TODO: 1.If we use xxxSwap not fork from uniswap, we need new methods to get value.
-// TODO: 2.TokenAmountWholeLP, need change the way to get balance. Because the token in lp may be transfer to vault
+// TODO: 1. If we use xxxSwap not fork from uniswap, we need new methods to get value.
 export const getTotalLPWethValue = async (
   masterChefContract,
   wethContract,
   lpContract,
   tokenContract,
   pid,
+  lpBarContract
 ) => {
   // Get balance of the token address
-  // TODO: use new method
   const tokenAmountWholeLP = await tokenContract.methods
     .balanceOf(lpContract.options.address)
     .call()
   const tokenDecimals = await tokenContract.methods.decimals().call()
   // Get the share of lpContract that masterChefContract owns
-  const balance = await lpContract.methods
+  // When use LPBar insteadof LP, xLP:LP = 1:1;
+  const balance = await (lpBarContract || lpContract).methods
     .balanceOf(masterChefContract.options.address)
     .call()
   // Convert that into the portion of total lpContract = p1
@@ -173,10 +176,11 @@ export const getTotalLPWethValue = async (
 
   const poolWeightInfo = await getPoolWeight(masterChefContract, pid);
   return {
+    portionLp,
     tokenAmount,
     wethAmount,
     totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
-    tokenPriceInWeth: wethAmount.div(tokenAmount),
+    tokenPriceInWeth: lpWethWorth.div(tokenAmountWholeLP),
     poolWeight: poolWeightInfo.poolWeight,
     allocPoint: poolWeightInfo.allocPoint,
     totalAllocPoint: poolWeightInfo.totalAllocPoint,
