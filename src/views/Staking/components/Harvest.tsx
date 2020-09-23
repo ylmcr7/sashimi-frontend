@@ -15,7 +15,7 @@ import {
   getBalanceNumber,
 } from '../../../utils/formatBalance'
 import {LogoImg} from "../../../components/Logo/Logo";
-import WithdrawModal from './WithdrawModal'
+import WithdrawModal from '../../../components/WithdrawModal'
 import useModal from "../../../hooks/useModal";
 import {useWallet} from "use-wallet";
 import useTokenBalance from "../../../hooks/useTokenBalance";
@@ -42,6 +42,7 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => 
         await onLeave(amount, 18);
       }}
       tokenName={'SASHIMI'}
+      modalTitle={'Convert xSASHIMI to SASHIMI'}
     />,
   )
 

@@ -4,7 +4,6 @@ import {
   Button
 } from 'antd';
 
-import { Contract } from 'web3-eth-contract'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
@@ -15,10 +14,8 @@ import useEarnings from '../../../hooks/useEarnings'
 import useReward from '../../../hooks/useReward'
 
 import {
-  getDisplayBalance,
   getBalanceNumber,
 } from '../../../utils/formatBalance'
-import Logo from "../../../components/Logo";
 import {LogoImg} from "../../../components/Logo/Logo";
 
 interface HarvestProps {

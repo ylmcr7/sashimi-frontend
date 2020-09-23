@@ -4,25 +4,27 @@ import {
 } from 'antd';
 
 import BigNumber from 'bignumber.js'
-import Modal, { ModalProps } from '../../../components/Modal'
-import ModalActions from '../../../components/ModalActions'
-import ModalTitle from '../../../components/ModalTitle'
-import TokenInput from '../../../components/TokenInput'
+import Modal, { ModalProps } from '../Modal'
+import ModalActions from '../ModalActions'
+import ModalTitle from '../ModalTitle'
+import TokenInput from '../TokenInput'
 
-import { getFullDisplayBalance } from '../../../utils/formatBalance'
+import { getFullDisplayBalance } from '../../utils/formatBalance'
 
-interface DepositModalProps extends ModalProps {
+export interface DepositModalProps extends ModalProps {
   max: BigNumber
   onConfirm: (amount: string) => void
   tokenName?: string
+  modalTitle?: string
 }
 
 const DepositModal: React.FC<DepositModalProps> = ({
-  max,
-  onConfirm,
-  onDismiss,
-  tokenName = '',
-}) => {
+                                                     max,
+                                                     onConfirm,
+                                                     onDismiss,
+                                                     tokenName = '',
+                                                     modalTitle = ''
+                                                   }) => {
   const [val, setVal] = useState('')
   const [pendingTx, setPendingTx] = useState(false)
 
@@ -43,7 +45,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
 
   return (
     <Modal>
-      <ModalTitle text={`Deposit ${tokenName} Tokens`} />
+      <ModalTitle text={modalTitle || `Deposit ${tokenName} Tokens`} />
       <TokenInput
         value={val}
         onSelectMax={handleSelectMax}

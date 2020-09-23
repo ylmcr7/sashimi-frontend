@@ -2,26 +2,28 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
 
-import Button from '../../../components/Button'
-import Modal, { ModalProps } from '../../../components/Modal'
-import ModalActions from '../../../components/ModalActions'
-import ModalTitle from '../../../components/ModalTitle'
-import TokenInput from '../../../components/TokenInput'
+import Button from '../Button'
+import Modal, { ModalProps } from '../Modal'
+import ModalActions from '../ModalActions'
+import ModalTitle from '../ModalTitle'
+import TokenInput from '../TokenInput'
 
-import { getFullDisplayBalance } from '../../../utils/formatBalance'
+import { getFullDisplayBalance } from '../../utils/formatBalance'
 
-interface WithdrawModalProps extends ModalProps {
+export interface WithdrawModalProps extends ModalProps {
   max: BigNumber
   onConfirm: (amount: string) => void
   tokenName?: string
+  modalTitle?: string
 }
 
 const WithdrawModal: React.FC<WithdrawModalProps> = ({
-  onConfirm,
-  onDismiss,
-  max,
-  tokenName = '',
-}) => {
+                                                       onConfirm,
+                                                       onDismiss,
+                                                       max,
+                                                       tokenName = '',
+                                                       modalTitle = '',
+                                                     }) => {
   const [val, setVal] = useState('')
   const [pendingTx, setPendingTx] = useState(false)
 
@@ -42,7 +44,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
   return (
     <Modal>
-      <ModalTitle text={'Convert SASHIMI to xSASHIMI'} />
+      <ModalTitle text={modalTitle || `Withdraw ${tokenName}`} />
       <TokenInput
         onSelectMax={handleSelectMax}
         onChange={handleChange}

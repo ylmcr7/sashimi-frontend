@@ -11,6 +11,7 @@ import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
+import WithdrawModal from '../../../components/WithdrawModal'
 
 import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
@@ -19,7 +20,6 @@ import useTokenBalance from '../../../hooks/useTokenBalance'
 
 import { getBalanceNumber } from '../../../utils/formatBalance'
 
-import WithdrawModal from './WithdrawModal'
 import {useWallet} from "use-wallet";
 import useEnter from "../../../hooks/sashimiBar/useEnter";
 
@@ -49,6 +49,7 @@ const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletL
         await onEnter(amount, 18);
       }}
       tokenName={'SASHIMI'}
+      modalTitle={'Convert SASHIMI to xSASHIMI'}
     />,
   )
 

@@ -12,6 +12,8 @@ import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
+import DepositModal from '../../../components/DepositModal'
+import WithdrawModal from '../../../components/WithdrawModal'
 
 import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
@@ -22,9 +24,6 @@ import useTokenBalance from '../../../hooks/useTokenBalance'
 import useUnstake from '../../../hooks/useUnstake'
 
 import { getBalanceNumber } from '../../../utils/formatBalance'
-
-import DepositModal from './DepositModal'
-import WithdrawModal from './WithdrawModal'
 
 interface StakeProps {
   lpContract: Contract

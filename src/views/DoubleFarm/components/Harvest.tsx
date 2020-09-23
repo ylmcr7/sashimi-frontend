@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
-import BigNumber from 'bignumber.js';
 import {
   Button
 } from 'antd';
@@ -12,17 +11,10 @@ import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
 
-import useEarnings from '../../../hooks/useEarnings'
-import useReward from '../../../hooks/useReward'
-
 import {
-  getDisplayBalance,
   getBalanceNumber,
 } from '../../../utils/formatBalance'
-import Logo from "../../../components/Logo";
 import {LogoImg} from "../../../components/Logo/Logo";
-import {useWallet} from "use-wallet";
-import useBlock from "../../../hooks/useBlock";
 import useEarned from "../../../hooks/sashimiBar/useEarned";
 import useLeave from "../../../hooks/sashimiBar/useLeave";
 
