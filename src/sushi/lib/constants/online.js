@@ -89,7 +89,7 @@ const xLPSupportedPools = [
       1: '0xE835db5C6145f6AC2CD1f697C271bcab022766Ad',
     },
     name: 'Double happiness!',
-    symbol: 'DAI-ETH UNI-V2 LP',
+    symbol: ' DAI-ETH UNI-V2 LP ', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🍗',
   },
