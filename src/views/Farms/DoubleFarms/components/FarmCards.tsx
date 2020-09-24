@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React from 'react'
 import {
   Button,
   Divider,
@@ -10,7 +10,6 @@ import {
 } from 'react-router-dom';
 import styled, {keyframes} from 'styled-components'
 import Countdown, {CountdownRenderProps} from 'react-countdown'
-import {useWallet} from 'use-wallet'
 
 import Card from '../../../../components/Card'
 import CardContent from '../../../../components/CardContent'
@@ -59,9 +58,11 @@ const StyledLogo = styled.img`
 `
 
 let burnPoolPercent: BigNumber = new BigNumber(0);
-const waitingPool = [25];
 
-const startTime = 1600536810000;
+const waitingPool = [26];
+// const startTime = 1600963200000;
+// const startTime = 1600963140000;
+const startTime = 1601002800000;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const stakedValue = useAllStakedValue()
@@ -183,10 +184,11 @@ interface FarmCardProps {
 const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const {hours, minutes, seconds} = countdownProps
+    const {hours, minutes, seconds, days} = countdownProps;
+    const hoursTemp = hours + days * 24;
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
+    const paddedHours = hoursTemp < 10 ? `0${hoursTemp}` : hoursTemp
     return (
       <span style={{width: '100%'}}>
         {paddedHours}:{paddedMinutes}:{paddedSeconds}
@@ -256,6 +258,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
                         <Countdown
                           date={new Date(startTime)}
                           renderer={renderer}
+                          daysInHours={true}
                         />
                       )
                     }

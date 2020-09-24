@@ -98,8 +98,8 @@ export const supportedPools = [
       1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
     },
     lpBarAddresses: {
-      42: '0xA696eE9d188938Baa655052bB8727fA8702E59EE',
-      1: '0xA696eE9d188938Baa655052bB8727fA8702E59EE',
+      42: '0x6e1b4632d83e5443f853fe647ae671a6ea8b35b6',
+      1: '0x6e1b4632d83e5443f853fe647ae671a6ea8b35b6',
     },
     name: 'Double Sashimi Party!',
     symbol: 'USDC-ETH UNI-V2 LP',
