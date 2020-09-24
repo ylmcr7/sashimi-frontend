@@ -76,17 +76,42 @@ export const supportedInvestmentPools = [
   }
 ];
 // These pools get 0 point; [type pid]
-export const unStakeOnlyPools = [3, 4, 5, 6, 13, 14, 15, 16, 18, 19, 20, 21];
+export const unStakeOnlyPools = [3, 4, 5, 6, 13, 14, 15, 16, 18, 19, 20, 21, 25];
 // If is xxx-Sashimi Pool; [type pid]
 // Support sashimi pair only. Used in FarmCards.tsx
 export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24];
 
 export const hiddenPools = [101];
 
-export const doublePools = [101];
+export const doublePools = [26, 101];
 export const unStakeOnlyDoublePools = [];
 
+const xLPSupportedPools = [
+  // xLP supported start
+  {
+    pid: 26,
+    lpAddresses: {
+      42: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+      1: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+    },
+    tokenAddresses: {
+      42: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+    },
+    lpBarAddresses: {
+      42: '0xE835db5C6145f6AC2CD1f697C271bcab022766Ad',
+      1: '0xE835db5C6145f6AC2CD1f697C271bcab022766Ad',
+    },
+    name: 'Double happiness!',
+    symbol: 'DAI-ETH UNI-V2 LP',
+    tokenSymbol: 'WETH',
+    icon: '🍗',
+  },
+];
+
 export const supportedPools = [
+  ...xLPSupportedPools,
+  // xLP supported end
   {
     pid: 9,
     lpAddresses: {

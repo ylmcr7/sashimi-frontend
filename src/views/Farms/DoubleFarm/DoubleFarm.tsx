@@ -57,10 +57,13 @@ const DoubleFarm: React.FC = () => {
     <>
       <PageHeader
         icon={icon}
-        subtitle={`Deposit ${lpTokenName}  Tokens and earn ${earnTokenName} (Beta. Use at your own risk)`}
+        subtitle={`Deposit ${lpTokenName}  Tokens and earn ${earnTokenName}`}
         title={`${name} (Beta)`}
       />
       <StyledFarm>
+        <h1>This project is in beta. Use at your own risk.
+          <a href={`https://etherscan.io/address/${lpBarContract.options.address}`} target="_blank">Click to review Contract</a>
+        </h1>
         <StyledCardsWrapper>
           <StyledCardWrapper>
             <Harvest
