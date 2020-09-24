@@ -3,6 +3,7 @@ import { provider } from 'web3-core'
 
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
+import { Contract } from 'web3-eth-contract'
 
 import { getEarned, getMasterChefContract, getFarms } from '../sushi/utils'
 import useYam from './useYam'
@@ -18,9 +19,13 @@ const useAllEarnings = () => {
 
   const fetchAllBalances = useCallback(async () => {
     const balances: Array<BigNumber> = await Promise.all(
-      farms.map(({ pid }: { pid: number }) =>
-        getEarned(masterChefContract, pid, account).catch(() => new BigNumber(0)),
-      ),
+      farms.map(({ pid, lpBarContract }: { pid: number, lpBarContract?: Contract }) => {
+        if (lpBarContract) {
+          return lpBarContract.methods.earned(account).call();
+        } else {
+          return getEarned(masterChefContract, pid, account).catch(() => new BigNumber(0));
+        }
+      }),
     )
     setBalance(balances)
   }, [account, masterChefContract, yam])

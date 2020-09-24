@@ -56,7 +56,7 @@ const Nav: React.FC = () => {
         </StyledLink>
       </Col>
       <Col sm={smVal} xs={xsVal}>
-        <StyledLink target="_blank" href="https://sashimi.cool/files/SashimiSwap_protocol.pdf">
+        <StyledLink target="_blank" href="https://sashimi.cool/files/SashimiSwap_protocol.pdf?t=1">
           Docs
         </StyledLink>
       </Col>

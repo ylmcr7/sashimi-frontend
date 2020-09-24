@@ -36,10 +36,9 @@ const links:Link[] = [
     text: 'Double\xa0Farm(Beta)'
   },
   {
-    // link: 'https://app-test.sashimi.cool',
-    link: '/exchanges',
+    link: 'https://online-test.sashimi.cool/app/#/swap',
     text: 'Exchanges',
-    // isExternal: true
+    isExternal: true
   },
   {
     link: '/staking',

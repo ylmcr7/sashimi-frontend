@@ -27,7 +27,7 @@ interface HarvestProps {
   isStart?: boolean
 }
 
-const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked, isStart= false}) => {
+const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked, isStart= true}) => {
 
   const { account } = useWallet();
   const { onLeave } = useLeave(sashimiBarContract);
