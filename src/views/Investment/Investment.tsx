@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import {
   Button
 } from 'antd';
@@ -17,7 +17,6 @@ import InvestmentCards from './components/InvestmentCards'
 import styled from "styled-components";
 
 const Investment: React.FC = () => {
-  const { path } = useRouteMatch()
   const { account } = useWallet()
   const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
   return (
@@ -26,9 +25,9 @@ const Investment: React.FC = () => {
         {!!account ? (
           <>
             <PageHeader
-              icon={<img src={chef} height="120" />}
+              icon={<img src={chef} height="120" alt="sashimi" />}
               subtitle="Earn extra SASHIMI tokens by Investment."
-              title="Some delicate snacks"
+              title="Some delicate snacks(Coming Soon)"
             />
             <InvestmentCards />
           </>

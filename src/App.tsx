@@ -24,6 +24,7 @@ import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
 import Staking from './views/Staking'
 import Investment from './views/Investment'
+import ComingSoon from './views/ComingSoon'
 
 import { getEthChainInfo } from './utils/getEthChainInfo'
 
@@ -63,6 +64,9 @@ const App: React.FC = () => {
               </Route>
               <Route path="/faq">
                 <FAQ />
+              </Route>
+              <Route path="/exchanges">
+                <ComingSoon />
               </Route>
             </Switch>
           </StyledContent>

@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect} from 'react'
+import React, {useMemo, useEffect, useState} from 'react'
 import styled from 'styled-components'
 
 import { useWallet } from 'use-wallet'
@@ -14,21 +14,31 @@ import {getSashimiBarContract, getSushiContract} from '../../sushi/utils'
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
 import {Button} from "antd";
+import {getBalanceNumber} from "../../utils/formatBalance";
+import BigNumber from "bignumber.js";
+import useTokenBalance from "../../hooks/useTokenBalance";
 
 const Staking: React.FC = () => {
-  const yam = useYam()
+  const yam = useYam();
+
+  const [xSashimiBalanceOfSashimiBar, setXSashimiBalanceOfSashimiBar] = useState(new BigNumber(0));
+
+  const { ethereum } = useWallet();
+  const sashimiBarContract: Contract = useMemo(() => getSashimiBarContract(yam), [ethereum, yam]);
+  const sushiContract: Contract = useMemo(() => getSushiContract(yam), [ethereum, yam]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+    if (sashimiBarContract) {
+      sashimiBarContract.methods.totalSupply().call().then((totalSupply: any) => {
+        setXSashimiBalanceOfSashimiBar(new BigNumber(totalSupply));
+      });
+    }
+  }, [sashimiBarContract]);
 
-  const { ethereum } = useWallet()
-  const sashimiBarContract: Contract = useMemo(() => {
-    return getSashimiBarContract(yam)
-  }, [ethereum, yam])
-  const sushiContract: Contract = useMemo(() => {
-    return getSushiContract(yam)
-  }, [ethereum, yam])
+  const sushiContractAddress = sushiContract ? sushiContract.options.address : '';
+  const sashimiBarContractAddress = sashimiBarContract ? sashimiBarContract.options.address : '';
+  const sashimiBalanceOfSashimiBar: BigNumber = useTokenBalance(sushiContractAddress, sashimiBarContractAddress);
 
   const walletLocked = <Button
     disabled={true}
@@ -40,10 +50,14 @@ const Staking: React.FC = () => {
   return (
     <>
       <PageHeader
-        icon={<img src={chef} height="120" />}
+        icon={<img src={chef} height="120" alt="Sashimi" />}
         subtitle={'Welcome to the Sashimi Bar, stake Sashimi to earn Sashimi.'}
-        title='Sashimi Staking'
+        title='Sashimi Staking(Coming soon)'
       />
+      <StyleSubTitle>
+        <div>{getBalanceNumber(sashimiBalanceOfSashimiBar).toFixed(2)} Sashimi in the whole pool.</div>
+        <div>{getBalanceNumber(xSashimiBalanceOfSashimiBar).toFixed(2)} xSashimi in the whole pool.</div>
+      </StyleSubTitle>
       <StyledFarm>
         <StyledCardsWrapper>
           <StyledCardWrapper>
@@ -64,8 +78,9 @@ const Staking: React.FC = () => {
         <Spacer size="lg" />
         <StyledInfo>
           ⭐️ You will earn a portion of the swaps fees based on the amount of xSashimi held relative the weight of the staking.
+        </StyledInfo>
+        <StyledInfo>
           xSashimi can be minted by staking Sashimi. To redeem Sashimi staked plus swap fees convert xSashimi back to Sashimi.
-          {/*There are currently {getBalanceNumber(xSashimiTotal)} xSashimi in the whole pool.*/}
         </StyledInfo>
         <Spacer size="lg" />
       </StyledFarm>
@@ -109,6 +124,16 @@ const StyledInfo = styled.h3`
   margin: 0;
   padding: 0;
   text-align: center;
+`
+
+const StyleSubTitle = styled.div`
+  color: #aa9585;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  padding-bottom: ${(props) => props.theme.spacing[6]}px;
 `
 
 export default Staking

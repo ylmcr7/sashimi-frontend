@@ -27,9 +27,10 @@ interface StakeProps {
   sashimiBarContract: Contract
   sushiContract: Contract
   walletLocked: React.ReactElement
+  isStart?: boolean
 }
 
-const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletLocked}) => {
+const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletLocked, isStart = false}) => {
   const [requestedApproval, setRequestedApproval] = useState(false)
   const { account } = useWallet();
 
@@ -64,7 +65,7 @@ const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletL
   }, [onApprove, setRequestedApproval])
 
   const approveButtom = <Button
-    disabled={requestedApproval}
+    disabled={requestedApproval || !isStart}
     onClick={handleApprove}
     type="primary"
     size="large"
@@ -74,7 +75,7 @@ const Stake: React.FC<StakeProps> = ({sashimiBarContract, sushiContract, walletL
   </Button>;
 
   const stakingButton = <Button
-    disabled={tokenBalance.eq(new BigNumber(0))}
+    disabled={tokenBalance.eq(new BigNumber(0)) || !isStart}
     type="primary"
     size="large"
     block

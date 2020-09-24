@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {
   Button
@@ -24,9 +24,10 @@ import useLeave from "../../../hooks/sashimiBar/useLeave";
 interface HarvestProps {
   sashimiBarContract: Contract
   walletLocked: React.ReactElement
+  isStart?: boolean
 }
 
-const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => {
+const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked, isStart= false}) => {
 
   const { account } = useWallet();
   const { onLeave } = useLeave(sashimiBarContract);
@@ -47,7 +48,7 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked}) => 
   )
 
   const covertButton = <Button
-    disabled={!tokenBalance.toNumber() || tokenBalance.isEqualTo(0)}
+    disabled={!tokenBalance.toNumber() || tokenBalance.isEqualTo(0) || !isStart}
     type="primary"
     size="large"
     block

@@ -63,7 +63,7 @@ const InvestmentCards: React.FC = () => {
 
   return (
     <StyledCards>
-      <ValueETH>Every one can do the harvest. And the administrator will harvest regularly normally. </ValueETH>
+      <ValueETH>Every one can harvest and reset reserves. And some volunteers will harvest and reset reserves regularly. </ValueETH>
       {!!newInvestmentRows[0].length ? (
         newInvestmentRows.map((investmentRow, i) => (
           <StyledRow key={i}>
@@ -101,7 +101,6 @@ interface InvestmentCardProps {
 const InvestmentCard: React.FC<InvestmentCardProps> = (
   {investment, yam, investmentContract, sashimiContract, account}) => {
 
-  const [profit, setProfit] = useState(new BigNumber(0));
   const [reservesRatio, setReservesRatio] = useState('-');
   const [depositAmount, setDepositAmount] = useState(new BigNumber(0));
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
@@ -115,7 +114,6 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
 
         const {amount} = result; // profit is token address;
         const profit = new BigNumber(amount);
-        setProfit(profit);
         setReservesRatio(`${reservesPoints / 100}%`);
         setDepositAmount(new BigNumber(depositAmount));
 
@@ -129,35 +127,8 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
     }
   }, [investment, yam, investmentContract, sashimiContract]);
 
-  // let preEarnd = new BigNumber(0);
-  // let currentEarnd = new BigNumber(1);
-  // let apyReady = false;
-  //
-  // const sleep = (time: number) => {
-  //   return new Promise(resolve => {
-  //     setTimeout(resolve, time);
-  //   });
-  // };
-  //
-  // const getAPY = useCallback(async () => {
-  //   if (yam && investmentContract) {
-  //     const preEarndResult = await investmentContract.methods.earned(investment.depositAddress).call();
-  //     const {amount: preAmount} = preEarndResult;
-  //     const preProfit = new BigNumber(preAmount);
-  //     await sleep(5000);
-  //     const currentEarndResult = await investmentContract.methods.earned(investment.depositAddress).call();
-  //     const {amount: currentAmount} = preEarndResult;
-  //     const currentProfit = new BigNumber(preAmount);
-  //
-  //   }
-  // }, [investment, yam, investmentContract, sashimiContract]);
-
   useEffect(() => {
     fetchData();
-    // const interval = setInterval(() => {
-    //   getAPY();
-    // }, 60 * 1000);
-  // }, [fetchData, getAPY]);
   }, [fetchData]);
 
   return (
@@ -166,15 +137,12 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
         <CardContent>
           <StyledContent>
             <CardIcon>{investment.icon}</CardIcon>
-            <StyledTitle>{investment.name}</StyledTitle>
-            <StyledDetails>
-              <StyledDetail>Invest {investment.depositTokenSymbol.toUpperCase()}</StyledDetail>
-              <StyledDetail>Earn {investment.earnToken.toUpperCase()}</StyledDetail>
-            </StyledDetails>
+            <StyledTitle>Invest {investment.depositTokenSymbol.toUpperCase()}</StyledTitle>
             <Spacer/>
             <ButtonContainer>
-              <Col span={24}>
+              <Col span={11}>
                 <Button
+                  disabled={true}
                   size="large"
                   type="primary"
                   block
@@ -187,6 +155,21 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                   Harvest
                 </Button>
               </Col>
+              <Col span={11} offset={2}>
+                <Button
+                  disabled={true}
+                  size="large"
+                  type="primary"
+                  block
+                  onClick={async () => {
+                    if (investmentContract) {
+                      investmentContract.methods.reBalance(investment.depositAddress).send({from: account});
+                    }
+                  }}
+                >
+                  ReBalance
+                </Button>
+              </Col>
             </ButtonContainer>
             <StyledDivider />
             <StyledInsight>
@@ -195,17 +178,10 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                 {getBalanceNumber(depositAmount).toFixed(2)} {investment.depositTokenSymbol}
               </span>
             </StyledInsight>
-            {/*<StyledInsight>*/}
-            {/*  <span>Profit</span>*/}
-            {/*  <span>*/}
-            {/*    {getBalanceNumber(profit).toFixed(2)} {investment.tokenSymbol}*/}
-            {/*  </span>*/}
-            {/*</StyledInsight>*/}
-            {/* TODO: Get sashimi amount of xxx-sashimi  */}
             <StyledInsight>
-              <span>Sashimi valued</span>
+              <span>Profit</span>
               <span>
-                {getBalanceNumber(profitSashimiValued).toFixed(2)}
+                {getBalanceNumber(profitSashimiValued).toFixed(2) || '-'} Sashimi
               </span>
             </StyledInsight>
 
@@ -216,10 +192,9 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
               </span>
             </StyledInsight>
             <StyledInsight>
-              {/*TODO: subgraph */}
               <span>APY</span>
               <span>
-                TODO
+                - %
               </span>
             </StyledInsight>
           </StyledContent>
@@ -293,15 +268,6 @@ const StyledContent = styled.div`
 const StyledSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;
   width: ${(props) => props.theme.spacing[4]}px;
-`
-
-const StyledDetails = styled.div`
-  margin-top: ${(props) => props.theme.spacing[2]}px;
-  text-align: center;
-`
-
-const StyledDetail = styled.div`
-  color: ${(props) => props.theme.color.grey[500]};
 `
 
 const StyledInsight = styled.div`
