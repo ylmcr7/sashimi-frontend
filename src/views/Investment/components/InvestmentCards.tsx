@@ -108,21 +108,25 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const fetchData = useCallback(() => {
     if (yam && investmentContract) {
       (async () => {
-        const result = await investmentContract.methods.earned(investment.depositAddress).call();
-        const reservesPoints = await investmentContract.methods.reservesRatios(investment.depositAddress).call();
-        const depositAmount = await investmentContract.methods.deposits(investment.depositAddress).call();
+        try {
+          const result = await investmentContract.methods.earned(investment.depositAddress).call();
+          const reservesPoints = await investmentContract.methods.reservesRatios(investment.depositAddress).call();
+          const depositAmount = await investmentContract.methods.deposits(investment.depositAddress).call();
 
-        const {amount} = result; // profit is token address;
-        const profit = new BigNumber(amount);
-        setReservesRatio(`${reservesPoints / 100}%`);
-        setDepositAmount(new BigNumber(depositAmount));
+          const {amount} = result; // profit is token address;
+          const profit = new BigNumber(amount);
+          setReservesRatio(`${reservesPoints / 100}%`);
+          setDepositAmount(new BigNumber(depositAmount));
 
-        // sashimiContract.methods
-        const lpInfo = await investment.lpContract.methods.getReserves().call();
-        const sashimiBalance = new BigNumber(lpInfo[investment.sashimiIndex]);
-        const profitTokenBalance = new BigNumber(lpInfo[1 - investment.sashimiIndex]);
-        const sashimiValued = sashimiBalance.div(profitTokenBalance).times(profit);
-        setProfitSashimiValued(sashimiValued);
+          // sashimiContract.methods
+          const lpInfo = await investment.lpContract.methods.getReserves().call();
+          const sashimiBalance = new BigNumber(lpInfo[investment.sashimiIndex]);
+          const profitTokenBalance = new BigNumber(lpInfo[1 - investment.sashimiIndex]);
+          const sashimiValued = sashimiBalance.div(profitTokenBalance).times(profit);
+          setProfitSashimiValued(sashimiValued);
+        } catch(e) {
+          console.log('investment: ', e);
+        }
       })();
     }
   }, [investment, yam, investmentContract, sashimiContract]);

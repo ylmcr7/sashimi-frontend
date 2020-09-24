@@ -34,20 +34,14 @@ export const supportedInvestmentPools = [
     // CANDY - SASHIMI? pair
     lpAddresses: {
       42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // TODO: replace ETH-SASHIMI -> GOLFF-SASHIMI
     },
     depositAddresses: {
       42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
-      1: '0xA050886815CFc52a24B9C4aD044ca199990B6690'
-    },
-    tokenAddresses: {
-      42: '0xf48dFe5E2fB756a59B387754c4a37f951793F417',
-      1: '0xf48dFe5E2fB756a59B387754c4a37f951793F417', // TODO: mainnet address
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
     },
     depositTokenSymbol: 'WETH',
-    tokenSymbol: 'CANDY', // Which token will I get, when I do the harvest？
-    symbol: 'Hello CANDY',
-    name: 'Hello CANDY',
+    tokenSymbol: 'GOLFF', // Which token will I get, when I do the harvest？
     icon: '👜',
     sashimiIndex: 1,
   },
@@ -55,22 +49,14 @@ export const supportedInvestmentPools = [
     // XYZ - SASHIMI pair
     lpAddresses: {
       42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
-      1: '0xb819c827a0dc04e403099310317bd75b8a0a43fa', // TODO
+      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // TODO: replace ETH-SASHIMI -> GOLFF-SASHIMI
     },
-    // XYZ Token
     depositAddresses: {
       42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
-      1: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5'
+      1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161' // Huobi
     },
-    // Golff Token
-    tokenAddresses: {
-      42: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e',
-      1: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e', // TODO: mainnet address
-    },
-    depositTokenSymbol: 'XYZ',
+    depositTokenSymbol: 'Huobi Token',
     tokenSymbol: 'Golff', // Which token will I get, when I do the harvest？
-    symbol: 'Hello Golff',
-    name: 'Hello Golff',
     icon: '👝',
     sashimiIndex: 1,
   }

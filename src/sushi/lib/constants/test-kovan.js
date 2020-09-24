@@ -40,14 +40,8 @@ export const supportedInvestmentPools = [
       42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
       1: '0xA050886815CFc52a24B9C4aD044ca199990B6690'
     },
-    tokenAddresses: {
-      42: '0xf48dFe5E2fB756a59B387754c4a37f951793F417',
-      1: '0xf48dFe5E2fB756a59B387754c4a37f951793F417', // TODO: mainnet address
-    },
     depositTokenSymbol: 'WETH',
     tokenSymbol: 'CANDY', // Which token will I get, when I do the harvest？
-    symbol: 'Hello CANDY',
-    name: 'Hello CANDY',
     icon: '👜',
     sashimiIndex: 1,
   },
@@ -62,15 +56,8 @@ export const supportedInvestmentPools = [
       42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
       1: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5'
     },
-    // Golff Token
-    tokenAddresses: {
-      42: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e',
-      1: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e', // TODO: mainnet address
-    },
     depositTokenSymbol: 'XYZ',
     tokenSymbol: 'Golff', // Which token will I get, when I do the harvest？
-    symbol: 'Hello Golff',
-    name: 'Hello Golff',
     icon: '👝',
     sashimiIndex: 1,
   }

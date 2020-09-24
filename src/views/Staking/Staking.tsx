@@ -32,6 +32,8 @@ const Staking: React.FC = () => {
     if (sashimiBarContract) {
       sashimiBarContract.methods.totalSupply().call().then((totalSupply: any) => {
         setXSashimiBalanceOfSashimiBar(new BigNumber(totalSupply));
+      }).catch((error: any) => {
+        console.log('error: ', error);
       });
     }
   }, [sashimiBarContract]);

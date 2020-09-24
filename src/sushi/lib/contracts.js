@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js/bignumber'
 import * as Types from './types.js'
 import {
   contractAddresses,
@@ -47,10 +46,8 @@ export class Contracts {
     this.investmentPools = supportedInvestmentPools.map((pool) =>
       Object.assign(pool, {
         lpAddress: pool.lpAddresses[networkId],
-        tokenAddress: pool.tokenAddresses[networkId],
         depositAddress: pool.depositAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
-        tokenContract: new this.web3.eth.Contract(ERC20Abi),
       }),
     )
 
@@ -82,9 +79,8 @@ export class Contracts {
     )
 
     this.investmentPools.forEach(
-      ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
+      ({ lpContract, lpAddress}) => {
         setProvider(lpContract, lpAddress)
-        setProvider(tokenContract, tokenAddress)
       },
     )
   }
