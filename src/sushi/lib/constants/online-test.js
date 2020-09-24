@@ -9,7 +9,7 @@ export const contractAddresses = {
   },
   investment: {
     42: '0x46641A3aA421beA0207Ead6d807c847a2f599943',
-    1: '0x3E91Db66FE94B28941A4B076B1CF9A80fFA1c036' // staging
+    1: '0xD061877dC0df08738c1312Dc4e2BCf04531057eb' // staging
   },
   masterChef: {
     42: '0xFC0F93aA4E79c0c5719ce8c74Cf33872F33a5c6E',

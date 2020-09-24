@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect, useState} from 'react'
+import React, {useMemo, useEffect, useState, useCallback} from 'react'
 import styled from 'styled-components'
 
 import { useWallet } from 'use-wallet'
@@ -17,9 +17,11 @@ import {Button} from "antd";
 import {getBalanceNumber} from "../../utils/formatBalance";
 import BigNumber from "bignumber.js";
 import useTokenBalance from "../../hooks/useTokenBalance";
+import useBlock from "../../hooks/useBlock";
 
 const Staking: React.FC = () => {
   const yam = useYam();
+  const block = useBlock();
 
   const [xSashimiBalanceOfSashimiBar, setXSashimiBalanceOfSashimiBar] = useState(new BigNumber(0));
 
@@ -27,8 +29,7 @@ const Staking: React.FC = () => {
   const sashimiBarContract: Contract = useMemo(() => getSashimiBarContract(yam), [ethereum, yam]);
   const sushiContract: Contract = useMemo(() => getSushiContract(yam), [ethereum, yam]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  const getXSashimiBalanceOfSashimiBar = useCallback(() => {
     if (sashimiBarContract) {
       sashimiBarContract.methods.totalSupply().call().then((totalSupply: any) => {
         setXSashimiBalanceOfSashimiBar(new BigNumber(totalSupply));
@@ -36,7 +37,15 @@ const Staking: React.FC = () => {
         console.log('error: ', error);
       });
     }
-  }, [sashimiBarContract]);
+  }, [sashimiBarContract, block]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    getXSashimiBalanceOfSashimiBar();
+  }, [getXSashimiBalanceOfSashimiBar]);
 
   const sushiContractAddress = sushiContract ? sushiContract.options.address : '';
   const sashimiBarContractAddress = sashimiBarContract ? sashimiBarContract.options.address : '';
