@@ -66,7 +66,10 @@ const App: React.FC = () => {
                 <FAQ />
               </Route>
               <Route path="/exchanges">
-                <ComingSoon />
+                <ComingSoon title={'Sashimi Swap'}/>
+              </Route>
+              <Route path="/vault">
+                <ComingSoon title={'Sashimi Valut'}/>
               </Route>
             </Switch>
           </StyledContent>

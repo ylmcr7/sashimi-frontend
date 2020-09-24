@@ -50,6 +50,10 @@ const links:Link[] = [
     text: 'Investment'
   },
   {
+    link: '/vault',
+    text: 'Vault'
+  },
+  {
     link: 'https://snapshot.sashimi.cool/#/sashimi',
     text: 'Proposals',
     isExternal: true
@@ -125,6 +129,10 @@ const StyledLink = styled(NavLink)`
   &.active {
     color: ${(props) => props.theme.color.primary.main};
   }
+  @media (max-width: 1200px) {
+    padding-left: ${(props) => props.theme.spacing[2]}px;
+    padding-right: ${(props) => props.theme.spacing[2]}px;
+  }
   @media (max-width: 414px) {
     padding-left: ${(props) => props.theme.spacing[1]}px;
     padding-right: ${(props) => props.theme.spacing[1]}px;
@@ -142,6 +150,10 @@ const StyledAbsoluteLink = styled.a`
   }
   &.active {
     color: ${(props) => props.theme.color.primary.main};
+  }
+  @media (max-width: 1200px) {
+    padding-left: ${(props) => props.theme.spacing[2]}px;
+    padding-right: ${(props) => props.theme.spacing[2]}px;
   }
   @media (max-width: 414px) {
     padding-left: ${(props) => props.theme.spacing[1]}px;

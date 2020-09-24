@@ -2,13 +2,17 @@ import React from 'react'
 import chef from '../../assets/img/chef.png'
 
 import PageHeader from '../../components/PageHeader'
-const ComingSoon: React.FC = () => {
 
+interface ComingSoonProps {
+  title: string
+}
+
+const ComingSoon: React.FC<ComingSoonProps> = ({title}) => {
   return (
     <>
       <PageHeader
         icon={<img src={chef} height="120" alt="sashimi" />}
-        title='Sashimi Swap Coming Soon!'
+        title={`${title} Coming Soon!`}
       />
     </>
   )
