@@ -201,28 +201,10 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
     poolActive = startTime - Date.now() <= 0;
   }
 
-  let farmApy: any;
-  let extraApy: any;
   let totalApy: any;
   if (farm.apy && farm.apy.isNaN()) {
-    farmApy = '- %';
-    extraApy = '- %';
     totalApy = '- %';
   } else {
-    farmApy = farm.apy
-      ? `${farm.apy
-        .times(new BigNumber(100))
-        .toNumber()
-        .toLocaleString('en-US')
-        .slice(0, -1) || '-'}%`
-      : 'Loading ...';
-    extraApy = farm.extraApy
-      ? `${farm.extraApy
-        .times(new BigNumber(100))
-        .toNumber()
-        .toLocaleString('en-US')
-        .slice(0, -1) || '-'}%`
-      : 'Loading ...';
     totalApy = farm.apy && farm.extraApy ? `${farm.extraApy
         .plus(farm.apy)
         .times(new BigNumber(100))
@@ -281,18 +263,6 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
             <StyledDivider />
             <StyledInsight>
               <span>APY</span>
-              <span>
-                {farmApy}
-              </span>
-            </StyledInsight>
-            <StyledInsight>
-              <span>Extra</span>
-              <span>
-                {extraApy}
-              </span>
-            </StyledInsight>
-            <StyledInsight>
-              <span>Total</span>
               <span>
                 {totalApy}
               </span>
