@@ -22,24 +22,25 @@ interface investmentAPY {
   APY: string,
   key: string
 }
-export const useInvestmentAPYs = (blockPivot = 0) => {
-  const [investmentAPYs, setInvestmentAPYs] = useState([]);
+export const useInvestmentAPYs = () => {
+  const [investmentAPYs, setInvestmentAPYs] = useState([] as investmentAPY[]);
 
   const block = useBlock();
-  blockPivot += block % 10 === 0 ? 1 : 0;
 
   const fetchAPY = useCallback(async () => {
-    try {
-      const result: any = await axios.get('/api/invest/getAPY');
-      setInvestmentAPYs(result.data as investmentAPY[]);
-    } catch(e) {
-      console.log('fetchAPY error: ', e);
+    if (block % 6 === 0) {
+      try {
+        const result: any = await axios.get('/api/invest/getAPY');
+        setInvestmentAPYs(result.data.data);
+      } catch(e) {
+        console.log('fetchAPY error: ', e);
+      }
     }
-  }, [blockPivot]);
+  }, [block]);
 
   useEffect(() => {
     fetchAPY()
-  }, []);
+  }, [fetchAPY]);
 
   return investmentAPYs
 };
