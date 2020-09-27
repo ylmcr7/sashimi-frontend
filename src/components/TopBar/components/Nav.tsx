@@ -20,6 +20,7 @@ interface Link {
   link?: string,
   text?: string,
   isExternal?: boolean
+  linkTarget?: string
 }
 
 const links:Link[] = [
@@ -36,9 +37,10 @@ const links:Link[] = [
     text: 'Double\xa0Farm(Beta)'
   },
   {
-    link: 'https://online-test.sashimi.cool/app/#/swap',
+    link: '/app/#/swap',
     text: 'Exchanges',
-    isExternal: true
+    isExternal: true,
+    linkTarget: '_self'
   },
   {
     link: '/staking',
@@ -69,7 +71,7 @@ const OverLay = () => {
             <Menu.Item key={v.text}>
               {
                 v.isExternal ? (
-                  <StyledAbsoluteLink href={v.link} target="_blank">{v.text}</StyledAbsoluteLink>
+                  <StyledAbsoluteLink href={v.link} target={v.linkTarget || '_blank'}>{v.text}</StyledAbsoluteLink>
                 ) : (
                   <StyledLink exact activeClassName="active" to={v.link}>{v.text}</StyledLink>
                 )
@@ -100,7 +102,7 @@ const Nav: React.FC = () => {
         <StyledNav>
           {
             links.map((v, index) => v.isExternal ? (
-              <StyledAbsoluteLink href={v.link} target="_blank" key={index}>{v.text}</StyledAbsoluteLink>
+              <StyledAbsoluteLink href={v.link} target={v.linkTarget || '_blank'} key={index}>{v.text}</StyledAbsoluteLink>
             ) : (
               <StyledLink exact activeClassName="active" to={v.link} key={index}>{v.text}</StyledLink>
             ))
