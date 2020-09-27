@@ -62,7 +62,7 @@ const DoubleFarm: React.FC = () => {
       />
       <StyledFarm>
         <h1>This project is in beta. Use at your own risk.
-          <a href={`https://etherscan.io/address/${lpBarContract.options.address}`} target="_blank">Click to review Contract</a>
+          <a href={`https://etherscan.io/address/${lpBarContract && lpBarContract.options.address}`} target="_blank">Click to review Contract</a>
         </h1>
         <StyledCardsWrapper>
           <StyledCardWrapper>
