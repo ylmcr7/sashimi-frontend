@@ -29,6 +29,8 @@ interface Investment {
   lpToken: string
   lpTokenAddress: string
   lpContract: Contract
+  pivotLpAddress: string
+  pivotLpContract: Contract
   tokenAddress: string
   earnToken: string
   earnTokenAddress: string
@@ -38,6 +40,7 @@ interface Investment {
   depositAddress: string
   depositTokenSymbol: string
   sashimiIndex: number
+  pivotTokenIndex: number
 }
 
 interface InvestmentRow extends Investment {
@@ -129,8 +132,16 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           // sashimiContract.methods
           const lpInfo = await investment.lpContract.methods.getReserves().call();
           const sashimiBalance = new BigNumber(lpInfo[investment.sashimiIndex]);
-          const profitTokenBalance = new BigNumber(lpInfo[1 - investment.sashimiIndex]);
-          const sashimiValued = sashimiBalance.div(profitTokenBalance).times(profit);
+          const lpEthTokenBalance = new BigNumber(lpInfo[1 - investment.sashimiIndex]);
+          const sashimiETHPrice = lpEthTokenBalance.div(sashimiBalance);
+
+          const pivotLpInfo = await investment.pivotLpContract.methods.getReserves().call();
+          const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]);
+          const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]);
+          const pivotTokenPrice = pivotEthTokenBalance.div(profitTokenBalance);
+          // console.log('pivotLPInfo, lpInfo:', sashimiETHPrice.toNumber(), pivotTokenPrice.toNumber(), amount);
+
+          const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice);
           setProfitSashimiValued(sashimiValued);
         } catch(e) {
           console.log('investment: ', e);
@@ -154,6 +165,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <ButtonContainer>
               <Col span={11}>
                 <Button
+                  disabled={true}
                   size="large"
                   type="primary"
                   block
@@ -168,6 +180,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
               </Col>
               <Col span={11} offset={2}>
                 <Button
+                  disabled={true}
                   size="large"
                   type="primary"
                   block

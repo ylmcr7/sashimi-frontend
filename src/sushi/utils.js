@@ -3,6 +3,7 @@ import { Contract } from 'web3-eth-contract'
 import ERC20Abi from './lib/abi/erc20.json'
 
 import BigNumber from 'bignumber.js'
+import UNIV2PairAbi from './lib/abi/uni_v2_lp';
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -88,14 +89,19 @@ export const getInvestments = (sushi) => {
          tokenContract,
          lpAddress,
          lpContract,
+         pivotLpAddress,
+         pivotLpContract,
          depositAddress,
          depositTokenSymbol,
          sashimiIndex,
+         pivotTokenIndex,
        }) => ({
         id: symbol,
         name,
         lpToken: symbol,
         lpTokenAddress: lpAddress,
+        pivotLpAddress,
+        pivotLpContract,
         lpContract,
         tokenAddress,
         tokenSymbol,
@@ -103,6 +109,7 @@ export const getInvestments = (sushi) => {
         depositAddress,
         depositTokenSymbol,
         sashimiIndex,
+        pivotTokenIndex,
         // earnToken: 'sushi',
         earnToken: 'sashimi',
         earnTokenAddress: sushi.contracts.sushi.options.address,

@@ -48,6 +48,8 @@ export class Contracts {
         lpAddress: pool.lpAddresses[networkId],
         depositAddress: pool.depositAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
+        pivotLpAddress: pool.pivotLpAddresses[networkId],
+        pivotLpContract: new this.web3.eth.Contract(UNIV2PairAbi),
       }),
     )
 
@@ -79,8 +81,9 @@ export class Contracts {
     )
 
     this.investmentPools.forEach(
-      ({ lpContract, lpAddress}) => {
-        setProvider(lpContract, lpAddress)
+      ({ lpContract, lpAddress, pivotLpContract, pivotLpAddress}) => {
+        setProvider(lpContract, lpAddress);
+        setProvider(pivotLpContract, pivotLpAddress);
       },
     )
   }

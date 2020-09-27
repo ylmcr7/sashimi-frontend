@@ -28,6 +28,10 @@ export const supportedInvestmentPools = [
       42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
       1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // TODO: replace ETH-SASHIMI -> GOLFF-SASHIMI
     },
+    pivotLpAddresses: {
+      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+      1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+    },
     depositAddresses: {
       42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
       1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
@@ -36,6 +40,7 @@ export const supportedInvestmentPools = [
     tokenSymbol: 'GOF', // Which token will I get, when I do the harvest？
     icon: '👜',
     sashimiIndex: 1,
+    pivotTokenIndex: 0,
   }
 ];
 // These pools get 0 point; [type pid]
