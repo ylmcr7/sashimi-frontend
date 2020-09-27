@@ -62,14 +62,14 @@ export const supportedInvestmentPools = [
   }
 ];
 // These pools get 0 point; [type pid]
-export const unStakeOnlyPools = [3, 4, 5, 6, 13, 14, 15, 16, 18, 19, 20, 21, 25];
+export const unStakeOnlyPools = [0, 1, 2, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
 // If is xxx-Sashimi Pool; [type pid]
 // Support sashimi pair only. Used in FarmCards.tsx
 export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24];
 
 export const hiddenPools = [101];
 
-export const doublePools = [26, 101];
+export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
 const xLPSupportedPools = [
@@ -89,9 +89,67 @@ const xLPSupportedPools = [
       1: '0xE835db5C6145f6AC2CD1f697C271bcab022766Ad',
     },
     name: 'Double happiness!',
-    symbol: ' DAI-ETH UNI-V2 LP ', // and blank to make it different with the normal farm symbol
+    symbol: '\xa0DAI-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🍗',
+  },
+  // 0925
+  {
+    pid: 27,
+    lpAddresses: {
+      42: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+      1: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+    },
+    tokenAddresses: {
+      42: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+    },
+    lpBarAddresses: {
+      42: '0xD4F7CA1e212c5203074ECD9912dD803426eF4e10',
+      1: '0xD4F7CA1e212c5203074ECD9912dD803426eF4e10',
+    },
+    name: 'Double happiness!',
+    symbol: '\xa0USDC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
+    tokenSymbol: 'WETH',
+    icon: '🍖',
+  },
+  {
+    pid: 28,
+    lpAddresses: {
+      42: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+      1: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+    },
+    tokenAddresses: {
+      42: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+    },
+    lpBarAddresses: {
+      42: '0x9EC7De79572312d00f536b856B9E6fE7d0a37AF1',
+      1: '0x9EC7De79572312d00f536b856B9E6fE7d0a37AF1',
+    },
+    name: 'Double happiness!',
+    symbol: '\xa0ETH-USDT UNI-V2 LP', // and blank to make it different with the normal farm symbol
+    tokenSymbol: 'WETH',
+    icon: '🥩',
+  },
+  {
+    pid: 29,
+    lpAddresses: {
+      42: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
+      1: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
+    },
+    tokenAddresses: {
+      42: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+    },
+    lpBarAddresses: {
+      42: '0xc8b5B728165F5e59690bA486e4086027f34635Bd',
+      1: '0xc8b5B728165F5e59690bA486e4086027f34635Bd',
+    },
+    name: 'Double happiness!',
+    symbol: '\xa0WBTC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
+    tokenSymbol: 'WETH',
+    icon: '🥓',
   },
 ];
 

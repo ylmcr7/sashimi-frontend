@@ -37,7 +37,7 @@ const DoubleFarms: React.FC = () => {
                 title="Select Your Favorite Table (Beta)"
               />
               <h1>This project is in beta. Use at your own risk.
-                <a href="https://etherscan.io/address/0xE835db5C6145f6AC2CD1f697C271bcab022766Ad" target="_blank">Click to review Contract</a>
+                You can turn to stake page and review the contract.
               </h1>
               <FarmCards />
             </Route>

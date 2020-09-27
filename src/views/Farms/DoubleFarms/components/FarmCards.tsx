@@ -59,10 +59,8 @@ const StyledLogo = styled.img`
 
 let burnPoolPercent: BigNumber = new BigNumber(0);
 
-const waitingPool = [26];
-// const startTime = 1600963200000;
-// const startTime = 1600963140000;
-const startTime = 1601002800000;
+const waitingPool = [27, 28 ,29];
+const startTime = 1601125200000;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const stakedValue = useAllStakedValue()
@@ -84,7 +82,7 @@ const FarmCards: React.FC = () => {
       : new BigNumber(0);
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
-  const SASHIMI_PER_BLOCK = new BigNumber(1000)
+  const SASHIMI_PER_BLOCK = new BigNumber(100)
 
   let ethValueInSashimiNoWeight = new BigNumber(0);
   const unStakeOnlyPoolsRows: FarmWithStakedValue[][] = [[]];
