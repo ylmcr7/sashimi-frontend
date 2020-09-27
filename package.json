@@ -9,6 +9,7 @@
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.46",
     "antd": "^4.2.2",
+    "axios": "^0.20.0",
     "bignumber.js": "^9.0.0",
     "debounce": "^1.2.0",
     "numeral": "^2.0.6",
@@ -56,16 +57,16 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^5.6.4",
     "@types/numeral": "0.0.28",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
-    "@craco/craco": "^5.6.4",
     "babel-plugin-import": "^1.13.0",
+    "commitizen": "^4.2.1",
     "craco-less": "^1.17.0",
     "cross-env": "^7.0.2",
-    "git-cz": "^4.7.1",
-    "commitizen": "^4.2.1"
+    "git-cz": "^4.7.1"
   },
   "config": {
     "commitizen": {

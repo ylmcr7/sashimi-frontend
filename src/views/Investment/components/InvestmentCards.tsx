@@ -22,6 +22,7 @@ import {getBalanceNumber} from "../../../utils/formatBalance";
 import {Yam} from "../../../sushi";
 import {Contract} from "web3-eth-contract";
 import {useWallet} from "use-wallet";
+import {useInvestmentAPYs} from "../../../hooks/useInvestmentAPYs";
 
 interface Investment {
   name: string
@@ -104,6 +105,13 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [reservesRatio, setReservesRatio] = useState('-');
   const [depositAmount, setDepositAmount] = useState(new BigNumber(0));
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
+  const investmentAPYs = useInvestmentAPYs();
+  const apyInfo = investmentAPYs.find(apyInfo => {
+    const key = apyInfo.key.toUpperCase();
+    if (key.includes(investment.tokenSymbol.toUpperCase()) && key.includes(investment.depositTokenSymbol.toUpperCase())) {
+      return true;
+    }
+  });
 
   const fetchData = useCallback(() => {
     if (yam && investmentContract) {
@@ -196,7 +204,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <StyledInsight>
               <span>APY</span>
               <span>
-                - %
+                {apyInfo ? parseFloat(apyInfo.APY).toFixed(2) : '-'} %
               </span>
             </StyledInsight>
           </StyledContent>

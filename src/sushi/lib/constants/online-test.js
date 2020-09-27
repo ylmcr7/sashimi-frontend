@@ -33,7 +33,7 @@ export const supportedInvestmentPools = [
       1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     },
     depositTokenSymbol: 'WETH',
-    tokenSymbol: 'GOLFF', // Which token will I get, when I do the harvest？
+    tokenSymbol: 'GOF', // Which token will I get, when I do the harvest？
     icon: '👜',
     sashimiIndex: 1,
   }

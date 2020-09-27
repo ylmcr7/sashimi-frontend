@@ -41,7 +41,7 @@ export const supportedInvestmentPools = [
       1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
     },
     depositTokenSymbol: 'WETH',
-    tokenSymbol: 'GOLFF', // Which token will I get, when I do the harvest？
+    tokenSymbol: 'GOF', // GOLFF // The token you get
     icon: '👜',
     sashimiIndex: 1,
   },
@@ -56,7 +56,7 @@ export const supportedInvestmentPools = [
       1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161' // Huobi
     },
     depositTokenSymbol: 'Huobi Token',
-    tokenSymbol: 'Golff', // Which token will I get, when I do the harvest？
+    tokenSymbol: 'GOF', // GOLFF // The token you get
     icon: '👝',
     sashimiIndex: 1,
   }
