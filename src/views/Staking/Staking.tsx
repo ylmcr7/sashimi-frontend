@@ -18,6 +18,8 @@ import {getBalanceNumber} from "../../utils/formatBalance";
 import BigNumber from "bignumber.js";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import useBlock from "../../hooks/useBlock";
+import useModal from "../../hooks/useModal";
+import WalletProviderModal from "../../components/WalletProviderModal";
 
 const Staking: React.FC = () => {
   const yam = useYam();
@@ -39,6 +41,7 @@ const Staking: React.FC = () => {
     }
   }, [sashimiBarContract, block]);
 
+  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />, 'provider');
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -52,11 +55,11 @@ const Staking: React.FC = () => {
   const sashimiBalanceOfSashimiBar: BigNumber = useTokenBalance(sushiContractAddress, sashimiBarContractAddress);
 
   const walletLocked = <Button
-    disabled={true}
+    onClick={onPresentWalletProviderModal}
     type="primary"
     size="large"
     block
-  >Locked</Button>;
+  >Unlock Wallet</Button>;
 
   return (
     <>

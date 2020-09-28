@@ -9,7 +9,7 @@ export const contractAddresses = {
   },
   investment: {
     42: '0xC380130F2b3Fa820CE3d1092FDDBf0dA732D13C9',
-    1: '0xC380130F2b3Fa820CE3d1092FDDBf0dA732D13C9' // TODO: use mainnet address
+    1: '0x4ce106235B6d876c66117fdA1f6025E3Fb87D3ec'
   },
   masterChef: {
     42: '0x042036D6F0b5C246aA07Dd9688b46cf86Bd179C3', // aelf sushi new one 9.9
@@ -54,7 +54,7 @@ export const supportedInvestmentPools = [
       42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
       1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161' // Huobi
     },
-    depositTokenSymbol: 'Huobi Token',
+    depositTokenSymbol: 'HT',
     tokenSymbol: 'GOF', // GOLFF // The token you get
     icon: '👝',
     sashimiIndex: 1,

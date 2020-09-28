@@ -38,6 +38,7 @@ const {
 } = Layout;
 
 const App: React.FC = () => {
+
   return (
     <Providers>
       <Router>
@@ -69,7 +70,7 @@ const App: React.FC = () => {
                 <ComingSoon title={'Sashimi Swap'}/>
               </Route>
               <Route path="/vault">
-                <ComingSoon title={'Sashimi Valut'}/>
+                <ComingSoon title={'Sashimi Vault'}/>
               </Route>
             </Switch>
           </StyledContent>
