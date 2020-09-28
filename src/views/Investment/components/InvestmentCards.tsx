@@ -165,7 +165,6 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <ButtonContainer>
               <Col span={11}>
                 <Button
-                  disabled={true}
                   size="large"
                   type="primary"
                   block
@@ -180,7 +179,6 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
               </Col>
               <Col span={11} offset={2}>
                 <Button
-                  disabled={true}
                   size="large"
                   type="primary"
                   block

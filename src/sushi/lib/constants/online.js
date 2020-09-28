@@ -7,6 +7,10 @@ export const contractAddresses = {
     42: '0xfaC2681cB05Ba08De504e7FDBc2186B22d868f2A', // aelf sushi new one 9.18
     1: '0x6ed306DbA10E6c6B20BBa693892Fac21f3B91977', // aelf sashimi
   },
+  sashimiRouter: {
+    42: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410',
+    1: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410'
+  },
   investment: {
     42: '0xC380130F2b3Fa820CE3d1092FDDBf0dA732D13C9',
     1: '0x4ce106235B6d876c66117fdA1f6025E3Fb87D3ec'
@@ -72,6 +76,7 @@ export const hiddenPools = [101];
 export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
+// 0928 UNI LP
 const xLPSupportedPools = [
   // xLP supported start
   {
@@ -153,6 +158,7 @@ const xLPSupportedPools = [
   },
 ];
 
+// 0928 Normal Farm -> SASHIMI LP
 export const supportedPools = [
   ...xLPSupportedPools,
   // xLP supported end
@@ -160,14 +166,14 @@ export const supportedPools = [
     pid: 9,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'Sashimi Party!',
-    symbol: 'SASHIMI-ETH UNI-V2 LP',
+    symbol: 'SASHIMI-ETH SALP LP',
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
@@ -177,14 +183,14 @@ export const supportedPools = [
     pid: 22,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xaf46c4cf1cb2a669ce2f7bc1e7a53f0da8c7c574',
+      1: '0xCEea282be8Da0F3F4b2Bc57bFd89F4b7Dd4454b1',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'HT love Sashimi!',
-    symbol: 'HT-SASHIMI UNI-V2 LP',
+    symbol: 'HT-SASHIMI SALP LP',
     tokenSymbol: 'Huobi Token',
     icon: '🥂',
   },
@@ -192,14 +198,14 @@ export const supportedPools = [
     pid: 23,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x32893aF4A219dae132f721Ead8C351FEE91838Fc',
+      1: '0x5dB60350383433F53147101e3E6cE1D5193c5671',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'USDT love Sashimi!',
-    symbol: 'USDT-SASHIMI UNI-V2 LP',
+    symbol: 'USDT-SASHIMI SALP LP',
     tokenSymbol: 'USDT',
     icon: '🍻',
   },
@@ -207,14 +213,14 @@ export const supportedPools = [
     pid: 24,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xf09d4a52b25886cD4ca42D40fAe302a85f69e02D',
+      1: '0x81e23D17f07D4D95Dcb9FD070b44332D2f34A874',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'USDC love Sashimi!',
-    symbol: 'USDC-SASHIMI UNI-V2 LP',
+    symbol: 'USDC-SASHIMI SALP LP',
     tokenSymbol: 'USDC',
     icon: '🍷',
   },
@@ -224,14 +230,14 @@ export const supportedPools = [
     pid: 10,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x1629B0259E6E5c315B8Eea09fd1a4D0A26291F98',
+      1: '0xf7ba0272e5bdd4911c1baedb362700652959edaf',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'elf love Sashimi!🧝🍱',
-    symbol: 'SASHIMI-ELF UNI-V2 LP',
+    symbol: 'SASHIMI-ELF SALP LP',
     tokenSymbol: 'ELF',
     icon: '🍱',
   },
@@ -239,14 +245,14 @@ export const supportedPools = [
     pid: 25,
     lpAddresses: {
       42: '0xd9f91070371987eee3e500e90de5333e0c43d031',
-      1: '0xd9f91070371987eee3e500e90de5333e0c43d031',
+      1: '0xbD61299162735Bc01C56eA295776BfF4A03E4a46',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'MX!',
-    symbol: 'MXC-ETH UNI-V2 LP',
+    symbol: 'MXC-ETH SALP LP',
     tokenSymbol: 'MXC',
     icon: '🌱'
   },
@@ -255,14 +261,14 @@ export const supportedPools = [
     pid: 12,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x9aa550c9dbf9649d22d1fd0befb424f0755067c8',
+      1: '0x2b773b3db41971c069f79c257ab60bdc8bd1ae5f',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'GT love Sashimi!',
-    symbol: 'GT-SASHIMI UNI-V2 LP',
+    symbol: 'GT-SASHIMI SALP LP',
     tokenSymbol: 'Gate Token',
     icon: '🍙',
   },
@@ -270,14 +276,14 @@ export const supportedPools = [
     pid: 13,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xb1961f431ea5fb5c3932590897a0d3f1cf7ed088',
+      1: '0xcf2bf14f541b98a36128f1021faadf22f475dd3e',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'LRC love Sashimi!',
-    symbol: 'LRC-SASHIMI UNI-V2 LP',
+    symbol: 'LRC-SASHIMI SALP LP',
     tokenSymbol: 'LRC',
     icon: '🍘',
   },
@@ -285,14 +291,14 @@ export const supportedPools = [
     pid: 14,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x2155128c06c4ee4b751c23d9403c07648afa5f5a',
+      1: '0xcc6a812a1deb467763d4cb42d7100d7ecadf752d',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'KNC love Sashimi!',
-    symbol: 'KNC-SASHIMI UNI-V2 LP',
+    symbol: 'KNC-SASHIMI SALP LP',
     tokenSymbol: 'KNC',
     icon: '🍥',
   },
@@ -300,14 +306,14 @@ export const supportedPools = [
     pid: 15,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x8306207b827d4b2b07fe4cfc191f5adced1c47f2',
+      1: '0x9e8d793671bbdf376703eabff4251f3085fa1ef1',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'REN love Sashimi!',
-    symbol: 'REN-SASHIMI UNI-V2 LP',
+    symbol: 'REN-SASHIMI SALP LP',
     tokenSymbol: 'REN',
     icon: '🥠',
   },
@@ -315,14 +321,14 @@ export const supportedPools = [
     pid: 16,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xe839622b4c4bc8b9cda815f2e6a33b7d150ee529',
+      1: '0x010f098d4b7e925c9490a901b52665676ced5580',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
     name: 'YFII love Sashimi!',
-    symbol: 'YFII-SASHIMI UNI-V2 LP',
+    symbol: 'YFII-SASHIMI SALP LP',
     tokenSymbol: 'YFII',
     icon: '🦪',
   },
@@ -333,14 +339,14 @@ export const supportedPools = [
     pid: 17,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x359C138b1666aA2167AaFC205A841FF432A23040',
+      1: '0xb9f8077fe932e96a8572652feee35609c2809850',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xe66747a101bff2dba3697199dcce5b743b454759',
     },
     name: 'Gate Token',
-    symbol: 'GT-ETH UNI-V2 LP',
+    symbol: 'GT-ETH SALP LP',
     tokenSymbol: 'GT',
     icon: '🍝',
   },
@@ -348,14 +354,14 @@ export const supportedPools = [
     pid: 18,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x8878Df9E1A7c87dcBf6d3999D997f262C05D8C70',
+      1: '0x2881d04e1211aed648d3fd94a76e902a29280027',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xbbbbca6a901c926f240b89eacb641d8aec7aeafd',
     },
     name: 'LRC',
-    symbol: 'LRC-ETH UNI-V2 LP',
+    symbol: 'LRC-ETH SALP LP',
     tokenSymbol: 'LRC',
     icon: '🍜',
   },
@@ -363,14 +369,14 @@ export const supportedPools = [
     pid: 19,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xf49C43Ae0fAf37217bDcB00DF478cF793eDd6687',
+      1: '0xBDE0CDAB0a66378a400D2f5E3fdE0de29A11ED56',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xdd974d5c2e2928dea5f71b9825b8b646686bd200',
     },
     name: 'KNC',
-    symbol: 'KNC-ETH UNI-V2 LP',
+    symbol: 'KNC-ETH SALP LP',
     tokenSymbol: 'KNC',
     icon: '🍲',
   },
@@ -378,14 +384,14 @@ export const supportedPools = [
     pid: 20,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x8Bd1661Da98EBDd3BD080F0bE4e6d9bE8cE9858c',
+      1: '0xf066f1dd4d7c0392eb7633b2c777644e09f0d3fb',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0x408e41876cccdc0f92210600ef50372656052a38',
     },
     name: 'REN',
-    symbol: 'REN-ETH UNI-V2 LP',
+    symbol: 'REN-ETH SALP LP',
     tokenSymbol: 'REN',
     icon: '🍛',
   },
@@ -393,14 +399,14 @@ export const supportedPools = [
     pid: 21,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x8973Be4402bf0a39448f419c2D64bD3591Dd2299',
+      1: '0x55493cbe3aea30e6dcdffc70a736d82ed026d9e0',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xa1d0E215a23d7030842FC67cE582a6aFa3CCaB83',
     },
     name: 'YFII',
-    symbol: 'YFII-ETH UNI-V2 LP',
+    symbol: 'YFII-ETH SALP LP',
     tokenSymbol: 'YFII',
     icon: '🍳',
   },
@@ -410,14 +416,14 @@ export const supportedPools = [
     pid: 7,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xA6be7F7C6c454B364cDA446ea39Be9e5E4369DE8',
+      1: '0x28E240E04113877Bf99354E1E4f43a79E59c535A',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
     },
     name: 'elf garden 🧝🧝‍♂️🧝‍♀',
-    symbol: 'ELF-ETH UNI-V2 LP',
+    symbol: 'ELF-ETH SALP LP',
     tokenSymbol: 'ELF',
     icon: '🧝',
   },
@@ -425,14 +431,14 @@ export const supportedPools = [
     pid: 8,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xBb2b8038a1640196FbE3e38816F3e67Cba72D940',
+      1: '0x04d7eecd7decfc5cc335e4ba5fb6bb09a581be01',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
     },
     name: 'BTC Satoshi',
-    symbol: 'WBTC-ETH UNI-V2 LP',
+    symbol: 'WBTC-ETH SALP LP',
     tokenSymbol: 'WBTC',
     icon: '₿',
   },
@@ -442,14 +448,14 @@ export const supportedPools = [
     pid: 0,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+      1: '0x490ccb3c835597ff31e525262235487f9426312b',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
     },
     name: 'Tether Turtle',
-    symbol: 'USDT-ETH UNI-V2 LP',
+    symbol: 'USDT-ETH SALP LP',
     tokenSymbol: 'USDT',
     icon: '🐢',
   },
@@ -457,14 +463,14 @@ export const supportedPools = [
     pid: 1,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+      1: '0x64a9D29305b9847cEEE21558d3Ce1f8E85Ee4496',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     },
     name: 'Circle Snail',
-    symbol: 'USDC-ETH UNI-V2 LP',
+    symbol: 'USDC-ETH SALP LP',
     tokenSymbol: 'USDC',
     icon: '🐌',
   },
@@ -472,14 +478,14 @@ export const supportedPools = [
     pid: 2,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+      1: '0x51214310ac356b26df2a9caf3895398e533c4fa9',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0x6b175474e89094c44da98b954eedeac495271d0f',
     },
     name: 'Donald DAI',
-    symbol: 'DAI-ETH UNI-V2 LP',
+    symbol: 'DAI-ETH SALP LP',
     tokenSymbol: 'DAI',
     icon: '🦆',
   },
@@ -487,14 +493,14 @@ export const supportedPools = [
     pid: 3,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x2fdbadf3c4d5a8666bc06645b8358ab803996e28',
+      1: '0x18492965eef77d1a101d77a394c32178090e98a6',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
     },
     name: 'YFI Whale',
-    symbol: 'YFI-ETH UNI-V2 LP',
+    symbol: 'YFI-ETH SALP LP',
     tokenSymbol: 'YFI',
     icon: '🐋',
   },
@@ -502,14 +508,14 @@ export const supportedPools = [
     pid: 4,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xab3f9bf1d81ddb224a2014e98b238638824bcf20',
+      1: '0x6ab539Bffd571AEE39D6EAeD50BA79D3627E2055',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0x80fb784b7ed66730e8b1dbd9820afd29931aab03',
     },
     name: 'Aave Boar',
-    symbol: 'LEND-ETH UNI-V2 LP',
+    symbol: 'LEND-ETH SALP LP',
     tokenSymbol: 'LEND',
     icon: '🐗',
   },
@@ -517,14 +523,14 @@ export const supportedPools = [
     pid: 5,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+      1: '0xde1621bc3e8be5927e8a8be068cea62f74f876ce',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0x514910771af9ca656af840dff83e8264ecf986ca',
     },
     name: 'Toadie Marine',
-    symbol: 'LINK-ETH UNI-V2 LP',
+    symbol: 'LINK-ETH SALP LP',
     tokenSymbol: 'LINK',
     icon: '🐸',
   },
@@ -532,14 +538,14 @@ export const supportedPools = [
     pid: 6,
     lpAddresses: {
       42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x43ae24960e5534731fc831386c07755a2dc33d47',
+      1: '0x4e8Efbb0627d6816FE93A94430ed4b1e831FE4a1',
     },
     tokenAddresses: {
       42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
       1: '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f',
     },
     name: 'Synthetic Snake',
-    symbol: 'SNX-ETH UNI-V2 LP',
+    symbol: 'SNX-ETH SALP LP',
     tokenSymbol: 'SNX',
     icon: '🐍',
   },

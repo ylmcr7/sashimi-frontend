@@ -42,6 +42,10 @@ export const getInvestmentContract = (sushi) => {
   return sushi && sushi.contracts && sushi.contracts.investment
 }
 
+export const getSashimiRouterContract = sushi => {
+  return sushi && sushi.contracts && sushi.contracts.sashimiRouter
+}
+
 export const getFarms = (sushi) => {
   return sushi
     ? sushi.contracts.pools.map(
@@ -150,12 +154,36 @@ export const getTotalLPWethValue = async (
   lpContract,
   tokenContract,
   pid,
-  lpBarContract
+  lpBarContract, // not required
+  routerContract,  // not required
 ) => {
   // Get balance of the token address
-  const tokenAmountWholeLP = await tokenContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
+  let tokenAmountWholeLP;
+  let lpContractWeth;
+  if (routerContract) {
+    tokenAmountWholeLP = await routerContract.methods
+      .getTokenInPair(
+        lpContract.options.address,
+        tokenContract.options.address
+        ).call()
+    // Get total weth value for the lpContract = w1
+    lpContractWeth = await routerContract.methods
+      .getTokenInPair(
+        lpContract.options.address,
+        // tokenContract.options.address
+        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+      ).call()
+  } else {
+    tokenAmountWholeLP = await tokenContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+    lpContractWeth = await wethContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+  }
+  // const tokenAmountWholeLP = await tokenContract.methods
+  //   .balanceOf(lpContract.options.address)
+  //   .call()
   const tokenDecimals = await tokenContract.methods.decimals().call()
   // Get the share of lpContract that masterChefContract owns
   // When use LPBar insteadof LP, xLP:LP = 1:1;
@@ -164,10 +192,6 @@ export const getTotalLPWethValue = async (
     .call()
   // Convert that into the portion of total lpContract = p1
   const totalSupply = await lpContract.methods.totalSupply().call()
-  // Get total weth value for the lpContract = w1
-  const lpContractWeth = await wethContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
   // Return p1 * w1 * 2
   const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
   const lpWethWorth = new BigNumber(lpContractWeth)

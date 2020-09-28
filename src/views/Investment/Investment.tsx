@@ -27,7 +27,7 @@ const Investment: React.FC = () => {
             <PageHeader
               icon={<img src={chef} height="120" alt="sashimi" />}
               subtitle="Earn extra SASHIMI tokens by Investment."
-              title="Some delicate snacks(Coming Soon)"
+              title="Some delicate snacks(Beta)"
             />
             <InvestmentCards />
           </>

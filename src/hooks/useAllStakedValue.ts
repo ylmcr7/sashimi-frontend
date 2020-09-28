@@ -10,9 +10,12 @@ import {
   getWethContract,
   getFarms,
   getTotalLPWethValue,
+  getSashimiRouterContract
 } from '../sushi/utils'
+import {doublePools} from '../sushi/lib/constants';
 import useYam from './useYam'
 import useBlock from './useBlock'
+
 
 export interface StakedValue {
   portionLp: BigNumber
@@ -41,21 +44,23 @@ const useAllStakedValue = () => {
           pid,
           lpContract,
           tokenContract,
-           lpBarContract
+          lpBarContract
         }: {
           pid: number
           lpContract: Contract
           tokenContract: Contract
           lpBarContract?: Contract
         }) =>
-          getTotalLPWethValue(
+        {
+          return getTotalLPWethValue(
             masterChefContract,
             wethContact,
             lpContract,
             tokenContract,
             pid,
-            lpBarContract
-          ),
+            lpBarContract,
+            doublePools.includes(pid) ? null : getSashimiRouterContract(yam)
+          )},
       ),
     )
 

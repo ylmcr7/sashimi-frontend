@@ -69,7 +69,11 @@ const Staking: React.FC = () => {
         title='Sashimi Staking(Beta)'
       />
       <StyleSubTitle>
-        <a href="https://etherscan.io/address/0x6ed306DbA10E6c6B20BBa693892Fac21f3B91977">Click To Review The Contract</a>
+        <a
+          target="_blank"
+          href="https://etherscan.io/address/0x6ed306DbA10E6c6B20BBa693892Fac21f3B91977">
+          Click To Review The Contract
+        </a>
         <div>{getBalanceNumber(sashimiBalanceOfSashimiBar).toFixed(2)} Sashimi in the whole pool.</div>
         <div>{getBalanceNumber(xSashimiBalanceOfSashimiBar).toFixed(2)} xSashimi in the whole pool.</div>
       </StyleSubTitle>
