@@ -1,199 +1,184 @@
 export const contractAddresses = {
   sushi: {
-    42: '0x89d5F2E52D36b85e72e25e8fE46d709D445c03Fc', // aelf sushi new one 9.9
-    // 42: '0x43a7903E3a839a67192151eE300e11198985E54b', // sushi
-    1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2', // aelf sashimi
-    // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
+    42: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
+    1: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f', // aelf sashimi
   },
   sashimiBar: {
-    42: '0xfaC2681cB05Ba08De504e7FDBc2186B22d868f2A', // aelf sushi new one 9.18
-    // 42: '0x43a7903E3a839a67192151eE300e11198985E54b', // sushi
-    // TODO: change address
-    1: '0x79F006926F7a8CDf4055469C34c9609C6488DB15', // aelf sashimi
-    // 1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2', // sushi use
+    42: '0x345Ce8Cf8b161aC7782B2316723140573E08901d',
+    1: '0x345Ce8Cf8b161aC7782B2316723140573E08901d', // staging
   },
   investment: {
-    42: '0x46641A3aA421beA0207Ead6d807c847a2f599943',
-    1: '0x46641A3aA421beA0207Ead6d807c847a2f599943' // TODO: use mainnet address
+    42: '0xc16121A9e3fC61037ee83b4C4d0AE06ef92326A5',
+    1: '0xc16121A9e3fC61037ee83b4C4d0AE06ef92326A5' // staging
   },
   masterChef: {
-    42: '0x042036D6F0b5C246aA07Dd9688b46cf86Bd179C3', // aelf sushi new one 9.9
-    // 42: '0x245A074cA9814fB46A21562bC70fAB92F8A3F779', // sushi
-    1: '0x1daed74ed1dd7c9dabbe51361ac90a69d851234d', // aelf master
-    // 1: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd', // sushi use
+    42: '0x9e41322574f00232f4f092b8d29db11c46fe7496',
+    1: '0x9e41322574f00232f4f092b8d29db11c46fe7496', // staging
   },
   weth: {
-    42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // aelf sushi
-    // 42: '0xd0a1e359811322d97991e03f863a0c30c2cf029c', // weth in kovan
-    1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // sushi use
+    42: '0xA050886815CFc52a24B9C4aD044ca199990B6690',
+    1: '0xA050886815CFc52a24B9C4aD044ca199990B6690',
   },
 }
 
 export const supportedInvestmentPools = [
   {
     // CANDY - SASHIMI? pair
-    lpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
-    },
-    depositAddresses: {
-      42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
-      1: '0xA050886815CFc52a24B9C4aD044ca199990B6690'
-    },
-    depositTokenSymbol: 'WETH',
-    tokenSymbol: 'CANDY', // Which token will I get, when I do the harvest？
-    icon: '👜',
-    sashimiIndex: 1,
+    // lpAddresses: {
+    //   42: '0x965b23da5dc4f3fce4a4615376efde3b2a39716b',
+    //   1: '0x965b23da5dc4f3fce4a4615376efde3b2a39716b', // TODO: replace ETH-SASHIMI -> GOLFF-SASHIMI
+    // },
+    // pivotLpAddresses: {
+    //   42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+    //   1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+    // },
+    // depositAddresses: {
+    //   42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
+    //   1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+    // },
+    // depositTokenSymbol: 'WETH',
+    // tokenSymbol: 'GOF', // Which token will I get, when I do the harvest？
+    // icon: '👜',
+    // sashimiIndex: 1,
+    // pivotTokenIndex: 0,
   },
   {
-    // XYZ - SASHIMI pair
-    lpAddresses: {
-      42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
-      1: '0xb819c827a0dc04e403099310317bd75b8a0a43fa', // TODO
-    },
-    // XYZ Token
-    depositAddresses: {
-      42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
-      1: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5'
-    },
-    depositTokenSymbol: 'XYZ',
-    tokenSymbol: 'Golff', // Which token will I get, when I do the harvest？
-    icon: '👝',
-    sashimiIndex: 1,
+    // CANDY - SASHIMI? pair
+    // lpAddresses: {
+    //   42: '0x965b23da5dc4f3fce4a4615376efde3b2a39716b',
+    //   1: '0x965b23da5dc4f3fce4a4615376efde3b2a39716b', // TODO: replace ETH-SASHIMI -> GOLFF-SASHIMI
+    // },
+    // pivotLpAddresses: {
+    //   42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+    //   1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+    // },
+    // depositAddresses: {
+    //   42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
+    //   1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+    // },
+    // depositTokenSymbol: 'WETH',
+    // tokenSymbol: 'GOF', // Which token will I get, when I do the harvest？
+    // icon: '👜',
+    // sashimiIndex: 1,
+    // pivotTokenIndex: 0,
   }
 ];
 // These pools get 0 point; [type pid]
-export const unStakeOnlyPools = [3, 4, 5, 6, 13, 14, 15, 16, 18, 19, 20, 21];
+export const unStakeOnlyPools = [];
 // If is xxx-Sashimi Pool; [type pid]
 // Support sashimi pair only. Used in FarmCards.tsx
-export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24];
+export const notETHPairPools = [];
 
-export const hiddenPools = [101];
+export const hiddenPools = [101, 102];
 
-// export const doublePools = [1, 2, 3, 101];
-// export const unStakeOnlyDoublePools = [2];
-
-// Kovan Test pool
-export const doublePools = [10, 101];
+export const doublePools = [0, 1];
 export const unStakeOnlyDoublePools = [];
 
-export const supportedPools = [
-  // TODO: use lpBarAddress
+const xLPSupportedPools = [
+  // xLP supported start
   {
-    pid: 10,
+    pid: 0,
     lpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      // 42: '0xDE058540f98bbb044F70f9f44f4876A007f2334f',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      42: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
+      1: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
     },
     tokenAddresses: {
-      42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      42: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
     },
-    // TODO: use mainnet lpBarAddress
     lpBarAddresses: {
-      42: '0xfBe61eFD76D89Db0E5aBf0D80e3E1Cdd0fdD691d',
-      1: '0xfBe61eFD76D89Db0E5aBf0D80e3E1Cdd0fdD691d',
+      42: '0xA696eE9d188938Baa655052bB8727fA8702E59EE',
+      1: '0xA696eE9d188938Baa655052bB8727fA8702E59EE',
     },
-    name: 'XYZ-ETH!',
-    symbol: 'XYZ-ETH SashimiSwap LP Token111',
-    tokenSymbol: 'XYZ',
+    name: 'Double Sashimi Party 1!',
+    symbol: 'USDC-ETH UNI-V2 LP 1',
+    tokenSymbol: 'WETH',
     icon: '🍣',
   },
-
   {
     pid: 1,
     lpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      42: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
+      1: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
     },
     tokenAddresses: {
-      42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      42: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
     },
-    // TODO: use mainnet lpBarAddress
     lpBarAddresses: {
-      42: '0xDE058540f98bbb044F70f9f44f4876A007f2334f',
-      1: '0xDE058540f98bbb044F70f9f44f4876A007f2334f',
+      42: '0x6e1B4632d83E5443F853Fe647AE671a6Ea8b35B6',
+      1: '0x6e1B4632d83E5443F853Fe647AE671a6Ea8b35B6',
     },
-    name: 'XYZ-ETH!',
-    symbol: 'XYZ-ETH SashimiSwap LP Token',
-    tokenSymbol: 'XYZ',
+    name: 'Double Sashimi Party 2!',
+    symbol: 'USDC-ETH UNI-V2 LP 2',
+    tokenSymbol: 'WETH',
+    icon: '🍣',
+  },
+];
+
+export const supportedPools = [
+  ...xLPSupportedPools,
+  {
+    pid: 2,
+    lpAddresses: {
+      42: '0x965b23da5dc4f3fce4a4615376efde3b2a39716b',
+      1: '0x965b23da5dc4f3fce4a4615376efde3b2a39716b',
+    },
+    tokenAddresses: {
+      42: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
+      1: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
+    },
+    name: 'SASHIMI-ETH Party!',
+    symbol: 'SASHIMI-ETH UNI-V2 LP',
+    tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
   {
     pid: 2,
     lpAddresses: {
-      42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      42: '0x14c584c0cc856232606356e98985c45e594122fc',
+      1: '0x14c584c0cc856232606356e98985c45e594122fc',
     },
+    // Can not get eth value now;
     tokenAddresses: {
-      42: '0x89d5F2E52D36b85e72e25e8fE46d709D445c03Fc',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      42: '0x4bedb4cff3b8ea0474f534838e767c11d6b311f2',
+      1: '0x4bedb4cff3b8ea0474f534838e767c11d6b311f2',
     },
-    name: 'XYZ-SASHIMI!',
-    symbol: 'XYZ-SASHIMI SashimiSwap LP Token',
-    tokenSymbol: 'SASHIMI',
+    name: 'DAI-USDT Party!',
+    symbol: 'DAI-USDT UNI-V2 LP',
+    tokenSymbol: 'DAI',
     icon: '🍣',
   },
-  {
-    pid: 3,
-    lpAddresses: {
-      42: '0xb244159a61f44b1263ac5fc0fa300eacfdc7562d',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
-    },
-    tokenAddresses: {
-      42: '0x89d5F2E52D36b85e72e25e8fE46d709D445c03Fc',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
-    },
-    name: 'ETH-SASHIMI!',
-    symbol: 'ETH-SASHIMI SashimiSwap LP Token',
-    tokenSymbol: 'SASHIMI',
-    icon: '🍣',
-  },
-  {
-    pid: 4,
-    lpAddresses: {
-      42: '0x35d510eaeeea82cfaa4f44603f92c430351b68c9',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
-    },
-    tokenAddresses: {
-      42: '0x61790aF8c5D7bE706781DBA8C4c971195890CC1e',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
-    },
-    name: 'MockGolff-ETH!',
-    symbol: 'MockGolff-ETH SashimiSwap LP Token',
-    tokenSymbol: 'MockGolff',
-    icon: '🍣',
-  },
-  {
-    pid: 5,
-    lpAddresses: {
-      42: '0x997fa14837848298d6a70318d6b379cbbdacc5d0',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
-    },
-    tokenAddresses: {
-      42: '0x89d5F2E52D36b85e72e25e8fE46d709D445c03Fc',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
-    },
-    name: 'MockGolff-XYZ!',
-    symbol: 'MockGolff-XYZ SashimiSwap LP Token',
-    tokenSymbol: 'MockGolff',
-    icon: '🍣',
-  },
-  {
-    pid: 6,
-    lpAddresses: {
-      42: '0x2FCDcA32028b3ED71a2f63C4968D4503843d1F42',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
-    },
-    tokenAddresses: {
-      42: '0xf48dFe5E2fB756a59B387754c4a37f951793F417',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
-    },
-    name: 'Candy-WETH!',
-    symbol: 'Candy-WETH SashimiSwap LP Token',
-    tokenSymbol: 'Candy',
-    icon: '🍣',
-  }
-]
+  // Get Sashimi Price only.
+  // {
+  //   pid: 102,
+  //   lpAddresses: {
+  //     42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+  //     1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+  //   },
+  //   tokenAddresses: {
+  //     42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+  //     1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+  //   },
+  //   name: 'Sashimi Party!',
+  //   symbol: 'SASHIMI-ETH UNI-V2 LP',
+  //   tokenSymbol: 'SASHIMI',
+  //   icon: '🍣',
+  // },
+  // UNI, Hidden
+  // {
+  //   pid: 101,
+  //   lpAddresses: {
+  //     42: '0xd3d2e2692501a5c9ca623199d38826e513033a17',
+  //     1: '0xd3d2e2692501a5c9ca623199d38826e513033a17', // 0x00 actual
+  //   },
+  //   tokenAddresses: {
+  //     42: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+  //     1: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984', // 0x00 actual
+  //   },
+  //   name: 'Hidden',
+  //   symbol: 'Hidden',
+  //   tokenSymbol: 'UNI',
+  //   icon: '🔥',
+  // },
+];
