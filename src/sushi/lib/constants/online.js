@@ -228,7 +228,7 @@ const newNormalPools = [
     },
     name: 'Uniswap!',
     symbol: 'UNI-ETH SALP LP',
-    tokenSymbol: 'UNI',
+    tokenSymbol: 'UNISWAP',
     icon: '🦄',
   },
 ];

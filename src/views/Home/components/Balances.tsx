@@ -111,7 +111,7 @@ const Balances: React.FC = () => {
     <>
       <TotalSupply>
         {account && <div>Total Sashimi Supply: {(100000000 - getBalanceNumber(burnedSashimi)).toFixed(2).toLocaleString()}</div>}
-        {account && <div>Total Sashimi Burnd: {getBalanceNumber(burnedSashimi).toFixed(2).toLocaleString()}</div>}
+        {account && <div>Total Sashimi Burned: {getBalanceNumber(burnedSashimi).toFixed(2).toLocaleString()}</div>}
       </TotalSupply>
       <StyledWrapper>
         <StyledCard>
