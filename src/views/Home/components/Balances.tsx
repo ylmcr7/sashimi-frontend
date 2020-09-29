@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import numeral from 'numeral'
 import { useWallet } from 'use-wallet'
 
 import Card from '../../../components/Card'
@@ -8,20 +7,16 @@ import CardContent from '../../../components/CardContent'
 import Label from '../../../components/Label'
 import Spacer from '../../../components/Spacer'
 import Value from '../../../components/Value'
-import YamIcon from '../../../components/YamIcon'
 
 import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useUnharvested from '../../../hooks/useUnharvested'
 import useYam from '../../../hooks/useYam'
-import useBlock from '../../../hooks/useBlock'
 import useAllEarnings from '../../../hooks/useAllEarnings'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
 
-import { bnToDec } from '../../../utils'
 import { getBalance } from '../../../utils/erc20';
 import { getBalanceNumber } from '../../../utils/formatBalance'
-import { getSushiSupply, getSushiContract } from '../../../sushi/utils'
+import { getSushiSupply } from '../../../sushi/utils'
 import { getSushiAddress } from '../../../sushi/utils'
 import BigNumber from 'bignumber.js'
 import CountUp from 'react-countup'
@@ -85,6 +80,7 @@ const PendingRewards: React.FC = () => {
 
 const Balances: React.FC = () => {
   const [totalSupply, setTotalSupply] = useState<BigNumber>()
+  const [burnedSashimi, setBurnedSashimi] = useState<BigNumber>(new BigNumber(0))
   const yam = useYam()
   const sushiBalance = useTokenBalance(getSushiAddress(yam))
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
@@ -93,12 +89,15 @@ const Balances: React.FC = () => {
     async function fetchTotalSupply() {
       const [
         supply,
-        stakedBalance
+        stakedBalance,
+        burnedSashimi
       ] = await Promise.all([
         getSushiSupply(yam),
-        getBalance(ethereum, getSushiAddress(yam), stakingPool).then(res => new BigNumber(res))
+        getBalance(ethereum, getSushiAddress(yam), stakingPool).then(res => new BigNumber(res)),
+        getBalance(ethereum, getSushiAddress(yam), '0x000000000000000000000000000000000000dead').then(res => new BigNumber(res))
       ]);
-      setTotalSupply(supply.minus(stakedBalance))
+      setTotalSupply(supply.minus(stakedBalance));
+      setBurnedSashimi(new BigNumber(burnedSashimi));
     }
     if (yam) {
       fetchTotalSupply()
@@ -110,7 +109,10 @@ const Balances: React.FC = () => {
 
   return (
     <>
-      <TotalSupply>Total Sashimi Supply: 100,000,000</TotalSupply>
+      <TotalSupply>
+        {account && <div>Total Sashimi Supply: {(100000000 - getBalanceNumber(burnedSashimi)).toFixed(2).toLocaleString()}</div>}
+        {account && <div>Total Sashimi Burnd: {getBalanceNumber(burnedSashimi).toFixed(2).toLocaleString()}</div>}
+      </TotalSupply>
       <StyledWrapper>
         <StyledCard>
           <CardContent>

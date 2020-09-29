@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React from 'react'
 import {
   Button,
   Divider,
@@ -11,7 +11,6 @@ import {
 import styled, {keyframes} from 'styled-components'
 import Countdown, {CountdownRenderProps} from 'react-countdown'
 import {useWallet} from 'use-wallet'
-import numeral from 'numeral'
 
 import Card from '../../../../components/Card'
 import CardContent from '../../../../components/CardContent'
@@ -30,7 +29,7 @@ import useAllStakedValue, {
 
 import {BASIC_TOKEN} from '../../../../constants/config';
 import {notETHPairPools, unStakeOnlyPools, hiddenPools, doublePools} from '../../../../sushi/lib/constants';
-import uni from '../../../../assets/img/logo_uniswap.png';
+import sashimiLog from '../../../../assets/img/logo_sashimi.png';
 
 interface FarmWithStakedValue extends Farm, StakedValue {
   apy: BigNumber,
@@ -38,8 +37,8 @@ interface FarmWithStakedValue extends Farm, StakedValue {
   totalAllocPoint: BigNumber
 }
 
-const UniLogo = () => (
-  <StyledLogo src={uni} />
+const SashimiLogo = () => (
+  <StyledLogo src={sashimiLog} />
 )
 
 function setFarmRows(farmRows: FarmWithStakedValue[][], rowsValue: FarmWithStakedValue): void {
@@ -239,7 +238,7 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
                   target="_blank"
                   block
                 >
-                  <UniLogo /> GET LP
+                  <SashimiLogo /> GET LP
                 </Button>
               </Col>
             </ButtonContainer>

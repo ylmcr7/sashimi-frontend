@@ -39,6 +39,10 @@ export const supportedInvestmentPools = [
       42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
       1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
     },
+    providerAddresses: {
+      42: '0xeC0C65A04b985F1F162F13E7Df667bBF4804B621',
+      1: '0xeC0C65A04b985F1F162F13E7Df667bBF4804B621'
+    },
     depositTokenSymbol: 'WETH',
     tokenSymbol: 'GOF', // GOLFF // The token you get
     icon: '👜',
@@ -57,6 +61,10 @@ export const supportedInvestmentPools = [
     depositAddresses: {
       42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
       1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161' // Huobi
+    },
+    providerAddresses: {
+      42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
+      1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
     },
     depositTokenSymbol: 'HT',
     tokenSymbol: 'GOF', // GOLFF // The token you get

@@ -41,6 +41,7 @@ interface Investment {
   depositTokenSymbol: string
   sashimiIndex: number
   pivotTokenIndex: number
+  providerAddress: string
 }
 
 interface InvestmentRow extends Investment {
@@ -67,7 +68,16 @@ const InvestmentCards: React.FC = () => {
 
   return (
     <StyledCards>
-      <ValueETH>Every one can harvest and reset reserves. And some volunteers will harvest and reset reserves regularly. </ValueETH>
+      <StyleSubTitle>
+        <a
+          target="_blank"
+          href="https://etherscan.io/address/0x4ce106235B6d876c66117fdA1f6025E3Fb87D3ec">
+          Click To Review The Contract
+        </a>
+        <ValueETH>
+          <div>Tip: The profit will enter staking pool when harvest, not your personal account.</div>
+        </ValueETH>
+      </StyleSubTitle>
       {!!newInvestmentRows[0].length ? (
         newInvestmentRows.map((investmentRow, i) => (
           <StyledRow key={i}>
@@ -161,6 +171,11 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           <StyledContent>
             <CardIcon>{investment.icon}</CardIcon>
             <StyledTitle>Invest {investment.depositTokenSymbol.toUpperCase()}</StyledTitle>
+            <a
+              target="_blank"
+              href={`https://etherscan.io/address/${investment.providerAddress}`}>
+              Click To Review The Contract
+            </a>
             <Spacer/>
             <ButtonContainer>
               <Col span={11}>
@@ -232,7 +247,6 @@ const ValueETH = styled.div`
   margin: 0;
   padding: 0;
   text-align: center;
-  padding-bottom: ${(props) => props.theme.spacing[6]}px;
 `
 
 const ButtonContainer = styled(Row)`
@@ -307,5 +321,16 @@ const StyledDivider = styled(Divider)`
   margin-top: 12px;
   margin-bottom:  7px;
 `
+
+const StyleSubTitle = styled.div`
+  color: #aa9585;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  padding-bottom: ${(props) => props.theme.spacing[6]}px;
+`
+
 
 export default InvestmentCards

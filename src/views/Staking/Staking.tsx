@@ -21,6 +21,9 @@ import useBlock from "../../hooks/useBlock";
 import useModal from "../../hooks/useModal";
 import WalletProviderModal from "../../components/WalletProviderModal";
 
+// 0928 21:00 GMT+8
+const stakingStartTime = (new Date(Date.UTC(2020, 8, 28 ,13, 0, 0))).getTime();
+const timeADay = 86400000;
 const Staking: React.FC = () => {
   const yam = useYam();
   const block = useBlock();
@@ -61,6 +64,8 @@ const Staking: React.FC = () => {
     block
   >Unlock Wallet</Button>;
 
+  const apyTimePivot = (Date.now() - stakingStartTime) / timeADay;
+
   return (
     <>
       <PageHeader
@@ -76,6 +81,9 @@ const Staking: React.FC = () => {
         </a>
         <div>{getBalanceNumber(sashimiBalanceOfSashimiBar).toFixed(2)} Sashimi in the whole pool.</div>
         <div>{getBalanceNumber(xSashimiBalanceOfSashimiBar).toFixed(2)} xSashimi in the whole pool.</div>
+        <div>APY {sashimiBalanceOfSashimiBar.isEqualTo(0) ? '-'
+          : sashimiBalanceOfSashimiBar.minus(xSashimiBalanceOfSashimiBar).div(xSashimiBalanceOfSashimiBar)
+          .div(apyTimePivot).times(365 * 100).toFixed(2) } %</div>
       </StyleSubTitle>
       <StyledFarm>
         <StyledCardsWrapper>

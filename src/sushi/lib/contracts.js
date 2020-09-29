@@ -49,6 +49,7 @@ export class Contracts {
       Object.assign(pool, {
         lpAddress: pool.lpAddresses[networkId],
         depositAddress: pool.depositAddresses[networkId],
+        providerAddress: pool.providerAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
         pivotLpAddress: pool.pivotLpAddresses[networkId],
         pivotLpContract: new this.web3.eth.Contract(UNIV2PairAbi),
