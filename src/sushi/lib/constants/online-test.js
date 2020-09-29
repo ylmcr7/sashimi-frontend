@@ -7,6 +7,10 @@ export const contractAddresses = {
     42: '0xfaC2681cB05Ba08De504e7FDBc2186B22d868f2A',
     1: '0xDbAc04dE5ec2C3F9f404C2CA6aC56ab0C731E640', // staging
   },
+  sashimiRouter: {
+    42: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410',
+    1: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410'
+  },
   investment: {
     42: '0x46641A3aA421beA0207Ead6d807c847a2f599943',
     1: '0x8E6F2ADC3Df8F885CF2e06da6aeb4c80411d7C53' // staging

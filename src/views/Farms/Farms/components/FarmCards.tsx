@@ -28,7 +28,10 @@ import useAllStakedValue, {
 } from '../../../../hooks/useAllStakedValue'
 
 import {BASIC_TOKEN} from '../../../../constants/config';
-import {notETHPairPools, unStakeOnlyPools, hiddenPools, doublePools} from '../../../../sushi/lib/constants';
+import {
+  notETHPairPools, unStakeOnlyPools, hiddenPools, doublePools,
+  waitingInfo
+} from '../../../../sushi/lib/constants';
 import sashimiLog from '../../../../assets/img/logo_sashimi.png';
 
 interface FarmWithStakedValue extends Farm, StakedValue {
@@ -56,9 +59,10 @@ const StyledLogo = styled.img`
 `
 
 let burnPoolPercent: BigNumber = new BigNumber(0);
-const waitingPool = [25];
-
-const startTime = 1600536810000;
+const {
+  waitingPool,
+  startTime
+} = waitingInfo;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const {account} = useWallet()

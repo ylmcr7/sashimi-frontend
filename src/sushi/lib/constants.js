@@ -19,6 +19,7 @@ export const {
   doublePools,
   unStakeOnlyDoublePools,
   supportedPools,
+  waitingInfo
 } = {
   ...output[CHAIN_ENV]
 };

@@ -16,13 +16,19 @@ import Spacer from '../../../components/Spacer'
 import useYam from '../../../hooks/useYam'
 import BigNumber from 'bignumber.js'
 
-import { getInvestmentContract, getSushiContract, getInvestments } from '../../../sushi/utils';
+import {
+  getInvestmentContract,
+  getSushiContract,
+  getInvestments,
+  getSashimiRouterAddress
+} from '../../../sushi/utils';
 
 import {getBalanceNumber} from "../../../utils/formatBalance";
 import {Yam} from "../../../sushi";
 import {Contract} from "web3-eth-contract";
 import {useWallet} from "use-wallet";
 import {useInvestmentAPYs} from "../../../hooks/useInvestmentAPYs";
+import {getBalance} from "../../../utils/erc20";
 
 interface Investment {
   name: string
@@ -118,7 +124,9 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [reservesRatio, setReservesRatio] = useState('-');
   const [depositAmount, setDepositAmount] = useState(new BigNumber(0));
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
+  const [actualFundUsed, setActualFundUsed] = useState('-%');
   const investmentAPYs = useInvestmentAPYs();
+  const { ethereum }: { ethereum: any } = useWallet()
   const apyInfo = investmentAPYs.find(apyInfo => {
     const key = apyInfo.key.toUpperCase();
     if (key.includes(investment.tokenSymbol.toUpperCase()) && key.includes(investment.depositTokenSymbol.toUpperCase())) {
@@ -133,13 +141,19 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           const result = await investmentContract.methods.earned(investment.depositAddress).call();
           const reservesPoints = await investmentContract.methods.reservesRatios(investment.depositAddress).call();
           const depositAmount = await investmentContract.methods.deposits(investment.depositAddress).call();
+          const depositAmountBN = new BigNumber(depositAmount);
 
           const {amount} = result; // profit is token address;
           const profit = new BigNumber(amount);
           setReservesRatio(`${reservesPoints / 100}%`);
-          setDepositAmount(new BigNumber(depositAmount));
+          setDepositAmount(depositAmountBN);
 
-          // sashimiContract.methods
+          const depositTokenBalanceInRouter = await getBalance(ethereum, investment.depositAddress, getSashimiRouterAddress(yam));
+          const depositTokenBalanceInRouterBN = new BigNumber(depositTokenBalanceInRouter);
+          const actualFundPoolBN = depositTokenBalanceInRouterBN.plus(depositAmountBN);
+          const actualFundUsed = `${(new BigNumber(100)).minus(depositAmountBN.div(actualFundPoolBN).times(100)).toFixed(2)}%`;
+          setActualFundUsed(actualFundUsed);
+
           const lpInfo = await investment.lpContract.methods.getReserves().call();
           const sashimiBalance = new BigNumber(lpInfo[investment.sashimiIndex]);
           const lpEthTokenBalance = new BigNumber(lpInfo[1 - investment.sashimiIndex]);
@@ -149,7 +163,6 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]);
           const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]);
           const pivotTokenPrice = pivotEthTokenBalance.div(profitTokenBalance);
-          // console.log('pivotLPInfo, lpInfo:', sashimiETHPrice.toNumber(), pivotTokenPrice.toNumber(), amount);
 
           const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice);
           setProfitSashimiValued(sashimiValued);
@@ -222,11 +235,18 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             </StyledInsight>
 
             <StyledInsight>
-              <span>Reserves Ratio</span>
+              <span>Basic Reserves Ratio</span>
               <span>
                 {reservesRatio}
               </span>
             </StyledInsight>
+            <StyledInsight>
+              <span>Actual Reserves Ratio</span>
+              <span>
+                {actualFundUsed}
+              </span>
+            </StyledInsight>
+
             <StyledInsight>
               <span>APY</span>
               <span>

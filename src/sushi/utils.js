@@ -23,6 +23,11 @@ export const getMasterChefAddress = (sushi) => {
 export const getSushiAddress = (sushi) => {
   return sushi && sushi.sushiAddress
 }
+
+export const getSashimiRouterAddress = (sushi) => {
+  return sushi && sushi.sashimiRouterAddress
+}
+
 export const getWethContract = (sushi) => {
   return sushi && sushi.contracts && sushi.contracts.weth
 }

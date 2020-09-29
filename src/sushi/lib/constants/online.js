@@ -166,6 +166,73 @@ const xLPSupportedPools = [
   },
 ];
 
+export const waitingInfo = {
+  waitingPool: [30, 31, 32, 33],
+  startTime: 1601393400000
+};
+const newNormalPools = [
+  {
+    pid: 30,
+    lpAddresses: {
+      42: '0x96559937e9c4475160CA040b16cDA93E3EfBD75A',
+      1: '0x96559937e9c4475160CA040b16cDA93E3EfBD75A',
+    },
+    tokenAddresses: {
+      42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'GAT love SASHIMI!',
+    symbol: 'GAT-SASHIMI SALP LP',
+    tokenSymbol: 'GAT',
+    icon: '🍭',
+  },
+  {
+    pid: 31,
+    lpAddresses: {
+      42: '0xd16d65266A65F6b149dE2849a1a36fe54693aD48',
+      1: '0xd16d65266A65F6b149dE2849a1a36fe54693aD48',
+    },
+    tokenAddresses: {
+      42: '0x687174f8c49ceb7729d925c3a961507ea4ac7b28',
+      1: '0x687174f8c49ceb7729d925c3a961507ea4ac7b28',
+    },
+    name: 'Global Awards Token!',
+    symbol: 'GAT-ETH SALP LP',
+    tokenSymbol: 'GAT',
+    icon: '🍯',
+  },
+  {
+    pid: 32,
+    lpAddresses: {
+      42: '0xC57D7265f0e5239afe37c4167acF027747efD752',
+      1: '0xC57D7265f0e5239afe37c4167acF027747efD752',
+    },
+    tokenAddresses: {
+      42: '0x6f259637dcd74c767781e37bc6133cd6a68aa161',
+      1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161',
+    },
+    name: 'Huobi Token!',
+    symbol: 'HT-ETH SALP LP',
+    tokenSymbol: 'HT',
+    icon: '🥜',
+  },
+  {
+    pid: 33,
+    lpAddresses: {
+      42: '0xE24b430952bdB793B0E6753D14C4FEC9B8A41813',
+      1: '0xE24b430952bdB793B0E6753D14C4FEC9B8A41813',
+    },
+    tokenAddresses: {
+      42: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+      1: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+    },
+    name: 'Uniswap!',
+    symbol: 'UNI-ETH SALP LP',
+    tokenSymbol: 'UNI',
+    icon: '🦄',
+  },
+];
+
 // 0928 Normal Farm -> SASHIMI LP
 export const supportedPools = [
   ...xLPSupportedPools,
@@ -185,7 +252,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
-
+  ...newNormalPools,
   // 0917
   {
     pid: 22,
