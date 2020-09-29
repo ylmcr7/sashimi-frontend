@@ -65,6 +65,7 @@ const Staking: React.FC = () => {
   >Unlock Wallet</Button>;
 
   const apyTimePivot = (Date.now() - stakingStartTime) / timeADay;
+  const exchangeratio = sashimiBalanceOfSashimiBar.div(xSashimiBalanceOfSashimiBar);
 
   return (
     <>
@@ -81,9 +82,14 @@ const Staking: React.FC = () => {
         </a>
         <div>{getBalanceNumber(sashimiBalanceOfSashimiBar).toFixed(2)} Sashimi in the whole pool.</div>
         <div>{getBalanceNumber(xSashimiBalanceOfSashimiBar).toFixed(2)} xSashimi in the whole pool.</div>
-        <div>APY {sashimiBalanceOfSashimiBar.isEqualTo(0) ? '-'
+        <div>
+          <div>APY {sashimiBalanceOfSashimiBar.isEqualTo(0) ? '-'
           : sashimiBalanceOfSashimiBar.minus(xSashimiBalanceOfSashimiBar).div(xSashimiBalanceOfSashimiBar)
-          .div(apyTimePivot).times(365 * 100).toFixed(2) } %</div>
+              .div(apyTimePivot).times(365 * 100).toFixed(2) } %</div>
+          <div>
+             1 xSashimi = {exchangeratio.isNaN() ? '-' : exchangeratio.toFixed(3)} Sashimi
+          </div>
+        </div>
       </StyleSubTitle>
       <StyledFarm>
         <StyledCardsWrapper>
@@ -91,6 +97,7 @@ const Staking: React.FC = () => {
             <Harvest
               walletLocked={walletLocked}
               sashimiBarContract={sashimiBarContract}
+              exchangeratio={exchangeratio}
             />
           </StyledCardWrapper>
           <Spacer />

@@ -5,6 +5,8 @@ import {
 } from 'antd';
 
 import { Contract } from 'web3-eth-contract'
+import { BigNumber } from 'bignumber.js';
+
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
@@ -24,10 +26,14 @@ import useLeave from "../../../hooks/sashimiBar/useLeave";
 interface HarvestProps {
   sashimiBarContract: Contract
   walletLocked: React.ReactElement
+  exchangeratio: BigNumber
   isStart?: boolean
 }
 
-const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked, isStart= true}) => {
+const Harvest: React.FC<HarvestProps> = (
+  {
+    sashimiBarContract, walletLocked, exchangeratio, isStart= true
+  }) => {
 
   const { account } = useWallet();
   const { onLeave } = useLeave(sashimiBarContract);
@@ -42,7 +48,7 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked, isSt
         }
         await onLeave(amount, 18);
       }}
-      tokenName={'SASHIMI'}
+      tokenName={'xSASHIMI'}
       modalTitle={'Convert xSASHIMI to SASHIMI'}
     />,
   )
@@ -67,6 +73,7 @@ const Harvest: React.FC<HarvestProps> = ({sashimiBarContract, walletLocked, isSt
             </CardIcon>
             <Value value={getBalanceNumber(tokenBalance)} />
             <Label text="xSASHIMI(Sashimi Bar) Available" />
+            <Label text={account && `Equal To: ${getBalanceNumber(tokenBalance.times(exchangeratio)).toFixed(3)} SASHIMI`}/>
           </StyledCardHeader>
           <StyledCardActions>
             { account ? covertButton : walletLocked}
