@@ -172,10 +172,11 @@ interface FarmCardProps {
 const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const {hours, minutes, seconds} = countdownProps
+    const {hours, minutes, seconds, days} = countdownProps;
+    const hoursTemp = hours + days * 24;
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
+    const paddedHours = hoursTemp < 10 ? `0${hoursTemp}` : hoursTemp
     return (
       <span style={{width: '100%'}}>
         {paddedHours}:{paddedMinutes}:{paddedSeconds}

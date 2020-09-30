@@ -184,11 +184,11 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           <StyledContent>
             <CardIcon>{investment.icon}</CardIcon>
             <StyledTitle>Invest {investment.depositTokenSymbol.toUpperCase()}</StyledTitle>
-            <a
+            { investment.providerAddress ? <a
               target="_blank"
               href={`https://etherscan.io/address/${investment.providerAddress}`}>
               Click To Review The Contract
-            </a>
+            </a> : <StyledComing>Coming Soon</StyledComing>}
             <Spacer/>
             <ButtonContainer>
               <Col span={11}>
@@ -196,6 +196,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                   size="large"
                   type="primary"
                   block
+                  disabled={profitSashimiValued.isEqualTo(0)}
                   onClick={async () => {
                     if (investmentContract) {
                       investmentContract.methods.harvest(investment.depositAddress).send({from: account});
@@ -210,6 +211,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                   size="large"
                   type="primary"
                   block
+                  disabled={profitSashimiValued.isEqualTo(0)}
                   onClick={async () => {
                     if (investmentContract) {
                       investmentContract.methods.reBalance(investment.depositAddress).send({from: account});
@@ -335,6 +337,10 @@ const StyledInsight = styled.div`
   font-size: 14px;
   text-align: center;
   padding: 0 12px;
+`
+
+const StyledComing = styled.div`
+  color: ${(props) => props.theme.color.grey[400]};
 `
 
 const StyledDivider = styled(Divider)`

@@ -52,7 +52,9 @@ export const supportedInvestmentPools = [
   {
     lpAddresses: {
       42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
-      1: '0xaf46c4cf1cb2a669ce2f7bc1e7a53f0da8c7c574', // HT-SASHIMI
+      // 1: '0xaf46c4cf1cb2a669ce2f7bc1e7a53f0da8c7c574', // HT-SASHIMI UNI LP
+      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI UNI LP
+      // 1: '0xceea282be8da0f3f4b2bc57bfd89f4b7dd4454b1', // HT-SASHIMI SALP
     },
     pivotLpAddresses: {
       42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
@@ -71,18 +73,51 @@ export const supportedInvestmentPools = [
     icon: '👝',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
+  },
+  {
+    lpAddresses: {
+      42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
+      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI UNI LP
+    },
+    pivotLpAddresses: {
+      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+      1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+    },
+    depositAddresses: {
+      42: '0x6b175474e89094c44da98b954eedeac495271d0f',
+      1: '0x6b175474e89094c44da98b954eedeac495271d0f' // DAI
+    },
+    // TODO: waiting contract deploy
+    providerAddresses: {
+      // 42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
+      // 1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
+      42: '',
+      1: ''
+    },
+    depositTokenSymbol: 'DAI',
+    tokenSymbol: 'GOF', // GOLFF // The token you get
+    icon: '🧳',
+    sashimiIndex: 1,
+    pivotTokenIndex: 0,
   }
+
 ];
 // These pools get 0 point; [type pid]
-export const unStakeOnlyPools = [0, 1, 2, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
+export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
 // If is xxx-Sashimi Pool; [type pid]
 // Support sashimi pair only. Used in FarmCards.tsx
-export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24];
+export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24, 30];
 
 export const hiddenPools = [101];
 
 export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
+
+export const waitingInfo = {
+  waitingPool: [2, 34],
+  // startTime: 1601479800000
+  startTime: 1601559000000
+};
 
 // 0928 UNI LP
 const xLPSupportedPools = [
@@ -166,10 +201,39 @@ const xLPSupportedPools = [
   },
 ];
 
-export const waitingInfo = {
-  waitingPool: [30, 31, 32, 33],
-  startTime: 1601393400000
-};
+const newNormalPool0939 = [
+  {
+    pid: 34,
+    lpAddresses: {
+      42: '0x001e091D98aC592a13Bf2eF4e727044E9824C1f5',
+      1: '0x001e091D98aC592a13Bf2eF4e727044E9824C1f5',
+    },
+    tokenAddresses: {
+      42: '0x88ef27e69108b2633f8e1c184cc37940a075cc02',
+      1: '0x88ef27e69108b2633f8e1c184cc37940a075cc02',
+    },
+    name: 'LEGO in the DeFi!',
+    symbol: 'DEGO-ETH SALP LP',
+    tokenSymbol: 'DEGO',
+    icon: '🧑‍🦱',
+  },
+  {
+    pid: 2,
+    lpAddresses: {
+      42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
+      1: '0x51214310ac356b26df2a9caf3895398e533c4fa9',
+    },
+    tokenAddresses: {
+      42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
+      1: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    },
+    name: 'Donald DAI',
+    symbol: 'DAI-ETH SALP LP',
+    tokenSymbol: 'DAI',
+    icon: '🦆',
+  },
+];
+
 const newNormalPools = [
   {
     pid: 30,
@@ -230,7 +294,7 @@ const newNormalPools = [
     symbol: 'UNI-ETH SALP LP',
     tokenSymbol: 'UNISWAP',
     icon: '🦄',
-  },
+  }
 ];
 
 // 0928 Normal Farm -> SASHIMI LP
@@ -252,6 +316,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newNormalPool0939,
   ...newNormalPools,
   // 0917
   {
@@ -548,21 +613,6 @@ export const supportedPools = [
     symbol: 'USDC-ETH SALP LP',
     tokenSymbol: 'USDC',
     icon: '🐌',
-  },
-  {
-    pid: 2,
-    lpAddresses: {
-      42: '0xb21f5d46e1756cfeb34496636d38f97dc8552415',
-      1: '0x51214310ac356b26df2a9caf3895398e533c4fa9',
-    },
-    tokenAddresses: {
-      42: '0xf2c73AF42FbAC096FE8F591899C5fc8bCB13884B',
-      1: '0x6b175474e89094c44da98b954eedeac495271d0f',
-    },
-    name: 'Donald DAI',
-    symbol: 'DAI-ETH SALP LP',
-    tokenSymbol: 'DAI',
-    icon: '🦆',
   },
   {
     pid: 3,

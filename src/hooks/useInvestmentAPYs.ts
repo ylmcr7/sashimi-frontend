@@ -30,7 +30,7 @@ export const useInvestmentAPYs = () => {
   const fetchAPY = useCallback(async () => {
     if (block % 6 === 0) {
       try {
-        const result: any = await axios.get('/api/invest/getAPY');
+        const result: any = await axios.get('/api/farms/getInvestmentAPY');
         setInvestmentAPYs(result.data.data);
       } catch(e) {
         console.log('fetchAPY error: ', e);
