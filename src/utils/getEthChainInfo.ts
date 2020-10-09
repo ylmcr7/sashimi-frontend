@@ -14,6 +14,12 @@ const CHAIN_ENV_MAP: any = {
     ethscanType: '',
     stakingPool: '0x1DaeD74ed1dD7C9Dabbe51361ac90A69d851234D'
   },
+  'online-test': {
+    chainId: 1,
+    rpcUrl: 'https://mainnet.eth.aragon.network/',
+    ethscanType: '',
+    stakingPool: '0x1DaeD74ed1dD7C9Dabbe51361ac90A69d851234D'
+  },
   kovan: {
     chainId: 42,
     rpcUrl: 'https://kovan.infura.io/',

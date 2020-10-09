@@ -6,12 +6,12 @@ import Logo from '../Logo'
 
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
+import Spacer from "../Spacer";
 
 interface TopBarProps {
-  onPresentMobileMenu: () => void
 }
 
-const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
+const TopBar: React.FC<TopBarProps> = () => {
   return (
     <StyledTopBar>
       <StyledContainer size="lg">
@@ -19,10 +19,13 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           <StyledLogoWrapper>
             <Logo />
           </StyledLogoWrapper>
-          <Nav />
-          <StyledAccountButtonWrapper>
-            <AccountButton />
-          </StyledAccountButtonWrapper>
+          <StyledMobileWrapper>
+            <Nav />
+            <Spacer />
+            <StyledAccountButtonWrapper>
+              <AccountButton />
+            </StyledAccountButtonWrapper>
+          </StyledMobileWrapper>
         </StyledTopBarInner>
       </StyledContainer>
     </StyledTopBar>
@@ -33,6 +36,15 @@ const StyledLogoWrapper = styled.div`
   width: 260px;
   @media (max-width: 414px) {
     width: auto;
+  }
+`
+
+const StyledMobileWrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  @media (max-width: 576px) {
+    flex-flow: row-reverse nowrap;
   }
 `
 

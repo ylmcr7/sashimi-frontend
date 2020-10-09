@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React from 'react'
 import {
   Button,
   Divider,
@@ -11,29 +11,28 @@ import {
 import styled, {keyframes} from 'styled-components'
 import Countdown, {CountdownRenderProps} from 'react-countdown'
 import {useWallet} from 'use-wallet'
-import numeral from 'numeral'
 
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import Loader from '../../../components/Loader'
-import Spacer from '../../../components/Spacer'
+import Card from '../../../../components/Card'
+import CardContent from '../../../../components/CardContent'
+import CardIcon from '../../../../components/CardIcon'
+import Loader from '../../../../components/Loader'
+import Spacer from '../../../../components/Spacer'
 
-import useFarms from '../../../hooks/useFarms'
-import useYam from '../../../hooks/useYam'
+import useFarms from '../../../../hooks/useFarms'
 import BigNumber from 'bignumber.js'
 
-import {Farm} from '../../../contexts/Farms'
+import {Farm} from '../../../../contexts/Farms'
 
-import {bnToDec} from '../../../utils'
-import {getEarned, getMasterChefContract} from '../../../sushi/utils'
 import useAllStakedValue, {
   StakedValue,
-} from '../../../hooks/useAllStakedValue'
+} from '../../../../hooks/useAllStakedValue'
 
-import {BASIC_TOKEN} from '../../../constants/config';
-import {notETHPairPools, unStakeOnlyPools} from '../../../sushi/lib/constants';
-import uni from '../../../assets/img/logo_uniswap.png';
+import {BASIC_TOKEN} from '../../../../constants/config';
+import {
+  notETHPairPools, unStakeOnlyPools, hiddenPools, doublePools,
+  waitingInfo
+} from '../../../../sushi/lib/constants';
+import sashimiLog from '../../../../assets/img/logo_sashimi.png';
 
 interface FarmWithStakedValue extends Farm, StakedValue {
   apy: BigNumber,
@@ -41,8 +40,8 @@ interface FarmWithStakedValue extends Farm, StakedValue {
   totalAllocPoint: BigNumber
 }
 
-const UniLogo = () => (
-  <StyledLogo src={uni} />
+const SashimiLogo = () => (
+  <StyledLogo src={sashimiLog} />
 )
 
 function setFarmRows(farmRows: FarmWithStakedValue[][], rowsValue: FarmWithStakedValue): void {
@@ -60,9 +59,10 @@ const StyledLogo = styled.img`
 `
 
 let burnPoolPercent: BigNumber = new BigNumber(0);
-const waitingPool = [25];
-
-const startTime = 1600536810000;
+const {
+  waitingPool,
+  startTime
+} = waitingInfo;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const {account} = useWallet()
@@ -78,7 +78,7 @@ const FarmCards: React.FC = () => {
       : new BigNumber(0)
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
-  const SASHIMI_PER_BLOCK = new BigNumber(1000)
+  const SASHIMI_PER_BLOCK = new BigNumber(100)
 
   let ethValueInSashimiNoWeight = new BigNumber(0);
   const unStakeOnlyPoolsRows: FarmWithStakedValue[][] = [[]];
@@ -90,6 +90,11 @@ const FarmCards: React.FC = () => {
         if (stakedValue[i] && !stakedValue[i].totalAllocPoint.isEqualTo(0)) {
           burnPoolPercent = stakedValue[i].allocPoint.div(stakedValue[i].totalAllocPoint);
         }
+        return newFarmRows;
+      }
+
+      // No hidden Pool
+      if (hiddenPools.includes(farm.pid) || doublePools.includes(farm.pid)) {
         return newFarmRows;
       }
 
@@ -141,7 +146,7 @@ const FarmCards: React.FC = () => {
 
   return (
     <StyledCards>
-      <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2)} WETH valued assets are making Sashimi</ValueETH>
+      <ValueETH>&nbsp;</ValueETH>
       {!!rows[0].length ? rows.map((farmRow, i) => getStyleRow(farmRow, i, false))
       : (
         <StyledLoadingWrapper>
@@ -167,10 +172,11 @@ interface FarmCardProps {
 const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const {hours, minutes, seconds} = countdownProps
+    const {hours, minutes, seconds, days} = countdownProps;
+    const hoursTemp = hours + days * 24;
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
+    const paddedHours = hoursTemp < 10 ? `0${hoursTemp}` : hoursTemp
     return (
       <span style={{width: '100%'}}>
         {paddedHours}:{paddedMinutes}:{paddedSeconds}
@@ -233,11 +239,11 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
                 <Button
                   size="large"
                   type="primary"
-                  href={`https://uniswap.info/pair/${farm.lpTokenAddress}`}
+                  href={`https://info.sashimi.cool/pair/${farm.lpTokenAddress}`}
                   target="_blank"
                   block
                 >
-                  <UniLogo /> GET LP
+                  <SashimiLogo /> GET LP
                 </Button>
               </Col>
             </ButtonContainer>

@@ -3,6 +3,7 @@ import { Contract } from 'web3-eth-contract'
 import ERC20Abi from './lib/abi/erc20.json'
 
 import BigNumber from 'bignumber.js'
+import UNIV2PairAbi from './lib/abi/uni_v2_lp';
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -22,6 +23,11 @@ export const getMasterChefAddress = (sushi) => {
 export const getSushiAddress = (sushi) => {
   return sushi && sushi.sushiAddress
 }
+
+export const getSashimiRouterAddress = (sushi) => {
+  return sushi && sushi.sashimiRouterAddress
+}
+
 export const getWethContract = (sushi) => {
   return sushi && sushi.contracts && sushi.contracts.weth
 }
@@ -31,6 +37,18 @@ export const getMasterChefContract = (sushi) => {
 }
 export const getSushiContract = (sushi) => {
   return sushi && sushi.contracts && sushi.contracts.sushi
+}
+
+export const getSashimiBarContract = (sushi) => {
+  return sushi && sushi.contracts && sushi.contracts.sashimiBar
+}
+
+export const getInvestmentContract = (sushi) => {
+  return sushi && sushi.contracts && sushi.contracts.investment
+}
+
+export const getSashimiRouterContract = sushi => {
+  return sushi && sushi.contracts && sushi.contracts.sashimiRouter
 }
 
 export const getFarms = (sushi) => {
@@ -46,6 +64,8 @@ export const getFarms = (sushi) => {
           tokenContract,
           lpAddress,
           lpContract,
+          lpBarAddress,
+          lpBarContract
         }) => ({
           pid,
           id: symbol,
@@ -56,12 +76,57 @@ export const getFarms = (sushi) => {
           tokenAddress,
           tokenSymbol,
           tokenContract,
-          // earnToken: 'sushi',
+          lpBarAddress,
+          lpBarContract,
           earnToken: 'sashimi',
           earnTokenAddress: sushi.contracts.sushi.options.address,
           icon,
         }),
       )
+    : []
+}
+
+export const getInvestments = (sushi) => {
+  return sushi
+    ? sushi.contracts.investmentPools.map(
+      ({
+         name,
+         symbol,
+         icon,
+         tokenAddress,
+         tokenSymbol,
+         tokenContract,
+         lpAddress,
+         lpContract,
+         pivotLpAddress,
+         pivotLpContract,
+         depositAddress,
+         depositTokenSymbol,
+         sashimiIndex,
+         pivotTokenIndex,
+         providerAddress,
+       }) => ({
+        id: symbol,
+        name,
+        lpToken: symbol,
+        lpTokenAddress: lpAddress,
+        pivotLpAddress,
+        pivotLpContract,
+        lpContract,
+        tokenAddress,
+        tokenSymbol,
+        tokenContract,
+        depositAddress,
+        depositTokenSymbol,
+        sashimiIndex,
+        pivotTokenIndex,
+        providerAddress,
+        // earnToken: 'sushi',
+        earnToken: 'sashimi',
+        earnTokenAddress: sushi.contracts.sushi.options.address,
+        icon,
+      }),
+    )
     : []
 }
 
@@ -89,28 +154,50 @@ export const getEarned = async (masterChefContract, pid, account) => {
   return masterChefContract.methods.pendingSashimi(pid, account).call();
 }
 
+// TODO: 1. If we use xxxSwap not fork from uniswap, we need new methods to get value.
 export const getTotalLPWethValue = async (
   masterChefContract,
   wethContract,
   lpContract,
   tokenContract,
   pid,
+  lpBarContract, // not required
+  routerContract,  // not required
 ) => {
   // Get balance of the token address
-  const tokenAmountWholeLP = await tokenContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
+  let tokenAmountWholeLP;
+  let lpContractWeth;
+  if (routerContract) {
+    tokenAmountWholeLP = await routerContract.methods
+      .getTokenInPair(
+        lpContract.options.address,
+        tokenContract.options.address
+        ).call()
+    // Get total weth value for the lpContract = w1
+    lpContractWeth = await routerContract.methods
+      .getTokenInPair(
+        lpContract.options.address,
+        wethContract.options.address
+      ).call()
+  } else {
+    tokenAmountWholeLP = await tokenContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+    lpContractWeth = await wethContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+  }
+  // const tokenAmountWholeLP = await tokenContract.methods
+  //   .balanceOf(lpContract.options.address)
+  //   .call()
   const tokenDecimals = await tokenContract.methods.decimals().call()
   // Get the share of lpContract that masterChefContract owns
-  const balance = await lpContract.methods
+  // When use LPBar insteadof LP, xLP:LP = 1:1;
+  const balance = await (lpBarContract || lpContract).methods
     .balanceOf(masterChefContract.options.address)
     .call()
   // Convert that into the portion of total lpContract = p1
   const totalSupply = await lpContract.methods.totalSupply().call()
-  // Get total weth value for the lpContract = w1
-  const lpContractWeth = await wethContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
   // Return p1 * w1 * 2
   const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
   const lpWethWorth = new BigNumber(lpContractWeth)
@@ -126,10 +213,11 @@ export const getTotalLPWethValue = async (
 
   const poolWeightInfo = await getPoolWeight(masterChefContract, pid);
   return {
+    portionLp,
     tokenAmount,
     wethAmount,
     totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
-    tokenPriceInWeth: wethAmount.div(tokenAmount),
+    tokenPriceInWeth: lpWethWorth.div(tokenAmountWholeLP),
     poolWeight: poolWeightInfo.poolWeight,
     allocPoint: poolWeightInfo.allocPoint,
     totalAllocPoint: poolWeightInfo.totalAllocPoint,

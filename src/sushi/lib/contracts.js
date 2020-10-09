@@ -1,10 +1,8 @@
-import BigNumber from 'bignumber.js/bignumber'
-// import Web3 from 'web3'
 import * as Types from './types.js'
 import {
-  // SUBTRACT_GAS_LIMIT,
   contractAddresses,
   supportedPools,
+  supportedInvestmentPools,
 } from './constants.js'
 
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
@@ -13,6 +11,10 @@ import SushiAbi from './abi/sushi.json'
 import MasterChefAbi from './abi/masterchef.json'
 import ERC20Abi from './abi/erc20.json'
 import WETHAbi from './abi/weth.json'
+import SashimiBarAbi from './abi/sashimiBar.json'
+import InvestmentAbi from './abi/investment.json'
+import LPBarAbi from './abi/LPBar';
+import SashimiRouterAbi from './abi/sashimiRouter';
 
 export class Contracts {
   constructor(provider, networkId, web3, options) {
@@ -27,6 +29,9 @@ export class Contracts {
     this.sushi = new this.web3.eth.Contract(SushiAbi)
     this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
     this.weth = new this.web3.eth.Contract(WETHAbi)
+    this.sashimiBar = new this.web3.eth.Contract(SashimiBarAbi)
+    this.investment = new this.web3.eth.Contract(InvestmentAbi)
+    this.sashimiRouter = new this.web3.eth.Contract(SashimiRouterAbi)
 
     this.pools = supportedPools.map((pool) =>
       Object.assign(pool, {
@@ -34,6 +39,20 @@ export class Contracts {
         tokenAddress: pool.tokenAddresses[networkId],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
         tokenContract: new this.web3.eth.Contract(ERC20Abi),
+        // In TS, use ?: Contract
+        lpBarAddress: pool.lpBarAddresses ? pool.lpBarAddresses[networkId] : '',
+        lpBarContract: pool.lpBarAddresses ? new this.web3.eth.Contract(LPBarAbi) : null,
+      }),
+    );
+
+    this.investmentPools = supportedInvestmentPools.map((pool) =>
+      Object.assign(pool, {
+        lpAddress: pool.lpAddresses[networkId],
+        depositAddress: pool.depositAddresses[networkId],
+        providerAddress: pool.providerAddresses[networkId],
+        lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
+        pivotLpAddress: pool.pivotLpAddresses[networkId],
+        pivotLpContract: new this.web3.eth.Contract(UNIV2PairAbi),
       }),
     )
 
@@ -51,11 +70,24 @@ export class Contracts {
     setProvider(this.sushi, contractAddresses.sushi[networkId])
     setProvider(this.masterChef, contractAddresses.masterChef[networkId])
     setProvider(this.weth, contractAddresses.weth[networkId])
+    setProvider(this.sashimiBar, contractAddresses.sashimiBar[networkId])
+    setProvider(this.investment, contractAddresses.investment[networkId])
+    setProvider(this.sashimiRouter, contractAddresses.sashimiRouter[networkId])
 
     this.pools.forEach(
-      ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
+      ({ lpContract, lpAddress, tokenContract, tokenAddress, lpBarAddress, lpBarContract }) => {
         setProvider(lpContract, lpAddress)
         setProvider(tokenContract, tokenAddress)
+        if (lpBarAddress && lpBarContract) {
+          setProvider(lpBarContract, lpBarAddress)
+        }
+      },
+    )
+
+    this.investmentPools.forEach(
+      ({ lpContract, lpAddress, pivotLpContract, pivotLpAddress}) => {
+        setProvider(lpContract, lpAddress);
+        setProvider(pivotLpContract, pivotLpAddress);
       },
     )
   }
@@ -63,6 +95,9 @@ export class Contracts {
   setDefaultAccount(account) {
     this.sushi.options.from = account
     this.masterChef.options.from = account
+    this.sashimiBar.options.from = account
+    this.investment.options.from = account
+    this.sashimiRouter.options.from = account
   }
 
   // async callContractFunction(method, options) {

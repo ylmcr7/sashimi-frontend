@@ -9,11 +9,11 @@ import { Contract } from 'web3-eth-contract'
 import { getAllowance } from '../utils/erc20'
 import { getMasterChefContract } from '../sushi/utils'
 
-const useAllowance = (lpContract: Contract) => {
+const useAllowance = (lpContract: Contract, targetContract?: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
   const { account }: { account: string; ethereum: provider } = useWallet()
   const yam = useYam()
-  const masterChefContract = getMasterChefContract(yam)
+  const masterChefContract = targetContract || getMasterChefContract(yam)
 
   const fetchAllowance = useCallback(async () => {
     const allowance = await getAllowance(

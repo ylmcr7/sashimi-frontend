@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import {
   Button
 } from 'antd';
@@ -13,13 +13,10 @@ import WalletProviderModal from '../../components/WalletProviderModal'
 
 import useModal from '../../hooks/useModal'
 
-import Farm from '../Farm'
-
-import FarmCards from './components/FarmCards'
+import InvestmentCards from './components/InvestmentCards'
 import styled from "styled-components";
 
-const Farms: React.FC = () => {
-  const { path } = useRouteMatch()
+const Investment: React.FC = () => {
   const { account } = useWallet()
   const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
   return (
@@ -27,17 +24,12 @@ const Farms: React.FC = () => {
       <Page>
         {!!account ? (
           <>
-            <Route exact path={path}>
-              <PageHeader
-                icon={<img src={chef} height="120" />}
-                subtitle="Earn SASHIMI tokens by staking Uniswap V2 LP Tokens."
-                title="Select Your Favorite Dishes"
-              />
-              <FarmCards />
-            </Route>
-            <Route path={`${path}/:farmId`}>
-              <Farm />
-            </Route>
+            <PageHeader
+              icon={<img src={chef} height="120" alt="sashimi" />}
+              subtitle="Earn extra SASHIMI tokens by Investment."
+              title="Some delicate snacks(Beta)"
+            />
+            <InvestmentCards />
           </>
         ) : (
           <StyledDiv>
@@ -63,4 +55,4 @@ const StyledDiv = styled.div`
   justify-content: center;
 `
 
-export default Farms
+export default Investment

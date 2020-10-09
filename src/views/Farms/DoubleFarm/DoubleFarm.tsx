@@ -5,25 +5,22 @@ import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
-import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
+import PageHeader from '../../../components/PageHeader'
+import Spacer from '../../../components/Spacer'
 
-import useYam from '../../hooks/useYam'
-import useFarm from '../../hooks/useFarm'
-import useRedeem from '../../hooks/useRedeem'
-import { getContract } from '../../utils/erc20'
-import { getMasterChefContract } from '../../sushi/utils'
+import useFarm from '../../../hooks/useFarm'
+import { getContract } from '../../../utils/erc20'
 
 import Harvest from './components/Harvest'
 import Stake from './components/Stake'
 
-const Farm: React.FC = () => {
+const DoubleFarm: React.FC = () => {
   const { farmId } = useParams()
   const {
     pid,
     lpToken,
     lpTokenAddress,
-    tokenAddress,
+    lpBarContract,
     earnToken,
     name,
     icon,
@@ -32,23 +29,21 @@ const Farm: React.FC = () => {
     lpToken: '',
     lpTokenAddress: '',
     tokenAddress: '',
+    lpBarAddress: '',
     earnToken: '',
     name: '',
     icon: '',
-  }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const yam = useYam()
   const { ethereum } = useWallet()
 
   const lpContract = useMemo(() => {
     return getContract(ethereum as provider, lpTokenAddress)
   }, [ethereum, lpTokenAddress])
-
-  const { onRedeem } = useRedeem(getMasterChefContract(yam))
 
   const lpTokenName = useMemo(() => {
     return lpToken.toUpperCase()
@@ -63,16 +58,22 @@ const Farm: React.FC = () => {
       <PageHeader
         icon={icon}
         subtitle={`Deposit ${lpTokenName}  Tokens and earn ${earnTokenName}`}
-        title={name}
+        title={`${name} (Beta)`}
       />
       <StyledFarm>
+        <h1>This project is in beta. Use at your own risk.
+          <a href={`https://etherscan.io/address/${lpBarContract && lpBarContract.options.address}`} target="_blank">Click to review Contract</a>
+        </h1>
         <StyledCardsWrapper>
           <StyledCardWrapper>
-            <Harvest pid={pid} />
+            <Harvest
+              pid={pid}
+              lpBarContract={lpBarContract}
+            />
           </StyledCardWrapper>
-          <Spacer />
           <StyledCardWrapper>
             <Stake
+              lpBarContract={lpBarContract}
               lpContract={lpContract}
               pid={pid}
               tokenName={lpToken.toUpperCase()}
@@ -102,6 +103,7 @@ const StyledFarm = styled.div`
 const StyledCardsWrapper = styled.div`
   display: flex;
   width: 600px;
+  justify-content: space-around;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
@@ -111,8 +113,8 @@ const StyledCardsWrapper = styled.div`
 
 const StyledCardWrapper = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
+  width: 48%;
   @media (max-width: 768px) {
     width: 80%;
   }
@@ -127,4 +129,4 @@ const StyledInfo = styled.h3`
   text-align: center;
 `
 
-export default Farm
+export default DoubleFarm

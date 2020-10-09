@@ -7,7 +7,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { UseWalletProvider } from 'use-wallet'
 
 import DisclaimerModal from './components/DisclaimerModal'
-import MobileMenu from './components/MobileMenu'
+import Mobile from './contexts/Mobile';
 import TopBar from './components/TopBar'
 import SashimiFooter from './components/Footer';
 
@@ -19,8 +19,12 @@ import TransactionProvider from './contexts/Transactions'
 import useModal from './hooks/useModal'
 
 import FAQ from './views/FAQ'
-import Farms from './views/Farms'
+import Farms from './views/Farms/Farms'
+import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
+import Staking from './views/Staking'
+import Investment from './views/Investment'
+import ComingSoon from './views/ComingSoon'
 
 import { getEthChainInfo } from './utils/getEthChainInfo'
 
@@ -34,25 +38,15 @@ const {
 } = Layout;
 
 const App: React.FC = () => {
-  const [mobileMenu, setMobileMenu] = useState(false)
-
-  const handleDismissMobileMenu = useCallback(() => {
-    setMobileMenu(false)
-  }, [setMobileMenu])
-
-  const handlePresentMobileMenu = useCallback(() => {
-    setMobileMenu(true)
-  }, [setMobileMenu])
 
   return (
     <Providers>
       <Router>
         <StyledLayout>
           <StyledHeader>
-            <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
+            <TopBar />
           </StyledHeader>
           <StyledContent>
-            <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
             <Switch>
               <Route path="/" exact>
                 <Home />
@@ -60,8 +54,23 @@ const App: React.FC = () => {
               <Route path="/farms">
                 <Farms />
               </Route>
+              <Route path="/double-farms">
+                <DoubleFarms />
+              </Route>
+              <Route path="/staking">
+                <Staking />
+              </Route>
+              <Route path="/investment">
+                <Investment />
+              </Route>
               <Route path="/faq">
                 <FAQ />
+              </Route>
+              <Route path="/exchanges">
+                <ComingSoon title={'Sashimi Swap'}/>
+              </Route>
+              <Route path="/vault">
+                <ComingSoon title={'Sashimi Vault'}/>
               </Route>
             </Switch>
           </StyledContent>
@@ -85,22 +94,24 @@ const Providers: React.FC = ({ children }) => {
   } = getEthChainInfo();
 
   return (
-    <ThemeProvider theme={theme}>
-      <UseWalletProvider
-        chainId={chainId}
-        connectors={{
-          walletconnect: { rpcUrl },
-        }}
-      >
-        <YamProvider>
-          <TransactionProvider>
-            <FarmsProvider>
-              <ModalsProvider>{children}</ModalsProvider>
-            </FarmsProvider>
-          </TransactionProvider>
-        </YamProvider>
-      </UseWalletProvider>
-    </ThemeProvider>
+    <Mobile>
+      <ThemeProvider theme={theme}>
+        <UseWalletProvider
+          chainId={chainId}
+          connectors={{
+            walletconnect: { rpcUrl },
+          }}
+        >
+          <YamProvider>
+            <TransactionProvider>
+              <FarmsProvider>
+                <ModalsProvider>{children}</ModalsProvider>
+              </FarmsProvider>
+            </TransactionProvider>
+          </YamProvider>
+        </UseWalletProvider>
+      </ThemeProvider>
+    </Mobile>
   )
 }
 
@@ -118,7 +129,7 @@ const Disclaimer: React.FC = () => {
     if (!seenDisclaimer) {
       onPresentDisclaimerModal()
     }
-  }, [])
+  }, [onPresentDisclaimerModal])
 
   return <div />
 }
@@ -132,6 +143,7 @@ const StyledContent = styled(Content)`
   margin: 24px auto;
   background-color: #ffffff;
   min-width: 1200px;
+  min-height: calc(100vh - 256px);
   @media (max-width: 1200px) {
     min-width: 968px;
   }
