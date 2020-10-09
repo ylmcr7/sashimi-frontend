@@ -31,7 +31,9 @@ export const useInvestmentAPYs = () => {
     if (block % 6 === 0) {
       try {
         const result: any = await axios.get('/api/farms/getInvestmentAPY');
-        setInvestmentAPYs(result.data.data);
+        if (result.data && result.data.data && Array.isArray(result.data.data)) {
+          setInvestmentAPYs(result.data && result.data.data);
+        }
       } catch(e) {
         console.log('fetchAPY error: ', e);
       }

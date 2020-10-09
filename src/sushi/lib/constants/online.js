@@ -91,8 +91,8 @@ export const supportedInvestmentPools = [
     providerAddresses: {
       // 42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
       // 1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
-      42: '',
-      1: ''
+      42: '0x65d34f76B6a34BAfE0E03877C3ce68F79B18c394',
+      1: '0x65d34f76B6a34BAfE0E03877C3ce68F79B18c394'
     },
     depositTokenSymbol: 'DAI',
     tokenSymbol: 'GOF', // GOLFF // The token you get
@@ -114,7 +114,7 @@ export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
 export const waitingInfo = {
-  waitingPool: [2, 34],
+  waitingPool: [34],
   // startTime: 1601479800000
   startTime: 1601559000000
 };
@@ -202,21 +202,6 @@ const xLPSupportedPools = [
 ];
 
 const newNormalPool0939 = [
-  {
-    pid: 34,
-    lpAddresses: {
-      42: '0x001e091D98aC592a13Bf2eF4e727044E9824C1f5',
-      1: '0x001e091D98aC592a13Bf2eF4e727044E9824C1f5',
-    },
-    tokenAddresses: {
-      42: '0x88ef27e69108b2633f8e1c184cc37940a075cc02',
-      1: '0x88ef27e69108b2633f8e1c184cc37940a075cc02',
-    },
-    name: 'LEGO in the DeFi!',
-    symbol: 'DEGO-ETH SALP LP',
-    tokenSymbol: 'DEGO',
-    icon: '🧑‍🦱',
-  },
   {
     pid: 2,
     lpAddresses: {
@@ -595,7 +580,7 @@ export const supportedPools = [
       1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
     },
     name: 'Tether Turtle',
-    symbol: 'USDT-ETH SALP LP',
+    symbol: 'ETH-USDT SALP LP',
     tokenSymbol: 'USDT',
     icon: '🐢',
   },

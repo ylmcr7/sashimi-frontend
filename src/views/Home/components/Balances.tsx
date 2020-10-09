@@ -145,7 +145,7 @@ const Balances: React.FC = () => {
             <Footnote>
               New rewards per block
               {/* TODO: Follow the plan */}
-              <FootnoteValue>100 SASHIMI</FootnoteValue>
+              <FootnoteValue>10 SASHIMI</FootnoteValue>
             </Footnote>
           </CardContent>
         </StyledCard>
