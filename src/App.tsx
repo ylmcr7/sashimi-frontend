@@ -24,6 +24,7 @@ import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
 import Staking from './views/Staking'
 import Investment from './views/Investment'
+import Vault from './views/Vault'
 import ComingSoon from './views/ComingSoon'
 
 import { getEthChainInfo } from './utils/getEthChainInfo'
@@ -70,7 +71,7 @@ const App: React.FC = () => {
                 <ComingSoon title={'Sashimi Swap'}/>
               </Route>
               <Route path="/vault">
-                <ComingSoon title={'Sashimi Vault'}/>
+                <Vault />
               </Route>
             </Switch>
           </StyledContent>
