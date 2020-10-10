@@ -79,8 +79,9 @@ const PendingRewards: React.FC = () => {
 }
 
 const Balances: React.FC = () => {
-  const [totalSupply, setTotalSupply] = useState<BigNumber>()
-  const [burnedSashimi, setBurnedSashimi] = useState<BigNumber>(new BigNumber(0))
+  const [totalSupply, setTotalSupply] = useState<BigNumber>();
+  const [burnedSashimi, setBurnedSashimi] = useState<BigNumber>(new BigNumber(0));
+  const [fishFeedBalance, setFishFeedBalance] = useState<BigNumber>(new BigNumber(0));
   const yam = useYam()
   const sushiBalance = useTokenBalance(getSushiAddress(yam))
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
@@ -90,14 +91,17 @@ const Balances: React.FC = () => {
       const [
         supply,
         stakedBalance,
-        burnedSashimi
+        burnedSashimi,
+        fishFeedBalance,
       ] = await Promise.all([
         getSushiSupply(yam),
         getBalance(ethereum, getSushiAddress(yam), stakingPool).then(res => new BigNumber(res)),
-        getBalance(ethereum, getSushiAddress(yam), '0x000000000000000000000000000000000000dead').then(res => new BigNumber(res))
+        getBalance(ethereum, getSushiAddress(yam), '0x000000000000000000000000000000000000dead').then(res => new BigNumber(res)),
+        getBalance(ethereum, getSushiAddress(yam), '0x84ee348617563944ffd4a23843e086a7dc0224f3').then(res => new BigNumber(res))
       ]);
       setTotalSupply(supply.minus(stakedBalance));
       setBurnedSashimi(new BigNumber(burnedSashimi));
+      setFishFeedBalance(new BigNumber(fishFeedBalance));
     }
     if (yam) {
       fetchTotalSupply()
@@ -110,8 +114,18 @@ const Balances: React.FC = () => {
   return (
     <>
       <TotalSupply>
-        {account && <div>Total Sashimi Supply: {(100000000 - getBalanceNumber(burnedSashimi)).toFixed(2).toLocaleString()}</div>}
-        {account && <div>Total Sashimi Burned: {getBalanceNumber(burnedSashimi).toFixed(2).toLocaleString()}</div>}
+        {account && <div>
+          Total Sashimi Supply: {(100000000 - getBalanceNumber(burnedSashimi)).toLocaleString('currency', {minimumFractionDigits: 2})}
+          <a href="https://etherscan.io/token/0xC28E27870558cF22ADD83540d2126da2e4b464c2" target="_blank"> Contract</a>
+        </div>}
+        {account && <div>
+          Total Sashimi Burned: {getBalanceNumber(burnedSashimi).toLocaleString('currency', {minimumFractionDigits: 2})}
+          <a href="https://etherscan.io/token/0xC28E27870558cF22ADD83540d2126da2e4b464c2?a=0x000000000000000000000000000000000000dead" target="_blank"> Burn Record</a>
+        </div>}
+        {account && <div>
+          Total Sashimi Treasury: {getBalanceNumber(fishFeedBalance).toLocaleString('currency', {minimumFractionDigits: 2})}
+          <a href="https://etherscan.io/address/0x84ee348617563944ffd4a23843e086a7dc0224f3#tokentxns" target="_blank"> Treasury Record</a>
+        </div>}
       </TotalSupply>
       <StyledWrapper>
         <StyledCard>
