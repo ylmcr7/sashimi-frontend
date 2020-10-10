@@ -1,74 +1,94 @@
-import React, {useMemo, useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import styled from 'styled-components'
-import { Row, Col, Slider, Input, Button, InputNumber } from 'antd';
 
-import { useWallet } from 'use-wallet'
-import { Contract } from 'web3-eth-contract'
 import chef from '../../assets/img/chef.png'
 
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 
-import useYam from '../../hooks/useYam'
-import {getSashimiBarContract} from '../../sushi/utils'
-
-import BigNumber from "bignumber.js";
-import useBlock from "../../hooks/useBlock";
-import useModal from "../../hooks/useModal";
-import WalletProviderModal from "../../components/WalletProviderModal";
 import CardContent from "../../components/CardContent";
 import Label from "../../components/Label";
 import Value from "../../components/Value";
-import {getBalanceNumber} from "../../utils/formatBalance";
 import Card from "../../components/Card";
-import {Link} from "react-router-dom";
 
 import TokenPanel from "./components/TokenPanel";
 
-import btcImg from '../../../src/assets/img/vault-coins/usdt.svg';
+import {vaults} from '../../sushi/lib/constants';
 
 import './Vault.less';
-import {UpOutlined, DownOutlined} from "@ant-design/icons/lib";
-// <DownOutlined />
+import {useVaultsAPY} from "../../hooks/vault/useVaultsAPY";
+import {useVaultsStableTokenPrice} from "../../hooks/vault/useVaultsStableTokenPrice";
+import {getVaultContract, getVaultTotalBalance, getVaultUserBalance} from "../../utils/vault";
+import {provider} from "web3-core";
+import {useWallet} from "use-wallet";
+import useBlock from "../../hooks/useBlock";
+import BigNumber from "bignumber.js";
 
-function formatter(value: any) {
-  return `${value}%`;
+
+const weiUnitDecimal = {
+  mwei: 6,
+  ether: 18
+};
+
+interface Vault {
+  tokenName: string,
+  vaultAddr: string,
+  stableCoinAddr: string,
+  wei: keyof typeof weiUnitDecimal,
 }
 
 const Vault: React.FC = () => {
-  const yam = useYam();
+
+  const vaultsAPY = useVaultsAPY();
+  const vaultsStableTokenPrice = useVaultsStableTokenPrice();
+  console.log('vaultsAPY: ', vaultsAPY, vaultsStableTokenPrice);
+
+  const {
+    account,
+    ethereum,
+  }: { account: string; ethereum: provider } = useWallet();
   const block = useBlock();
 
-  // const [setXSashimiBalanceOfSashimiBar] = useState(new BigNumber(0));
+  const [totalStableValue, setTotalStableValue] = useState(new BigNumber(0));
+  const [totalUserStableValue, setUserTotalStableValue] = useState(new BigNumber(0));
+  // TODO: refactor
+  // const [userStableValueList, setUserStableValueList] = useState([]);
 
-  const { ethereum } = useWallet();
-  const sashimiBarContract: Contract = useMemo(() => getSashimiBarContract(yam), [ethereum, yam]);
+  const fetchTotalStakingValue = useCallback(async () => {
+    console.log('stablesBalance 2222:', ethereum);
+    if (ethereum) {
+      const vaultsContract = vaults.map((vault: any) => getVaultContract(ethereum, vault.vaultAddr));
 
-  const getXSashimiBalanceOfSashimiBar = useCallback(() => {
-    if (sashimiBarContract) {
-      sashimiBarContract.methods.totalSupply().call().then((totalSupply: any) => {
-        // setXSashimiBalanceOfSashimiBar(new BigNumber(totalSupply));
-      }).catch((error: any) => {
-        console.log('error: ', error);
+      const stablesBalance = await Promise.all(vaultsContract.map((vaultContract: any) => {
+        return getVaultTotalBalance(vaultContract, account);
+      }));
+
+      // TODO: refactor
+      let totalStakingValue = new BigNumber(0);
+      vaults.forEach((vault: Vault, index: number) => {
+        const balance = (new BigNumber(stablesBalance[index] as string)).div(10 ** weiUnitDecimal[vault.wei]);
+        const unitDollarValue = new BigNumber(vaultsStableTokenPrice[vault.tokenName]);
+        totalStakingValue = totalStakingValue.plus(balance.times(unitDollarValue));
       });
+
+      const stablesUserBalance = await Promise.all(vaultsContract.map((vaultContract: any) => {
+        return getVaultUserBalance(vaultContract, account);
+      }));
+      let totalUserValue = new BigNumber(0);
+      vaults.forEach((vault: Vault, index: number) => {
+        const balance = (new BigNumber(stablesUserBalance[index] as string)).div(10 ** weiUnitDecimal[vault.wei]);
+        const unitDollarValue = new BigNumber(vaultsStableTokenPrice[vault.tokenName]);
+        totalUserValue = totalUserValue.plus(balance.times(unitDollarValue));
+      });
+
+      setTotalStableValue(totalStakingValue);
+      setUserTotalStableValue(totalUserValue);
     }
-  }, [sashimiBarContract, block]);
-
-  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />, 'provider');
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  }, [block, vaultsStableTokenPrice, ethereum]);
 
   useEffect(() => {
-    getXSashimiBalanceOfSashimiBar();
-  }, [getXSashimiBalanceOfSashimiBar]);
-
-  const walletLocked = <Button
-    onClick={onPresentWalletProviderModal}
-    type="primary"
-    size="large"
-    block
-  >Unlock Wallet</Button>;
+    fetchTotalStakingValue();
+  }, [fetchTotalStakingValue]);
 
   return (
     <>
@@ -85,14 +105,6 @@ const Vault: React.FC = () => {
         </a>
       </StyleSubTitle>
 
-      {/*<StyledVaultTitle>*/}
-      {/*  Staking Info*/}
-      {/*</StyledVaultTitle>*/}
-      {/*<Rowjustify="space-between">*/}
-      {/*  <Col span={11}></Col>*/}
-      {/*  <Col span={11}></Col>*/}
-      {/*</Row>*/}
-
       <StyledWrapper>
         <StyledCard>
           <CardContent>
@@ -101,7 +113,10 @@ const Vault: React.FC = () => {
                 <div style={{ flex: 1 }}>
                   <Label text="Total Staking Value" />
                   <Value
-                    value={`$${0}`}
+                    value={ethereum ? `$${totalStableValue.toNumber().toLocaleString('currency', {
+                      minimumFractionDigits: 4,
+                      maximumFractionDigits: 4,
+                    })}` : 'Unlock Wallet'}
                   />
                 </div>
               </StyledBalance>
@@ -118,7 +133,10 @@ const Vault: React.FC = () => {
                 <div style={{ flex: 1 }}>
                   <Label text="Your Staking Value" />
                   <Value
-                    value={`$${0}`}
+                    value={ethereum ? `$${totalUserStableValue.toNumber().toLocaleString('currency', {
+                      minimumFractionDigits: 4,
+                      maximumFractionDigits: 4,
+                    })}` : 'Unlock Wallet'}
                   />
                 </div>
               </StyledBalance>
@@ -129,7 +147,18 @@ const Vault: React.FC = () => {
 
       <div className="vault-blank"/>
       <div className="vault-blank"/>
-      <TokenPanel/>
+
+      {vaults.map((vault: any) =>
+        <TokenPanel
+          key={vault.tokenName}
+          tokenName={vault.tokenName}
+          vaultAddr={vault.vaultAddr}
+          stableCoinAddr={vault.stableCoinAddr}
+          weiUnit={vault.wei}
+          apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
+          tokenPrice={0.0}
+        />
+      )}
     </>
   )
 }

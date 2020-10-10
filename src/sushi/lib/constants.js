@@ -19,7 +19,11 @@ export const {
   doublePools,
   unStakeOnlyDoublePools,
   supportedPools,
-  waitingInfo
+  waitingInfo,
+  vaultController,
+  vaults,
+  vaultAPYAPI,
+  vaultStableTokenPriceAPI,
 } = {
   ...output[CHAIN_ENV]
 };

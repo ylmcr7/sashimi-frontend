@@ -692,3 +692,43 @@ export const supportedPools = [
     icon: '🔥',
   },
 ];
+
+// Vault
+// TODO: replace
+// NODE_ENV=development
+// VUE_APP_USDT_ADDR = {"vaultAddr":"0xf4cd0917C2403fE10305B0F1FADdc35B637c3bd5", "stableCoinAddr":"0x448344fDF7295DBf0fC5DA825CA6355662a0e5AE", "wei":"mwei"}
+// VUE_APP_DAI_ADDR =  {"vaultAddr":"0x49DDf6c6bE262DbEb1Cb99FccB144B2B806F082B", "stableCoinAddr":"0xFba5b8769a7033ab71718063eE57Bd7c764233db", "wei":"ether"}
+// VUE_APP_USDC_ADDR = {"vaultAddr":"0x4890EfA1E90e3CaDB0280eE2768A7B5324249C05", "stableCoinAddr":"0x43418765AE9b55Ab366c91333166C05973Bf4de1", "wei":"mwei"}
+// VUE_APP_WBTC_ADDR = {"vaultAddr":"0xC25b2e8503a19b0379925bAc416912f2c1d263D6", "stableCoinAddr":"0x01105d4f5740F8550DB6B3Dfdd5eD99d20B76C52", "wei":"ether"}
+// VUE_APP_CHAIN_ID = 42
+// VUE_APP_CONTROLLER = 0xce2217024E4f88150457E5E9B673DD9db7e7a756 // can get strategies of a vault.
+export const vaultController = '0xce2217024E4f88150457E5E9B673DD9db7e7a756';
+export const vaults = [
+  {
+    tokenName: 'USDT',
+    vaultAddr: '0xf4cd0917C2403fE10305B0F1FADdc35B637c3bd5',
+    stableCoinAddr: '0x448344fDF7295DBf0fC5DA825CA6355662a0e5AE',
+    wei: 'mwei'
+  },
+  {
+    tokenName: 'DAI',
+    vaultAddr: '0x49DDf6c6bE262DbEb1Cb99FccB144B2B806F082B',
+    stableCoinAddr: '0xFba5b8769a7033ab71718063eE57Bd7c764233db',
+    wei: 'ether'
+  },
+  {
+    tokenName: 'USDC',
+    vaultAddr: '0x4890EfA1E90e3CaDB0280eE2768A7B5324249C05',
+    stableCoinAddr: '0x43418765AE9b55Ab366c91333166C05973Bf4de1',
+    wei: 'mwei'
+  },
+  {
+    tokenName: 'WBTC',
+    vaultAddr: '0xC25b2e8503a19b0379925bAc416912f2c1d263D6',
+    stableCoinAddr: '0x01105d4f5740F8550DB6B3Dfdd5eD99d20B76C52',
+    wei: 'ether'
+  }
+];
+
+export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
+export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';
