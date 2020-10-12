@@ -23,7 +23,7 @@ export const contractAddresses = {
     42: '0xA050886815CFc52a24B9C4aD044ca199990B6690',
     1: '0xA050886815CFc52a24B9C4aD044ca199990B6690',
   },
-}
+};
 
 export const supportedInvestmentPools = [
   {
@@ -218,32 +218,44 @@ export const supportedPools = [
 // VUE_APP_CONTROLLER = 0xce2217024E4f88150457E5E9B673DD9db7e7a756 // can get strategies of a vault.
 export const vaultController = '0xce2217024E4f88150457E5E9B673DD9db7e7a756';
 export const vaults = [
+  // {
+  //   // tokenName: 'USDT',
+  //   tokenName: 'USDT-ETH',
+  //   lpTokenName: 'USDT-ETH',
+  //   vaultAddr: '0xf4cd0917C2403fE10305B0F1FADdc35B637c3bd5',
+  //   stableCoinAddr: '0x448344fDF7295DBf0fC5DA825CA6355662a0e5AE',
+  //   wei: 'mwei'
+  // },
   {
-    tokenName: 'USDT',
-    vaultAddr: '0xf4cd0917C2403fE10305B0F1FADdc35B637c3bd5',
-    stableCoinAddr: '0x448344fDF7295DBf0fC5DA825CA6355662a0e5AE',
-    wei: 'mwei'
+    // tokenName: 'DAI',
+    tokenName: 'DAI-ETH',
+    lpTokenName: 'DAI-ETH',
+    // vaultAddr: '0x49DDf6c6bE262DbEb1Cb99FccB144B2B806F082B',
+    // stableCoinAddr: '0xFba5b8769a7033ab71718063eE57Bd7c764233db',
+    vaultAddr: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+    stableCoinAddr: '0xc4ddd76bfbdcecbee50907074d00a5eafa1c2efa', // LP token
+    wei: 'ether',
+    startTime: 1602492656138, // use to get APY.
   },
-  {
-    tokenName: 'DAI',
-    vaultAddr: '0x49DDf6c6bE262DbEb1Cb99FccB144B2B806F082B',
-    stableCoinAddr: '0xFba5b8769a7033ab71718063eE57Bd7c764233db',
-    wei: 'ether'
-  },
-  {
-    tokenName: 'USDC',
-    vaultAddr: '0x4890EfA1E90e3CaDB0280eE2768A7B5324249C05',
-    stableCoinAddr: '0x43418765AE9b55Ab366c91333166C05973Bf4de1',
-    wei: 'mwei'
-  },
-  {
-    tokenName: 'WBTC',
-    vaultAddr: '0xC25b2e8503a19b0379925bAc416912f2c1d263D6',
-    stableCoinAddr: '0x01105d4f5740F8550DB6B3Dfdd5eD99d20B76C52',
-    wei: 'ether'
-  }
+  // {
+  //   // tokenName: 'USDC',
+  //   tokenName: 'USDC-ETH',
+  //   lpTokenName: 'USDC-ETH',
+  //   vaultAddr: '0x4890EfA1E90e3CaDB0280eE2768A7B5324249C05',
+  //   stableCoinAddr: '0x43418765AE9b55Ab366c91333166C05973Bf4de1',
+  //   wei: 'mwei'
+  // },
+  // {
+  //   // tokenName: 'WBTC',
+  //   tokenName: 'WBTC-ETH',
+  //   lpTokenName: 'WBTC-ETH',
+  //   vaultAddr: '0xC25b2e8503a19b0379925bAc416912f2c1d263D6',
+  //   stableCoinAddr: '0x01105d4f5740F8550DB6B3Dfdd5eD99d20B76C52',
+  //   wei: 'ether'
+  // }
 ];
 
 export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';
+export const tokenPriceAPI = 'https://min-api.cryptocompare.com/data/price'; // ?fsym=ETH&tsyms=USD
 

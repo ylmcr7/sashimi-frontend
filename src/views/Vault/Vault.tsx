@@ -13,22 +13,16 @@ import Card from "../../components/Card";
 
 import TokenPanel from "./components/TokenPanel";
 
-import {vaults} from '../../sushi/lib/constants';
+import {vaults, weiUnitDecimal, contractAddresses} from '../../sushi/lib/constants';
 
 import './Vault.less';
-import {useVaultsAPY} from "../../hooks/vault/useVaultsAPY";
-import {useVaultsStableTokenPrice} from "../../hooks/vault/useVaultsStableTokenPrice";
-import {getVaultContract, getVaultTotalBalance, getVaultUserBalance} from "../../utils/vault";
+import {useTokenPrice} from "../../hooks/vault/useTokenPrice";
+import {getVaultContract, getVaultTotalBalance, getVaultTotalSupply, getVaultUserBalance} from "../../utils/vault";
 import {provider} from "web3-core";
 import {useWallet} from "use-wallet";
 import useBlock from "../../hooks/useBlock";
 import BigNumber from "bignumber.js";
-
-
-const weiUnitDecimal = {
-  mwei: 6,
-  ether: 18
-};
+import {getBalance, getTotalSupply} from "../../utils/erc20";
 
 interface Vault {
   tokenName: string,
@@ -37,11 +31,40 @@ interface Vault {
   wei: keyof typeof weiUnitDecimal,
 }
 
+// const getStakingValue = (vaults: Vault[], stablesBalance: any, vaultsStableTokenPrice: any) => {
+//   let totalStakingValue = new BigNumber(0);
+//   vaults.forEach((vault: Vault, index: number) => {
+//     const balance = (new BigNumber(stablesBalance[index] as string)).div(10 ** weiUnitDecimal[vault.wei]);
+//     const unitDollarValue = new BigNumber(vaultsStableTokenPrice[vault.tokenName]);
+//     totalStakingValue = totalStakingValue.plus(balance.times(unitDollarValue));
+//   });
+//   return totalStakingValue;
+// };
+
+const getStakingDollarValue = (wethValuesInStaking: any, wethDollarPrice: number) => {
+  let totalWethValue;
+  if (wethValuesInStaking.length === 1) {
+    totalWethValue = new BigNumber(wethValuesInStaking[0]);
+  } else {
+    totalWethValue = wethValuesInStaking.reduce((acc: number, cur: number) => {
+      const accBN = new BigNumber(acc);
+      const curBN = new BigNumber(cur);
+      return accBN.plus(curBN);
+    });
+  }
+  return totalWethValue.div(10 ** 18).times(wethDollarPrice);
+};
+
+const stakingStartTime = (new Date(Date.UTC(2020, 9, 12 ,8, 30, 0))).getTime();
+const timeADay = 86400000;
+
+const wethPrice = 370;
+
 const Vault: React.FC = () => {
 
-  const vaultsAPY = useVaultsAPY();
-  const vaultsStableTokenPrice = useVaultsStableTokenPrice();
-  console.log('vaultsAPY: ', vaultsAPY, vaultsStableTokenPrice);
+  const [exchangeRatioAndAPY, setExchangeRatioAndAPY] = useState([]);
+  // const vaultsStableTokenPrice = useVaultsStableTokenPrice();
+  const wethDollarPrice = useTokenPrice('ETH', 'USD');
 
   const {
     account,
@@ -51,40 +74,73 @@ const Vault: React.FC = () => {
 
   const [totalStableValue, setTotalStableValue] = useState(new BigNumber(0));
   const [totalUserStableValue, setUserTotalStableValue] = useState(new BigNumber(0));
-  // TODO: refactor
-  // const [userStableValueList, setUserStableValueList] = useState([]);
 
   const fetchTotalStakingValue = useCallback(async () => {
-    console.log('stablesBalance 2222:', ethereum);
-    if (ethereum) {
+    if (ethereum && wethDollarPrice) {
       const vaultsContract = vaults.map((vault: any) => getVaultContract(ethereum, vault.vaultAddr));
 
-      const stablesBalance = await Promise.all(vaultsContract.map((vaultContract: any) => {
+      // LP balance in Vault
+      const stablesBalancePromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultTotalBalance(vaultContract, account);
       }));
 
-      // TODO: refactor
-      let totalStakingValue = new BigNumber(0);
-      vaults.forEach((vault: Vault, index: number) => {
-        const balance = (new BigNumber(stablesBalance[index] as string)).div(10 ** weiUnitDecimal[vault.wei]);
-        const unitDollarValue = new BigNumber(vaultsStableTokenPrice[vault.tokenName]);
-        totalStakingValue = totalStakingValue.plus(balance.times(unitDollarValue));
-      });
-
-      const stablesUserBalance = await Promise.all(vaultsContract.map((vaultContract: any) => {
+      // LPT Balance
+      const stablesUserBalancePromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultUserBalance(vaultContract, account);
       }));
-      let totalUserValue = new BigNumber(0);
-      vaults.forEach((vault: Vault, index: number) => {
-        const balance = (new BigNumber(stablesUserBalance[index] as string)).div(10 ** weiUnitDecimal[vault.wei]);
-        const unitDollarValue = new BigNumber(vaultsStableTokenPrice[vault.tokenName]);
-        totalUserValue = totalUserValue.plus(balance.times(unitDollarValue));
+
+      const poolsLPTTotalSupplyPromise = Promise.all(vaultsContract.map((vaultContract: any) => {
+        return getVaultTotalSupply(vaultContract, account);
+      }));
+
+      // LP TotalSupply
+      const lpTokensTotalSupplyPromise = Promise.all(vaults.map((vault: any) => {
+        return getTotalSupply(ethereum, vault.stableCoinAddr);
+      }));
+
+      const lpTokenWethValuePromise = Promise.all(vaults.map((vault: any) => {
+        return getBalance(ethereum, contractAddresses.weth[1], vault.stableCoinAddr);
+      }));
+
+      const [stablesBalance, stablesUserBalance, poolsLPTTotalSupply, lpTokensTotalSupply, lpTokenWethValue]
+        = await Promise.all([
+          stablesBalancePromise, stablesUserBalancePromise, poolsLPTTotalSupplyPromise,
+        lpTokensTotalSupplyPromise, lpTokenWethValuePromise]);
+
+      const exchangeRatioAndAPY = stablesBalance.map((stableBalance: any, index) => {
+        const apyTimePivot = (Date.now() - stakingStartTime) / timeADay;
+        const balanceBN = new BigNumber(stableBalance);
+        const lptBalanceBN = new BigNumber(poolsLPTTotalSupply[index] as number|string);
+        const ratio = balanceBN.div(lptBalanceBN);
+        return {
+          ratio,
+          apy: ratio.minus(1).div(apyTimePivot).times(365 * 100).toFixed(4)
+        }
       });
 
-      setTotalStableValue(totalStakingValue);
-      setUserTotalStableValue(totalUserValue);
+      const totalWethValueInStaking = stablesBalance.map((stableBalance: any, index: any) => {
+        const lpBalance = new BigNumber(stableBalance);
+        const totalLPBalance = new BigNumber(lpTokensTotalSupply[index] as number|string);
+        const wethValue = new BigNumber(lpTokenWethValue[index] as number|string);
+        return lpBalance.div(totalLPBalance).times(wethValue).times(2).toNumber();
+      });
+
+      const userWethValueInStaking = stablesUserBalance.map((stableUserBalance: any, index: any) => {
+        const lptBalance = new BigNumber(stableUserBalance);
+        const lpBalance = exchangeRatioAndAPY[index].ratio.times(lptBalance);
+        const totalLPBalance = new BigNumber(lpTokensTotalSupply[index] as number|string);
+        const wethValue = new BigNumber(lpTokenWethValue[index] as number|string);
+        return lpBalance.div(totalLPBalance).times(wethValue).times(2).toNumber();
+      });
+
+      const totalStakingDollar = getStakingDollarValue(totalWethValueInStaking, wethDollarPrice);
+      const userStakingDollar = getStakingDollarValue(userWethValueInStaking, wethDollarPrice);
+
+      setExchangeRatioAndAPY(exchangeRatioAndAPY);
+      setTotalStableValue(totalStakingDollar);
+      setUserTotalStableValue(userStakingDollar);
     }
-  }, [block, vaultsStableTokenPrice, ethereum]);
+  }, [block, ethereum, wethDollarPrice]);
 
   useEffect(() => {
     fetchTotalStakingValue();
@@ -148,15 +204,15 @@ const Vault: React.FC = () => {
       <div className="vault-blank"/>
       <div className="vault-blank"/>
 
-      {vaults.map((vault: any) =>
+      {vaults.map((vault: any, index: any) =>
         <TokenPanel
           key={vault.tokenName}
           tokenName={vault.tokenName}
           vaultAddr={vault.vaultAddr}
           stableCoinAddr={vault.stableCoinAddr}
           weiUnit={vault.wei}
-          apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
-          tokenPrice={0.0}
+          // apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
+          apy={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].apy : '-'}
         />
       )}
     </>

@@ -10,6 +10,11 @@ const output = {
   'online-test': onlineTest
 };
 
+const WEI_UNIT_DECIMAL = {
+  mwei: 6,
+  ether: 18
+};
+
 export const {
   contractAddresses,
   supportedInvestmentPools,
@@ -20,10 +25,13 @@ export const {
   unStakeOnlyDoublePools,
   supportedPools,
   waitingInfo,
-  vaultController,
+  // vaultController,
   vaults,
   vaultAPYAPI,
   vaultStableTokenPriceAPI,
+  tokenPriceAPI,
+  weiUnitDecimal
 } = {
-  ...output[CHAIN_ENV]
+  ...output[CHAIN_ENV],
+  weiUnitDecimal: WEI_UNIT_DECIMAL
 };

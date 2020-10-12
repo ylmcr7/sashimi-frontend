@@ -732,3 +732,4 @@ export const vaults = [
 
 export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';
+export const tokenPriceAPI = 'https://min-api.cryptocompare.com/data/price'; // ?fsym=ETH&tsyms=USD

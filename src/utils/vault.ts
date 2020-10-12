@@ -42,13 +42,22 @@ export const vaultWithdraw = (vaultContract: Contract, account: string, value: B
     });
 };
 
+// balanceOf -> get Withdraw token, like UNI-V2 LPT
 export const getVaultUserBalance = async function (vaultContract: Contract, account: string) {
   return await vaultContract.methods
     .balanceOf(account)
     .call({from: account});
 };
+
+// balance -> get Deposit token number, like UNI-V2 LP
 export const getVaultTotalBalance = async function (vaultContract: Contract, account: string) {
   return await vaultContract.methods
     .balance()
+    .call({from: account});
+};
+
+export const getVaultTotalSupply = async function (vaultContract: Contract, account: string) {
+  return await vaultContract.methods
+    .totalSupply()
     .call({from: account});
 };

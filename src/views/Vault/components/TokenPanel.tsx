@@ -14,7 +14,7 @@ import wbtcImg from '../../../../src/assets/img/vault-coins/wbtc.svg';
 import '../Vault.less';
 import {UpOutlined, DownOutlined} from "@ant-design/icons/lib";
 import {provider} from "web3-core";
-import {getVaultContract, getVaultUserBalance, vaultDeposit, vaultWithdraw} from '../../../utils/vault';
+import {getVaultContract, vaultDeposit, vaultWithdraw} from '../../../utils/vault';
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import {getBalanceNumber} from "../../../utils/formatBalance";
 import {useVaultUserBalance} from "../../../hooks/vault/useVaultUserBalance";
@@ -22,6 +22,8 @@ import useAllowance from "../../../hooks/vault/useAllowance";
 import {getContract} from "../../../utils/erc20";
 import ButtonUnlockWallet from '../../../components/ButtonUnlockWallet/index'
 import useApprove from "../../../hooks/vault/useApprove";
+
+import { weiUnitDecimal } from '../../../sushi/lib/constants';
 
 function formatter(value: any) {
   return `${value}%`;
@@ -32,12 +34,10 @@ const imgUrls = {
   DAI: daiImg,
   USDC: usdcImg,
   WBTC: wbtcImg,
-};
-
-// TODO: refactor
-const weiUnitDecimal = {
-  mwei: 6,
-  ether: 18
+  'USDT-ETH': usdtImg,
+  'DAI-ETH': daiImg,
+  'USDC-ETH': usdcImg,
+  'WBTC-ETH': wbtcImg,
 };
 
 interface TokenPanelProps {
@@ -46,14 +46,14 @@ interface TokenPanelProps {
   vaultAddr: string,
   stableCoinAddr: string,
   weiUnit: keyof typeof weiUnitDecimal,
-  tokenPrice: number,
+  // tokenPrice: number,
   apy: number,
 }
 
-// TODO: http://39.98.34.153:8081/api/price
-// TODO: http://39.98.34.153:8081/api/apy
+// TODO: deposit, withdraw -> reset data
+// TODO: more than valid .xxx
 const TokenPanel: React.FC<TokenPanelProps> = ({
-  tokenName, vaultAddr, stableCoinAddr, weiUnit,tokenPrice, apy
+  tokenName, vaultAddr, stableCoinAddr, weiUnit, apy
 }) => {
 
   const {
@@ -99,7 +99,8 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 </Col>
                 <Col className="vault-info-title">
                   <div className="vault-info-title">{tokenName}</div>
-                  <div className="vault-info-subtitle">{tokenName} Stable</div>
+                  {/*<div className="vault-info-subtitle">{tokenName} Stable</div>*/}
+                  <div className="vault-info-subtitle">{tokenName} UNI-V2 LP</div>
                 </Col>
               </Row>
             </Col>
@@ -107,14 +108,14 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={9} md={7}>
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
-                <Col span={24} className="vault-info-title">{apy.toFixed(4)}%</Col>
+                <Col span={24} className="vault-info-title">{apy}%</Col>
               </Row>
             </Col>
 
             <Col span={0} md={8}>
               <Row justify="end" style={{flexDirection: "column", alignItems: "flex-end"}}>
                 <Col span={24} className="vault-info-subtitle">Available to deposit</Col>
-                <Col span={24} className="vault-info-title">{walletBalanceShow} {tokenName}</Col>
+                <Col span={24} className="vault-info-title">{walletBalanceShow.toFixed(6)} {tokenName} UNI-V2 LP</Col>
               </Row>
             </Col>
             <Col span={6} md={2}>
@@ -133,7 +134,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
         {/* Deposit */}
         <Row className={`vault-operation-panel ${panelHidden && 'vault-operation-panel-hidden'}`}>
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Wallet: {walletBalanceShow} {tokenName}</div>
+            <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(6)} {tokenName} UNI-V2 LP</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={walletBalanceShow} value={depositValueShow} onChange={(value ) => {
               const valueTemp = value || 0;
@@ -181,7 +182,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               </Col>
             </Row>
             <div className="vault-blank"/>
-            <div>{depositPercent}% = {depositValueShow} {tokenName}</div>
+            <div>{depositPercent}% = {depositValueShow} {tokenName} UNI-V2 LP</div>
             <div className="vault-blank"/>
             <div className="vault-button-container">
               <Spin spinning={depositButtonLoading}>
@@ -191,14 +192,18 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                           disabled={depositValue.isEqualTo(0)}
                           onClick={async () => {
                             setDepositButtonLoading(true);
-                            if (stableTokenAllowance.isEqualTo(0)) {
-                              const result = await onApprove();
-                              if (!result) {
-                                alert('Approved failed!');
+                            try {
+                              if (stableTokenAllowance.isEqualTo(0)) {
+                                const result = await onApprove();
+                                if (!result) {
+                                  alert('Approved failed!');
+                                }
                               }
+                              await vaultDeposit(vaultContract, account, depositValue);
+                              setDepositButtonLoading(false);
+                            } catch {
+                              setDepositButtonLoading(false);
                             }
-                            await vaultDeposit(vaultContract, account, depositValue);
-                            setDepositButtonLoading(false);
                           }}>
                     Deposit
                   </Button> : <ButtonUnlockWallet/>
@@ -208,7 +213,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
           </Col>
           {/* Withdraw */}
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Balance: {vaultUserBalanceShow} bam{tokenName}</div>
+            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(6)} {tokenName} LPT</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={vaultUserBalanceShow} value={withdrawValueShow} onChange={(value ) => {
               const valueTemp = value || 0;
@@ -256,7 +261,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               </Col>
             </Row>
             <div className="vault-blank"/>
-            <div>{withdrawPercent}% = {withdrawValueShow} bam{tokenName}</div>
+            <div>{withdrawPercent}% = {withdrawValueShow} {tokenName} LPT</div>
             <div className="vault-blank"/>
             <div className="vault-button-container">
               <Spin spinning={withdrawButtonLoading}>
@@ -266,14 +271,18 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                           disabled={withdrawValue.isEqualTo(0)}
                           onClick={async () => {
                             setWithdrawButtonLoading(true);
-                            if (stableTokenAllowance.isEqualTo(0)) {
-                              const result = await onApprove();
-                              if (!result) {
-                                alert('Approved failed!');
+                            try {
+                              if (stableTokenAllowance.isEqualTo(0)) {
+                                const result = await onApprove();
+                                if (!result) {
+                                  alert('Approved failed!');
+                                }
                               }
+                              await vaultWithdraw(vaultContract, account, withdrawValue);
+                              setWithdrawButtonLoading(false);
+                            } catch {
+                              setWithdrawButtonLoading(false);
                             }
-                            await vaultWithdraw(vaultContract, account, withdrawValue);
-                            setWithdrawButtonLoading(false);
                           }}
                   >
                     Withdraw
