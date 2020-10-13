@@ -13,7 +13,7 @@ import Card from "../../components/Card";
 
 import TokenPanel from "./components/TokenPanel";
 
-import {vaults, weiUnitDecimal, contractAddresses} from '../../sushi/lib/constants';
+import {vaults, weiUnitDecimal, contractAddresses, timeADay, vaultController} from '../../sushi/lib/constants';
 
 import './Vault.less';
 import {useTokenPrice} from "../../hooks/vault/useTokenPrice";
@@ -23,6 +23,7 @@ import {useWallet} from "use-wallet";
 import useBlock from "../../hooks/useBlock";
 import BigNumber from "bignumber.js";
 import {getBalance, getTotalSupply} from "../../utils/erc20";
+import {getEthChainInfo} from "../../utils/getEthChainInfo";
 
 interface Vault {
   tokenName: string,
@@ -30,16 +31,6 @@ interface Vault {
   stableCoinAddr: string,
   wei: keyof typeof weiUnitDecimal,
 }
-
-// const getStakingValue = (vaults: Vault[], stablesBalance: any, vaultsStableTokenPrice: any) => {
-//   let totalStakingValue = new BigNumber(0);
-//   vaults.forEach((vault: Vault, index: number) => {
-//     const balance = (new BigNumber(stablesBalance[index] as string)).div(10 ** weiUnitDecimal[vault.wei]);
-//     const unitDollarValue = new BigNumber(vaultsStableTokenPrice[vault.tokenName]);
-//     totalStakingValue = totalStakingValue.plus(balance.times(unitDollarValue));
-//   });
-//   return totalStakingValue;
-// };
 
 const getStakingDollarValue = (wethValuesInStaking: any, wethDollarPrice: number) => {
   let totalWethValue;
@@ -55,8 +46,9 @@ const getStakingDollarValue = (wethValuesInStaking: any, wethDollarPrice: number
   return totalWethValue.isNaN() ? new BigNumber(0) : totalWethValue.div(10 ** 18).times(wethDollarPrice);
 };
 
-const stakingStartTime = (new Date(Date.UTC(2020, 9, 12 ,8, 30, 0))).getTime();
-const timeADay = 86400000;
+const {
+  ethscanType
+} = getEthChainInfo();
 
 const Vault: React.FC = () => {
 
@@ -71,6 +63,7 @@ const Vault: React.FC = () => {
 
   const [totalStableValue, setTotalStableValue] = useState(new BigNumber(0));
   const [totalUserStableValue, setUserTotalStableValue] = useState(new BigNumber(0));
+  const [totalWethValueInStaking, setTotalWethValueInStaking] = useState([]);
 
   const fetchTotalStakingValue = useCallback(async () => {
     if (ethereum && wethDollarPrice) {
@@ -80,16 +73,14 @@ const Vault: React.FC = () => {
       const stablesBalancePromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultTotalBalance(vaultContract, account);
       }));
-
-      // LPT Balance
+      // svUNI-V2 Balance
       const stablesUserBalancePromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultUserBalance(vaultContract, account);
       }));
-
+      // svUNI-V2 total supply of each pool
       const poolsLPTTotalSupplyPromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultTotalSupply(vaultContract, account);
       }));
-
       // LP TotalSupply
       const lpTokensTotalSupplyPromise = Promise.all(vaults.map((vault: any) => {
         return getTotalSupply(ethereum, vault.stableCoinAddr);
@@ -105,7 +96,7 @@ const Vault: React.FC = () => {
         lpTokensTotalSupplyPromise, lpTokenWethValuePromise]);
 
       const exchangeRatioAndAPY = stablesBalance.map((stableBalance: any, index) => {
-        const apyTimePivot = (Date.now() - stakingStartTime) / timeADay;
+        const apyTimePivot = (Date.now() - vaults[index].startTime) / timeADay;
         const balanceBN = new BigNumber(stableBalance);
         const lptBalanceBN = new BigNumber(poolsLPTTotalSupply[index] as number|string);
         const ratio = balanceBN.div(lptBalanceBN);
@@ -133,6 +124,7 @@ const Vault: React.FC = () => {
       const totalStakingDollar = getStakingDollarValue(totalWethValueInStaking, wethDollarPrice);
       const userStakingDollar = getStakingDollarValue(userWethValueInStaking, wethDollarPrice);
 
+      setTotalWethValueInStaking(totalWethValueInStaking);
       setExchangeRatioAndAPY(exchangeRatioAndAPY);
       setTotalStableValue(totalStakingDollar);
       setUserTotalStableValue(userStakingDollar);
@@ -153,8 +145,8 @@ const Vault: React.FC = () => {
       <StyleSubTitle>
         <a
           target="_blank"
-          href="https://etherscan.io/address/0x6ed306DbA10E6c6B20BBa693892Fac21f3B91977">
-          Click To Review The Contract
+          href={`https://${ethscanType}etherscan.io/address/${vaultController}`}>
+          Click To Review The Controller Contract
         </a>
       </StyleSubTitle>
 
@@ -208,7 +200,12 @@ const Vault: React.FC = () => {
           vaultAddr={vault.vaultAddr}
           stableCoinAddr={vault.stableCoinAddr}
           weiUnit={vault.wei}
+          uniAddressOrSymbolA={vault.uniAddressOrSymbolA}
+          uniAddressOrSymbolB={vault.uniAddressOrSymbolB}
           // apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
+          valueLocked={totalWethValueInStaking[index] ? new BigNumber(totalWethValueInStaking[index]) : new BigNumber(0)}
+          wethPrice={wethDollarPrice}
+          ratio={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].ratio : new BigNumber(0)}
           apy={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].apy : '-'}
         />
       )}

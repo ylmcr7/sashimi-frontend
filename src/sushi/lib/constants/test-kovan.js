@@ -234,8 +234,10 @@ export const vaults = [
     // stableCoinAddr: '0xFba5b8769a7033ab71718063eE57Bd7c764233db',
     vaultAddr: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
     stableCoinAddr: '0xc4ddd76bfbdcecbee50907074d00a5eafa1c2efa', // LP token
+    uniAddressOrSymbolA: '0x6B175474E89094C44Da98b954EedeAC495271d0F', // DAI Address
+    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
-    startTime: 1602492656138, // use to get APY.
+    startTime: (new Date(Date.UTC(2020, 9, 12 ,8, 30, 0))).getTime(), // use to get APY.
   },
   // {
   //   // tokenName: 'USDC',
@@ -257,5 +259,3 @@ export const vaults = [
 
 export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';
-export const tokenPriceAPI = 'https://min-api.cryptocompare.com/data/price'; // ?fsym=ETH&tsyms=USD
-

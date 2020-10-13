@@ -24,6 +24,11 @@ import ButtonUnlockWallet from '../../../components/ButtonUnlockWallet/index'
 import useApprove from "../../../hooks/vault/useApprove";
 
 import { weiUnitDecimal } from '../../../sushi/lib/constants';
+import {getEthChainInfo} from "../../../utils/getEthChainInfo";
+
+const {
+  ethscanType
+} = getEthChainInfo();
 
 function formatter(value: any) {
   return `${value}%`;
@@ -46,14 +51,20 @@ interface TokenPanelProps {
   vaultAddr: string,
   stableCoinAddr: string,
   weiUnit: keyof typeof weiUnitDecimal,
+  uniAddressOrSymbolA: string,
+  uniAddressOrSymbolB: string,
+  ratio: BigNumber,
+  valueLocked: BigNumber,
+  wethPrice: number,
   // tokenPrice: number,
   apy: number,
 }
 
 const TokenPanel: React.FC<TokenPanelProps> = ({
-  tokenName, vaultAddr, stableCoinAddr, weiUnit, apy
+  tokenName, vaultAddr, stableCoinAddr, weiUnit,
+  uniAddressOrSymbolA, uniAddressOrSymbolB, ratio, valueLocked,
+  wethPrice, apy
 }) => {
-
   const {
     account,
     ethereum,
@@ -120,19 +131,24 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
       <Row className="vault-card">
         <Col span={24}>
           <Row className={`vault-stable-info ${panelHidden && 'vault-stable-info-hidden'}`} onClick={() => setPanelHidden(!panelHidden)}>
-            <Col span={9} md={7}>
+            <Col span={15} md={7}>
               <Row>
                 <Col className="vault-info-subtitle">
                   <img src={imgUrls[tokenName]} alt="btc-logo" style={{width: '40px', height: '40px', marginRight: '8px'}}/>
                 </Col>
                 <Col className="vault-info-title">
-                  <div className="vault-info-title">{tokenName}</div>
-                  <div className="vault-info-subtitle">{tokenName} UNI-V2 LP</div>
+                  <a className="vault-info-title vault-display-block"
+                     href={`https://${ethscanType}etherscan.io/address/${vaultAddr}`} target="_blank">{tokenName} Vault ↗
+                  </a>
+                  <a className="vault-info-subtitle vault-display-block"
+                     href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank">
+                    {tokenName} UNI-V2 LP ↗
+                  </a>
                 </Col>
               </Row>
             </Col>
 
-            <Col span={9} md={7}>
+            <Col span={6} md={7}>
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
                 <Col span={24} className="vault-info-title">{apy}%</Col>
@@ -145,7 +161,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 <Col span={24} className="vault-info-title">{walletBalanceShow.toFixed(6)} {tokenName} UNI-V2 LP</Col>
               </Row>
             </Col>
-            <Col span={6} md={2}>
+            <Col span={3} md={2}>
               <Row align="middle" justify="end" style={{height: "100%"}}>
                 <Col>
                   <Button
@@ -160,6 +176,20 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
         </Col>
         {/* Deposit */}
         <Row className={`vault-operation-panel ${panelHidden && 'vault-operation-panel-hidden'}`}>
+          <Col span={24} className="vault-exchange-ratio">
+            Deposit
+            <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
+            to farm (and dump) UNI for more DAI-ETH UNI-V2 LP tokens.
+          </Col>
+          <Col span={24} className="vault-exchange-ratio">
+            Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {
+            minimumFractionDigits: 4,
+            maximumFractionDigits: 4,
+          })}
+          </Col>
+          <Col span={24} className="vault-exchange-ratio">
+            1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
+          </Col>
           <Col span={24} md={12} className="vault-operation-card">
             <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(6)} {tokenName} UNI-V2 LP</div>
             <div className="vault-blank"/>
@@ -324,7 +354,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                             }
                           }}
                   >
-                    Withdraw
+                    Withdraw (0.5% Fee)
                   </Button> : <ButtonUnlockWallet/>
                 }
               </Spin>

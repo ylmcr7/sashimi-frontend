@@ -12,7 +12,8 @@ const output = {
 
 const WEI_UNIT_DECIMAL = {
   mwei: 6,
-  ether: 18
+  ether: 18,
+  wbtc: 8,
 };
 
 export const {
@@ -25,13 +26,13 @@ export const {
   unStakeOnlyDoublePools,
   supportedPools,
   waitingInfo,
-  // vaultController,
+  vaultController,
   vaults,
   vaultAPYAPI,
   vaultStableTokenPriceAPI,
-  tokenPriceAPI,
-  weiUnitDecimal
+  tokenPriceAPI = 'https://min-api.cryptocompare.com/data/price', // ?fsym=ETH&tsyms=USD
+  weiUnitDecimal = WEI_UNIT_DECIMAL,
+  timeADay = 86400000,
 } = {
   ...output[CHAIN_ENV],
-  weiUnitDecimal: WEI_UNIT_DECIMAL
 };

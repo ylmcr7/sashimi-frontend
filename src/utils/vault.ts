@@ -52,7 +52,7 @@ export const vaultWithdraw = (vaultContract: Contract, account: string, value: B
     });
 };
 
-// balanceOf -> get Withdraw token, like UNI-V2 LPT
+// balanceOf -> get Withdraw token, like svUNI-V2
 export const getVaultUserBalance = async function (vaultContract: Contract, account: string) {
   return await vaultContract.methods
     .balanceOf(account)

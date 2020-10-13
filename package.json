@@ -36,6 +36,7 @@
     "build:online-test": "cross-env REACT_APP_CHAIN_ENV=online-test CI= GENERATE_SOURCEMAP=false craco build",
     "pkg:online": "rm -rf build* && npm run build && tar -zcvf build-online.tar.gz build",
     "pkg:online-test": "rm -rf build* && npm run build:online-test && tar -zcvf build-online-test.tar.gz build",
+    "pkg:kovan": "rm -rf build* && npm run build:kovan && tar -zcvf build-kovan.tar.gz build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "deploy": "yarn build && cp ./build/index.html ./build/200.html && surge ./build sushiswap.org",
