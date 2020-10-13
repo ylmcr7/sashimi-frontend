@@ -158,7 +158,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={0} md={8}>
               <Row justify="end" style={{flexDirection: "column", alignItems: "flex-end"}}>
                 <Col span={24} className="vault-info-subtitle">Available to deposit</Col>
-                <Col span={24} className="vault-info-title">{walletBalanceShow.toFixed(6)} {tokenName} UNI-V2 LP</Col>
+                <Col span={24} className="vault-info-title">{walletBalanceShow.toFixed(8)} {tokenName} UNI-V2 LP</Col>
               </Row>
             </Col>
             <Col span={3} md={2}>
@@ -191,7 +191,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
           </Col>
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(6)} {tokenName} UNI-V2 LP</div>
+            <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(8)} {tokenName} UNI-V2 LP</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={walletBalanceShow} value={depositValueShow} onChange={(value ) => {
               const valueTemp = value || 0;
@@ -276,7 +276,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
           </Col>
           {/* Withdraw */}
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(6)} {tokenName} svUNI-V2</div>
+            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(8)} {tokenName} svUNI-V2</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={vaultUserBalanceShow} value={withdrawValueShow} onChange={(value ) => {
               const valueTemp = value || 0;

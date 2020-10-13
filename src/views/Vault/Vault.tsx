@@ -38,8 +38,8 @@ const getStakingDollarValue = (wethValuesInStaking: any, wethDollarPrice: number
     totalWethValue = new BigNumber(wethValuesInStaking[0]);
   } else {
     totalWethValue = wethValuesInStaking.reduce((acc: number, cur: number) => {
-      const accBN = new BigNumber(acc);
-      const curBN = new BigNumber(cur);
+      const accBN = Number.isNaN(acc) ? new BigNumber(0) : new BigNumber(acc);
+      const curBN = Number.isNaN(cur) ? new BigNumber(0) : new BigNumber(cur);
       return accBN.plus(curBN);
     });
   }
@@ -129,7 +129,7 @@ const Vault: React.FC = () => {
       setTotalStableValue(totalStakingDollar);
       setUserTotalStableValue(userStakingDollar);
     }
-  }, [block, ethereum, wethDollarPrice]);
+  }, [block, account, ethereum, wethDollarPrice]);
 
   useEffect(() => {
     fetchTotalStakingValue();

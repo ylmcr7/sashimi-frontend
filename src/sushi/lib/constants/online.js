@@ -741,7 +741,7 @@ export const vaults = [
     stableCoinAddr: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940', // LP token
     uniAddressOrSymbolA: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // DAI Address
     uniAddressOrSymbolB: 'eth',
-    wei: 'wbtc',
+    wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
 ];
