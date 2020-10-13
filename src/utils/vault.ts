@@ -8,6 +8,14 @@ import vaultABI from '../constants/abi/vault/vaultABI.json'
 import { Contract } from 'web3-eth-contract'
 import BigNumber from "bignumber.js";
 
+const getValidNumberString = (value: BigNumber) => {
+  let vaultValid = value.toString();
+  if (vaultValid.includes('.')) {
+    vaultValid = vaultValid.substring(0, vaultValid.indexOf('.'));
+  }
+  return vaultValid;
+};
+
 export const getVaultContract = (provider: provider, vaultContractAddress: string) => {
   const web3 = new Web3(provider);
   return new web3.eth.Contract(
@@ -17,8 +25,9 @@ export const getVaultContract = (provider: provider, vaultContractAddress: strin
 };
 
 export const vaultDeposit = (vaultContract: Contract, account: string, value: BigNumber) => {
+  const valueValid = getValidNumberString(value);
   return vaultContract.methods
-    .deposit(value.toString())
+    .deposit(valueValid)
     .send({from: account})
     .on('transactionHash', (tx: any) => {
       console.log('vaultDeposit', tx);
@@ -30,8 +39,9 @@ export const vaultDeposit = (vaultContract: Contract, account: string, value: Bi
 };
 
 export const vaultWithdraw = (vaultContract: Contract, account: string, value: BigNumber) => {
+  const valueValid = getValidNumberString(value);
   return vaultContract.methods
-    .withdraw(value.toString())
+    .withdraw(valueValid)
     .send({from: account})
     .on('transactionHash', (tx: any) => {
       console.log('vaultWithdraw', tx);

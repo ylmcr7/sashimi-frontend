@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {Row, Col, Slider, Button, InputNumber, Spin} from 'antd';
 
 import { useWallet } from 'use-wallet'
@@ -50,8 +50,6 @@ interface TokenPanelProps {
   apy: number,
 }
 
-// TODO: deposit, withdraw -> reset data
-// TODO: more than valid .xxx
 const TokenPanel: React.FC<TokenPanelProps> = ({
   tokenName, vaultAddr, stableCoinAddr, weiUnit, apy
 }) => {
@@ -68,23 +66,53 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
   const { onApprove } = useApprove(stableContract, vaultAddr);
 
   const walletBalance: BigNumber = useTokenBalance(stableCoinAddr);
-  const walletBalanceShow = getBalanceNumber(walletBalance, weiUnitDecimal[weiUnit]);
+  const [walletBalanceShow, setWalletBalanceShow] = useState(0);
+  useEffect(() => {
+    let walletBalanceShow = getBalanceNumber(walletBalance, weiUnitDecimal[weiUnit]);
+    setWalletBalanceShow(walletBalanceShow);
+  }, [walletBalance]);
 
   const vaultUserBalance = useVaultUserBalance(vaultContract);
-  const vaultUserBalanceShow = getBalanceNumber(vaultUserBalance, weiUnitDecimal[weiUnit]);
+  const [vaultUserBalanceShow, setVaultUserBalanceShow] = useState(0);
+  useEffect(() => {
+    let vaultUserBalanceShow = getBalanceNumber(vaultUserBalance, weiUnitDecimal[weiUnit]);
+    setVaultUserBalanceShow(vaultUserBalanceShow);
+  }, [vaultUserBalance]);
 
   const [depositPercent, setDepositPercent] = useState(0);
   const [depositValue, setDepositValue] = useState(new BigNumber(0));
-  const depositValueShow = Number.parseFloat(getBalanceNumber(depositValue, weiUnitDecimal[weiUnit]).toFixed(weiUnitDecimal[weiUnit]));
+  const [depositValueShow, setDepositValueShow] = useState(0);
 
   const [withdrawPercent, setWithdrawPercent] = useState(0);
   const [withdrawValue, setWithdrawValue] = useState(new BigNumber(0));
-  const withdrawValueShow = Number.parseFloat(getBalanceNumber(withdrawValue, weiUnitDecimal[weiUnit]).toFixed(weiUnitDecimal[weiUnit]));
+  const [withdrawValueShow, setWithdrawValueShow] = useState(0);
 
   const [panelHidden, setPanelHidden] = useState(true);
 
   const [depositButtonLoading, setDepositButtonLoading] = useState(false);
   const [withdrawButtonLoading, setWithdrawButtonLoading] = useState(false);
+
+  useEffect(() => {
+    const depositValueShow = Number.parseFloat(getBalanceNumber(depositValue, weiUnitDecimal[weiUnit]).toFixed(weiUnitDecimal[weiUnit]));
+    setDepositValueShow(depositValueShow);
+  }, [depositValue]);
+
+  useEffect(() => {
+    const withdrawValueShow = Number.parseFloat(getBalanceNumber(withdrawValue, weiUnitDecimal[weiUnit]).toFixed(weiUnitDecimal[weiUnit]));
+    setWithdrawValueShow(withdrawValueShow);
+  }, [withdrawValue]);
+
+  // reset
+  useEffect(() => {
+    if (!account) {
+      setWithdrawPercent(0);
+      setWithdrawValue(new BigNumber(0));
+      setDepositPercent(0);
+      setDepositValue(new BigNumber(0));
+      setWalletBalanceShow(0);
+      setVaultUserBalanceShow(0);
+    }
+  }, [account, ethereum]);
 
   return (
     <>
@@ -99,7 +127,6 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 </Col>
                 <Col className="vault-info-title">
                   <div className="vault-info-title">{tokenName}</div>
-                  {/*<div className="vault-info-subtitle">{tokenName} Stable</div>*/}
                   <div className="vault-info-subtitle">{tokenName} UNI-V2 LP</div>
                 </Col>
               </Row>
@@ -162,6 +189,9 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                   min={0}
                   max={100}
                   onChange={(value: number) => {
+                    if (!account) {
+                      return;
+                    }
                     setDepositPercent(value);
                     setDepositValue(walletBalance.times(value).div(100));
                   }}
@@ -199,9 +229,12 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                                   alert('Approved failed!');
                                 }
                               }
-                              await vaultDeposit(vaultContract, account, depositValue);
+                              await vaultDeposit(vaultContract, account, depositValue.decimalPlaces(weiUnitDecimal[weiUnit]));
                               setDepositButtonLoading(false);
-                            } catch {
+                              setDepositPercent(0);
+                              setDepositValue(new BigNumber(0));
+                            } catch(e) {
+                              console.log('deposit error: ', e);
                               setDepositButtonLoading(false);
                             }
                           }}>
@@ -213,7 +246,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
           </Col>
           {/* Withdraw */}
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(6)} {tokenName} LPT</div>
+            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(6)} {tokenName} svUNI-V2</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={vaultUserBalanceShow} value={withdrawValueShow} onChange={(value ) => {
               const valueTemp = value || 0;
@@ -241,6 +274,9 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                   min={0}
                   max={100}
                   onChange={(value: number) => {
+                    if (!account) {
+                      return;
+                    }
                     setWithdrawPercent(value);
                     setWithdrawValue(vaultUserBalance.times(value).div(100));
                   }}
@@ -261,7 +297,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               </Col>
             </Row>
             <div className="vault-blank"/>
-            <div>{withdrawPercent}% = {withdrawValueShow} {tokenName} LPT</div>
+            <div>{withdrawPercent}% = {withdrawValueShow} {tokenName} svUNI-V2</div>
             <div className="vault-blank"/>
             <div className="vault-button-container">
               <Spin spinning={withdrawButtonLoading}>
@@ -278,9 +314,12 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                                   alert('Approved failed!');
                                 }
                               }
-                              await vaultWithdraw(vaultContract, account, withdrawValue);
+                              await vaultWithdraw(vaultContract, account, withdrawValue.decimalPlaces(weiUnitDecimal[weiUnit]));
                               setWithdrawButtonLoading(false);
-                            } catch {
+                              setWithdrawPercent(0);
+                              setWithdrawValue(new BigNumber(0));
+                            } catch(e) {
+                              console.log('withdraw error: ', e);
                               setWithdrawButtonLoading(false);
                             }
                           }}

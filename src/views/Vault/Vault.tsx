@@ -52,18 +52,15 @@ const getStakingDollarValue = (wethValuesInStaking: any, wethDollarPrice: number
       return accBN.plus(curBN);
     });
   }
-  return totalWethValue.div(10 ** 18).times(wethDollarPrice);
+  return totalWethValue.isNaN() ? new BigNumber(0) : totalWethValue.div(10 ** 18).times(wethDollarPrice);
 };
 
 const stakingStartTime = (new Date(Date.UTC(2020, 9, 12 ,8, 30, 0))).getTime();
 const timeADay = 86400000;
 
-const wethPrice = 370;
-
 const Vault: React.FC = () => {
 
   const [exchangeRatioAndAPY, setExchangeRatioAndAPY] = useState([]);
-  // const vaultsStableTokenPrice = useVaultsStableTokenPrice();
   const wethDollarPrice = useTokenPrice('ETH', 'USD');
 
   const {
@@ -114,7 +111,7 @@ const Vault: React.FC = () => {
         const ratio = balanceBN.div(lptBalanceBN);
         return {
           ratio,
-          apy: ratio.minus(1).div(apyTimePivot).times(365 * 100).toFixed(4)
+          apy: ratio.isNaN() ? '0.000' : ratio.minus(1).div(apyTimePivot).times(365 * 100).toFixed(4)
         }
       });
 
