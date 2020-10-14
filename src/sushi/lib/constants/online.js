@@ -114,9 +114,8 @@ export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
 export const waitingInfo = {
-  waitingPool: [34],
-  // startTime: 1601479800000
-  startTime: 1601559000000
+  waitingPool: [34, 35, 36, 37],
+  startTime: 1602694800000
 };
 
 // 0928 UNI LP
@@ -198,6 +197,73 @@ const xLPSupportedPools = [
     symbol: '\xa0WBTC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🥓',
+  },
+];
+
+const newNormalPool1014 = [
+  {
+    pid: 34,
+    lpAddresses: {
+      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+    },
+    tokenAddresses: {
+      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+    },
+    name: 'SashimiPlate Party!',
+    symbol: 'DAI-ETH svUNI-V2',
+    tokenSymbol: 'DAI',
+    icon: '👨‍👩‍👧',
+    isSashimiPlate: true,
+  },
+  {
+    pid: 35,
+    lpAddresses: {
+      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+    },
+    tokenAddresses: {
+      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+    },
+    name: 'SashimiPlate Party!',
+    symbol: 'USDC-ETH svUNI-V2',
+    tokenSymbol: 'USDC',
+    icon: '👨‍👨‍👦',
+    isSashimiPlate: true,
+  },
+  {
+    pid: 36,
+    lpAddresses: {
+      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+    },
+    tokenAddresses: {
+      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+    },
+    name: 'SashimiPlate Party!',
+    symbol: 'ETH-USDT svUNI-V2',
+    tokenSymbol: 'USDT',
+    icon: '👨‍👨‍👧',
+    isSashimiPlate: true,
+  },
+  {
+    pid: 37,
+    lpAddresses: {
+      42: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+      1: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+    },
+    tokenAddresses: {
+      42: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+      1: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+    },
+    name: 'SashimiPlate Party!',
+    symbol: 'WBTC-ETH svUNI-V2',
+    tokenSymbol: 'WBTC',
+    icon: '👩‍👩‍👦',
+    isSashimiPlate: true,
   },
 ];
 
@@ -301,6 +367,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newNormalPool1014,
   ...newNormalPool0939,
   ...newNormalPools,
   // 0917
@@ -713,6 +780,7 @@ export const vaults = [
     uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,10, 0, 0))).getTime(), // use to get APY.
+    apyTemp: '26.86%',
   },
   {
     tokenName: 'USDC-ETH',
@@ -723,6 +791,7 @@ export const vaults = [
     uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
+    apyTemp: '20.12%',
   },
   {
     tokenName: 'USDT-ETH',
@@ -733,6 +802,7 @@ export const vaults = [
     uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
+    apyTemp: '22.29%',
   },
   {
     tokenName: 'WBTC-ETH',
@@ -743,6 +813,7 @@ export const vaults = [
     uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
+    apyTemp: '20.54%',
   },
 ];
 

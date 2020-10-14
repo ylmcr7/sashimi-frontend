@@ -236,15 +236,23 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
                 </Button>
               </Col>
               <Col span={11} offset={2}>
-                <Button
-                  size="large"
-                  type="primary"
-                  href={`https://info.sashimi.cool/pair/${farm.lpTokenAddress}`}
-                  target="_blank"
-                  block
-                >
-                  <SashimiLogo /> GET LP
-                </Button>
+                {farm.isSashimiPlate ? <Button
+                    size="large"
+                    type="primary"
+                    href="/vault"
+                    target="_blank"
+                    block
+                  >
+                    <SashimiLogo /> GET SV
+                  </Button> :  <Button
+                    size="large"
+                    type="primary"
+                    href={`https://info.sashimi.cool/pair/${farm.lpTokenAddress}`}
+                    target="_blank"
+                    block
+                  >
+                    <SashimiLogo /> GET LP
+                  </Button>}
               </Col>
             </ButtonContainer>
             <StyledDivider />

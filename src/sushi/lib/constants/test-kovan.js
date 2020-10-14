@@ -108,7 +108,26 @@ const xLPSupportedPools = [
   // },
 ];
 
+const sashimiPlatePools = [
+  {
+    pid: 5,
+    lpAddresses: {
+      42: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+      1: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+    },
+    tokenAddresses: {
+      42: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+      1: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+    },
+    name: 'SashimiPlate(DAI-ETH)',
+    symbol: 'SashimiPlate(DAI-ETH)',
+    tokenSymbol: 'DAI',
+    icon: '-',
+  },
+];
+
 export const supportedPools = [
+  ...sashimiPlatePools,
   ...xLPSupportedPools,
   {
     pid: 0,

@@ -14,6 +14,7 @@ export interface Farm {
   tokenSymbol: string
   lpBarAddress?: string
   lpBarContract?: Contract
+  isSashimiPlate?: boolean
 }
 
 export interface FarmsContext {
