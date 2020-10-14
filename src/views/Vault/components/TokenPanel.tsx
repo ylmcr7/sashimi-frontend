@@ -14,7 +14,13 @@ import wbtcImg from '../../../../src/assets/img/vault-coins/wbtc.svg';
 import '../Vault.less';
 import {UpOutlined, DownOutlined} from "@ant-design/icons/lib";
 import {provider} from "web3-core";
-import {getVaultContract, vaultDeposit, vaultWithdraw} from '../../../utils/vault';
+import {
+  getControllerContract,
+  getStrategyContract,
+  getVaultContract,
+  vaultDeposit,
+  vaultWithdraw
+} from '../../../utils/vault';
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import {getBalanceNumber} from "../../../utils/formatBalance";
 import {useVaultUserBalance} from "../../../hooks/vault/useVaultUserBalance";
@@ -23,7 +29,7 @@ import {getContract} from "../../../utils/erc20";
 import ButtonUnlockWallet from '../../../components/ButtonUnlockWallet/index'
 import useApprove from "../../../hooks/vault/useApprove";
 
-import { weiUnitDecimal } from '../../../sushi/lib/constants';
+import { weiUnitDecimal, vaultController } from '../../../sushi/lib/constants';
 import {getEthChainInfo} from "../../../utils/getEthChainInfo";
 
 const {
@@ -57,6 +63,8 @@ interface TokenPanelProps {
   // tokenPrice: number,
   apy: number,
 }
+
+const isVolunteer = window.location.href.includes('volunteer');
 
 const TokenPanel: React.FC<TokenPanelProps> = ({
   tokenName, vaultAddr, stableCoinAddr, weiUnit, ratio, valueLocked,
@@ -169,8 +177,33 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 </Col>
               </Row>
             </Col>
+
           </Row>
         </Col>
+        {isVolunteer && <Col span={24}>
+          <Button type="primary" onClick={() => {
+            if (!account) {
+              alert('Please login');
+              return;
+            }
+            vaultContract.methods.earn().send({from: account});
+          }}>
+            earn
+          </Button>
+          &nbsp;&nbsp;&nbsp;
+          <Button type="primary" onClick={async () => {
+            if (!account) {
+              alert('Please login');
+              return;
+            }
+            const controllerContract = getControllerContract(ethereum, vaultController);
+            const strategyAddress = await controllerContract.methods.strategies(stableCoinAddr).call();
+            const strategyContract = getStrategyContract(ethereum, strategyAddress);
+            await strategyContract.methods.harvest().send({from: account});
+          }}>
+            harvest
+          </Button>
+        </Col>}
         {/* Deposit */}
         <Row className={`vault-operation-panel ${panelHidden && 'vault-operation-panel-hidden'}`}>
 
@@ -179,7 +212,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               <div>
                 Deposit
                 <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
-                to farm (and dump) UNI for more DAI-ETH UNI-V2 LP tokens.
+                to farm (and dump) UNI for more {tokenName} UNI-V2 LP tokens.
               </div>
               <div>
                 Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {

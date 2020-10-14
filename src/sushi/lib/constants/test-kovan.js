@@ -237,7 +237,7 @@ export const supportedPools = [
 // VUE_APP_WBTC_ADDR = {"vaultAddr":"0xC25b2e8503a19b0379925bAc416912f2c1d263D6", "stableCoinAddr":"0x01105d4f5740F8550DB6B3Dfdd5eD99d20B76C52", "wei":"ether"}
 // VUE_APP_CHAIN_ID = 42
 // VUE_APP_CONTROLLER = 0xce2217024E4f88150457E5E9B673DD9db7e7a756 // can get strategies of a vault.
-export const vaultController = '0xce2217024E4f88150457E5E9B673DD9db7e7a756';
+export const vaultController = '0xD552d25aB6A1720f9b7952aB8598De6B80089225';
 export const vaults = [
   // {
   //   // tokenName: 'USDT',
