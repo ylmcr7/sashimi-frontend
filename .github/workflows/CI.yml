@@ -23,8 +23,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g yarn 
     - run: mkdir sashimi-frontend
-    - run: cp package.json sashimi-frontend
-    - run: cp tsconfig.json sashimi-frontend
     - run: yarn
     - run: npm run pkg:online
       env:
