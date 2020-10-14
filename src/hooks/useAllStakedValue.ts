@@ -44,12 +44,18 @@ const useAllStakedValue = () => {
           pid,
           lpContract,
           tokenContract,
-          lpBarContract
+          lpBarContract,
+          isSashimiPlate,
+          sashimiPlateContract,
+          uniV2LPContract
         }: {
           pid: number
           lpContract: Contract
           tokenContract: Contract
           lpBarContract?: Contract
+          isSashimiPlate?: boolean
+          sashimiPlateContract?: Contract
+          uniV2LPContract?: Contract
         }) =>
         {
           return getTotalLPWethValue(
@@ -59,7 +65,10 @@ const useAllStakedValue = () => {
             tokenContract,
             pid,
             lpBarContract,
-            doublePools.includes(pid) ? null : getSashimiRouterContract(yam)
+            doublePools.includes(pid) ? null : getSashimiRouterContract(yam),
+            isSashimiPlate,
+            sashimiPlateContract,
+            uniV2LPContract
           )},
       ),
     )

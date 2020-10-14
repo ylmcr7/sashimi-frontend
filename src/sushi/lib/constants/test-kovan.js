@@ -119,10 +119,12 @@ const sashimiPlatePools = [
       42: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
       1: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
     },
-    name: 'SashimiPlate(DAI-ETH)',
-    symbol: 'SashimiPlate(DAI-ETH)',
+    uniV2LPAddress: '0xc4ddd76bfbdcecbee50907074d00a5eafa1c2efa',
+    name: 'SashimiPlate',
+    symbol: 'DAI-ETH svUNI-V2',
     tokenSymbol: 'DAI',
-    icon: '-',
+    icon: '👨‍👩‍👧',
+    isSashimiPlate: true,
   },
 ];
 

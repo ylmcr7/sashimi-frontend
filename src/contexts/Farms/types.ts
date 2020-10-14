@@ -15,6 +15,9 @@ export interface Farm {
   lpBarAddress?: string
   lpBarContract?: Contract
   isSashimiPlate?: boolean
+  sashimiPlateContract?: Contract
+  uniV2LPAddress?: string
+  uniV2LPContract?: Contract
 }
 
 export interface FarmsContext {

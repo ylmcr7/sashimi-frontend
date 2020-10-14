@@ -67,6 +67,8 @@ export const getFarms = (sushi) => {
           lpBarAddress,
           lpBarContract,
           isSashimiPlate,
+          sashimiPlateContract,
+          uniV2LPContract,
         }) => ({
           pid,
           id: symbol,
@@ -80,6 +82,8 @@ export const getFarms = (sushi) => {
           lpBarAddress,
           lpBarContract,
           isSashimiPlate,
+          sashimiPlateContract,
+          uniV2LPContract,
           earnToken: 'sashimi',
           earnTokenAddress: sushi.contracts.sushi.options.address,
           icon,
@@ -165,11 +169,24 @@ export const getTotalLPWethValue = async (
   pid,
   lpBarContract, // not required
   routerContract,  // not required
+  isSashimiPlate, // not required
+  sashimiPlateContract, // not required
+  uniV2LPContract, // not required
 ) => {
   // Get balance of the token address
   let tokenAmountWholeLP;
   let lpContractWeth;
-  if (routerContract) {
+  let portionLp;
+  // TODO: different function to get tokenAmountWholeLP/lpContractWeth/portionLp
+  if (isSashimiPlate) {
+    // svUNI-V2 amount
+    tokenAmountWholeLP = await sashimiPlateContract.methods
+      .totalSupply()
+      .call();
+    lpContractWeth = await wethContract.methods
+      .balanceOf(uniV2LPContract.options.address)
+      .call();
+  } else if (routerContract) {
     tokenAmountWholeLP = await routerContract.methods
       .getTokenInPair(
         lpContract.options.address,
@@ -189,19 +206,38 @@ export const getTotalLPWethValue = async (
       .balanceOf(lpContract.options.address)
       .call()
   }
-  // const tokenAmountWholeLP = await tokenContract.methods
-  //   .balanceOf(lpContract.options.address)
-  //   .call()
-  const tokenDecimals = await tokenContract.methods.decimals().call()
+
   // Get the share of lpContract that masterChefContract owns
-  // When use LPBar insteadof LP, xLP:LP = 1:1;
-  const balance = await (lpBarContract || lpContract).methods
-    .balanceOf(masterChefContract.options.address)
-    .call()
-  // Convert that into the portion of total lpContract = p1
-  const totalSupply = await lpContract.methods.totalSupply().call()
+  if (isSashimiPlate) {
+    // svUNI-V2 of masterChefContract
+    const balance = await sashimiPlateContract.methods
+      .balanceOf(masterChefContract.options.address)
+      .call();
+    // svUNI-V2 totalSupply
+    const totalSupply = await sashimiPlateContract.methods
+      .totalSupply()
+      .call();
+    const portionSV = new BigNumber(balance).div(new BigNumber(totalSupply));
+
+    const totalSupplyUNIV2LP = await uniV2LPContract.methods.totalSupply().call();
+    // UNI-V2 LP amount of the pool
+    const totalLpOfSashimiPlate = await sashimiPlateContract.methods.balance().call();
+    portionLp = new BigNumber(totalLpOfSashimiPlate).times(portionSV).div(totalSupplyUNIV2LP);
+  } else {
+    // When use LPBar insteadof LP, xLP:LP = 1:1;
+    const balance = await (lpBarContract || lpContract).methods
+      .balanceOf(masterChefContract.options.address)
+      .call()
+    // Convert that into the portion of total lpContract = p1
+    const totalSupply = await lpContract.methods.totalSupply().call()
+    // Return p1 * w1 * 2
+    portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
+  }
+
+  const tokenDecimals = await tokenContract.methods.decimals().call()
+
   // Return p1 * w1 * 2
-  const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
+  // const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
   const lpWethWorth = new BigNumber(lpContractWeth)
   const totalLpWethValue = portionLp.times(lpWethWorth).times(new BigNumber(2))
   // Calculate

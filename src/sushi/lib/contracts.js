@@ -14,6 +14,7 @@ import WETHAbi from './abi/weth.json'
 import SashimiBarAbi from './abi/sashimiBar.json'
 import InvestmentAbi from './abi/investment.json'
 import LPBarAbi from './abi/LPBar';
+import vaultABI from '../../constants/abi/vault/vaultABI';
 import SashimiRouterAbi from './abi/sashimiRouter';
 
 export class Contracts {
@@ -42,6 +43,8 @@ export class Contracts {
         // In TS, use ?: Contract
         lpBarAddress: pool.lpBarAddresses ? pool.lpBarAddresses[networkId] : '',
         lpBarContract: pool.lpBarAddresses ? new this.web3.eth.Contract(LPBarAbi) : null,
+        sashimiPlateContract: pool.isSashimiPlate ? new this.web3.eth.Contract(vaultABI) : null,
+        uniV2LPContract: pool.isSashimiPlate ? new this.web3.eth.Contract(UNIV2PairAbi) : null,
       }),
     );
 
@@ -75,11 +78,16 @@ export class Contracts {
     setProvider(this.sashimiRouter, contractAddresses.sashimiRouter[networkId])
 
     this.pools.forEach(
-      ({ lpContract, lpAddress, tokenContract, tokenAddress, lpBarAddress, lpBarContract }) => {
+      ({ lpContract, lpAddress, tokenContract, tokenAddress, lpBarAddress, lpBarContract,
+         sashimiPlateContract, uniV2LPAddress, uniV2LPContract }) => {
         setProvider(lpContract, lpAddress)
         setProvider(tokenContract, tokenAddress)
         if (lpBarAddress && lpBarContract) {
           setProvider(lpBarContract, lpBarAddress)
+        }
+        if (sashimiPlateContract && uniV2LPContract) {
+          setProvider(sashimiPlateContract, lpAddress)
+          setProvider(uniV2LPContract, uniV2LPAddress)
         }
       },
     )
