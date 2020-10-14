@@ -1,0 +1,46 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+    - release
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        node-version: [12.16.1]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install -g yarn 
+    - run: mkdir sashimi-frontend
+    - run: cp package.json sashimi-frontend
+    - run: cp tsconfig.json sashimi-frontend
+    - run: yarn
+    - run: npm run pkg:online
+      env:
+        CI: true
+    - run: cp build-online.tar.gz sashimi-frontend/
+    - run: cp build-online.tar.gz sashimi-frontend/build-online-`date +%Y-%m-%d-%H-%M`.tar.gz
+    - run: npm run pkg:online-test
+      env:
+        CI: true
+    - run: cp build-online-test.tar.gz sashimi-frontend/
+    - run: cp build-online-test.tar.gz sashimi-frontend/build-online-test-`date +%Y-%m-%d-%H-%M`.tar.gz
+    - name: S3 Upload
+      uses: koraykoska/s3-upload-github-action@master
+      env:
+        FILE: sashimi-frontend
+        S3_ENDPOINT: 's3-ap-southeast-1.amazonaws.com'
+        S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY }}
+        S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS }}
