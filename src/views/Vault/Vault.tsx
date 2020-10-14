@@ -24,6 +24,7 @@ import useBlock from "../../hooks/useBlock";
 import BigNumber from "bignumber.js";
 import {getBalance, getTotalSupply} from "../../utils/erc20";
 import {getEthChainInfo} from "../../utils/getEthChainInfo";
+import {useVaultsAPY} from "../../hooks/vault/useVaultsAPY";
 
 interface Vault {
   tokenName: string,
@@ -64,6 +65,8 @@ const Vault: React.FC = () => {
   const [totalStableValue, setTotalStableValue] = useState(new BigNumber(0));
   const [totalUserStableValue, setUserTotalStableValue] = useState(new BigNumber(0));
   const [totalWethValueInStaking, setTotalWethValueInStaking] = useState([]);
+
+  const vaultsAPY = useVaultsAPY();
 
   const fetchTotalStakingValue = useCallback(async () => {
     if (ethereum && wethDollarPrice) {
@@ -200,14 +203,10 @@ const Vault: React.FC = () => {
           vaultAddr={vault.vaultAddr}
           stableCoinAddr={vault.stableCoinAddr}
           weiUnit={vault.wei}
-          uniAddressOrSymbolA={vault.uniAddressOrSymbolA}
-          uniAddressOrSymbolB={vault.uniAddressOrSymbolB}
-          // apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
+          apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
           valueLocked={totalWethValueInStaking[index] ? new BigNumber(totalWethValueInStaking[index]) : new BigNumber(0)}
           wethPrice={wethDollarPrice}
           ratio={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].ratio : new BigNumber(0)}
-          apy={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].apy : '-'}
-          apyTemp={vault.apyTemp}
         />
       )}
     </>

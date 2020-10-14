@@ -28,7 +28,6 @@ export const {
   waitingInfo,
   vaultController,
   vaults,
-  vaultAPYAPI,
   vaultStableTokenPriceAPI,
   tokenPriceAPI = 'https://min-api.cryptocompare.com/data/price', // ?fsym=ETH&tsyms=USD
   weiUnitDecimal = WEI_UNIT_DECIMAL,

@@ -780,46 +780,33 @@ export const vaults = [
     lpTokenName: 'DAI-ETH',
     vaultAddr: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
     stableCoinAddr: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11', // LP token
-    uniAddressOrSymbolA: '0x6B175474E89094C44Da98b954EedeAC495271d0F', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,10, 0, 0))).getTime(), // use to get APY.
-    apyTemp: '26.86%',
   },
   {
     tokenName: 'USDC-ETH',
     lpTokenName: 'USDC-ETH',
     vaultAddr: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
     stableCoinAddr: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc', // LP token
-    uniAddressOrSymbolA: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
-    apyTemp: '20.12%',
   },
   {
-    tokenName: 'USDT-ETH',
-    lpTokenName: 'USDT-ETH',
+    tokenName: 'ETH-USDT',
+    lpTokenName: 'ETH-USDT',
     vaultAddr: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
     stableCoinAddr: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852', // LP token
-    uniAddressOrSymbolA: '0xdac17f958d2ee523a2206206994597c13d831ec7', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
-    apyTemp: '22.29%',
   },
   {
     tokenName: 'WBTC-ETH',
     lpTokenName: 'WBTC-ETH',
     vaultAddr: '0x81885d776D2963941ec7434F30D61B851E9697FA',
     stableCoinAddr: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940', // LP token
-    uniAddressOrSymbolA: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
-    apyTemp: '20.54%',
   },
 ];
 
-export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';

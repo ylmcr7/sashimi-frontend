@@ -39,7 +39,7 @@ const imgUrls = {
   DAI: daiImg,
   USDC: usdcImg,
   WBTC: wbtcImg,
-  'USDT-ETH': usdtImg,
+  'ETH-USDT': usdtImg,
   'DAI-ETH': daiImg,
   'USDC-ETH': usdcImg,
   'WBTC-ETH': wbtcImg,
@@ -51,20 +51,16 @@ interface TokenPanelProps {
   vaultAddr: string,
   stableCoinAddr: string,
   weiUnit: keyof typeof weiUnitDecimal,
-  uniAddressOrSymbolA: string,
-  uniAddressOrSymbolB: string,
   ratio: BigNumber,
   valueLocked: BigNumber,
   wethPrice: number,
   // tokenPrice: number,
   apy: number,
-  apyTemp: string,
 }
 
 const TokenPanel: React.FC<TokenPanelProps> = ({
-  tokenName, vaultAddr, stableCoinAddr, weiUnit,
-  uniAddressOrSymbolA, uniAddressOrSymbolB, ratio, valueLocked,
-  wethPrice, apy, apyTemp
+  tokenName, vaultAddr, stableCoinAddr, weiUnit, ratio, valueLocked,
+  wethPrice, apy,
 }) => {
   const {
     account,
@@ -152,8 +148,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={6} md={7}>
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
-                {/*<Col span={24} className="vault-info-title">{apy}%</Col>*/}
-                <Col span={24} className="vault-info-title">{apyTemp}</Col>
+                <Col span={24} className="vault-info-title">{apy ? apy.toFixed(4) : '0.000'}%</Col>
               </Row>
             </Col>
 
