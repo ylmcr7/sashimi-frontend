@@ -207,6 +207,7 @@ const Vault: React.FC = () => {
           wethPrice={wethDollarPrice}
           ratio={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].ratio : new BigNumber(0)}
           apy={exchangeRatioAndAPY[index] ? exchangeRatioAndAPY[index].apy : '-'}
+          apyTemp={vault.apyTemp}
         />
       )}
     </>

@@ -58,12 +58,13 @@ interface TokenPanelProps {
   wethPrice: number,
   // tokenPrice: number,
   apy: number,
+  apyTemp: string,
 }
 
 const TokenPanel: React.FC<TokenPanelProps> = ({
   tokenName, vaultAddr, stableCoinAddr, weiUnit,
   uniAddressOrSymbolA, uniAddressOrSymbolB, ratio, valueLocked,
-  wethPrice, apy
+  wethPrice, apy, apyTemp
 }) => {
   const {
     account,
@@ -151,7 +152,8 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={6} md={7}>
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
-                <Col span={24} className="vault-info-title">{apy}%</Col>
+                {/*<Col span={24} className="vault-info-title">{apy}%</Col>*/}
+                <Col span={24} className="vault-info-title">{apyTemp}</Col>
               </Row>
             </Col>
 
@@ -176,20 +178,26 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
         </Col>
         {/* Deposit */}
         <Row className={`vault-operation-panel ${panelHidden && 'vault-operation-panel-hidden'}`}>
-          <Col span={24} className="vault-exchange-ratio">
-            Deposit
-            <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
-            to farm (and dump) UNI for more DAI-ETH UNI-V2 LP tokens.
+
+          <Col span={24} className="vault-operation-info-container">
+            <div className="vault-operation-info-bg">
+              <div>
+                Deposit
+                <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
+                to farm (and dump) UNI for more DAI-ETH UNI-V2 LP tokens.
+              </div>
+              <div>
+                Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {
+                minimumFractionDigits: 4,
+                maximumFractionDigits: 4,
+              })}
+              </div>
+              <div>
+                1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
+              </div>
+            </div>
           </Col>
-          <Col span={24} className="vault-exchange-ratio">
-            Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {
-            minimumFractionDigits: 4,
-            maximumFractionDigits: 4,
-          })}
-          </Col>
-          <Col span={24} className="vault-exchange-ratio">
-            1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
-          </Col>
+
           <Col span={24} md={12} className="vault-operation-card">
             <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(8)} {tokenName} UNI-V2 LP</div>
             <div className="vault-blank"/>
