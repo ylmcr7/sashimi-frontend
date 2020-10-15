@@ -34,6 +34,11 @@ jobs:
         CI: true
     - run: cp build-online-test.tar.gz sashimi-frontend/
     - run: cp build-online-test.tar.gz sashimi-frontend/build-online-test-`date +%Y-%m-%d-%H-%M`.tar.gz
+    - run: npm run pkg:kovan
+      env:
+        CI: true
+    - run: cp build-kovan.tar.gz sashimi-frontend/
+    - run: cp build-kovan.tar.gz sashimi-frontend/build-kovan-`date +%Y-%m-%d-%H-%M`.tar.gz
     - name: Upload to oss
       id: upload_to_oss
       uses: tvrcgo/upload-to-oss@v0.1.1
