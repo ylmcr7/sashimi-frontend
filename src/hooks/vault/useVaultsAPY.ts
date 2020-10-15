@@ -24,7 +24,7 @@ export const useVaultsAPY = () => {
   const fetchAPY = useCallback(async () => {
     if (block % 6 === 0) {
       try {
-        const result: any = await axios.get('/api/farms/getDoubleFarmAPY');
+        const result: any = await axios.get('/api/farms/getUNIV2APY');
         if (result.data && result.data.data) {
           const apys = {} as any;
           result.data.data.forEach((apyInfo: any) => {

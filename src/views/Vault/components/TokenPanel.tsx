@@ -31,6 +31,7 @@ import useApprove from "../../../hooks/vault/useApprove";
 
 import { weiUnitDecimal, vaultController } from '../../../sushi/lib/constants';
 import {getEthChainInfo} from "../../../utils/getEthChainInfo";
+import {Link} from "react-router-dom";
 
 const {
   ethscanType
@@ -156,7 +157,10 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={6} md={7}>
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
-                <Col span={24} className="vault-info-title">{apy ? apy.toFixed(4) : '0.000'}%</Col>
+                <Col span={24} className="vault-info-title">{apy ? apy.toFixed(2) : '0.0'}%
+                  {/* TODO use apy api */}
+                  + <Link to={`/farms/${tokenName}%20svUNI-V2`}>200%↗</Link>
+                </Col>
               </Row>
             </Col>
 
