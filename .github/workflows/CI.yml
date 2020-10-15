@@ -34,11 +34,13 @@ jobs:
         CI: true
     - run: cp build-online-test.tar.gz sashimi-frontend/
     - run: cp build-online-test.tar.gz sashimi-frontend/build-online-test-`date +%Y-%m-%d-%H-%M`.tar.gz
-    - name: S3 Upload
-      uses: koraykoska/s3-upload-github-action@master
-      env:
-        FILE: sashimi-frontend
-        S3_ENDPOINT: 's3-ap-northeast-1.amazonaws.com'
-        S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY }}
-        S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS }}
+    - name: Upload to oss
+      id: upload_to_oss
+      uses: tvrcgo/upload-to-oss@v0.1.1
+      with:
+        key-id: ${{ secrets.OSS_KEY_ID }}
+        key-secret: ${{ secrets.OSS_KEY_SECRET }}
+        region: oss-ap-northeast-1
+        bucket: ${{ secrets.OSS_BUCKET }}
+        asset-path: ./sashimi-frontend
+        target-path: /
