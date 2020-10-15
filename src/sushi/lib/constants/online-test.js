@@ -62,7 +62,7 @@ export const supportedInvestmentPools = [
     },
     depositAddresses: {
       42: '0xe66747a101bff2dba3697199dcce5b743b454759', // WETH in kovan, ERC20
-      1: '0xe66747a101bff2dba3697199dcce5b743b454759'
+      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // GT
     },
     providerAddresses: {
       42: '0x8f3b506aa2341fe9d76f773d02ec2b1ed156f8fc',

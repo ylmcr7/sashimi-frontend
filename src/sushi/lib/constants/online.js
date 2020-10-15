@@ -99,6 +99,29 @@ export const supportedInvestmentPools = [
     icon: '🧳',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
+  },
+  {
+    lpAddresses: {
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // WETH-SASHIMI UNI LP
+    },
+    pivotLpAddresses: {
+      42: '0x359c138b1666aa2167aafc205a841ff432a23040',
+      1: '0x359c138b1666aa2167aafc205a841ff432a23040' // GT-ETH
+    },
+    depositAddresses: {
+      42: '0xe66747a101bff2dba3697199dcce5b743b454759',
+      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
+    },
+    providerAddresses: {
+      42: '0xeebef489fff79c4caedf520e7e65359c99',
+      1: '0xeebef489fff79c4caedf520e7e65359c99'
+    },
+    depositTokenSymbol: 'GT',
+    tokenSymbol: 'GOF', // GOLFF // The token you get
+    icon: '💼',
+    sashimiIndex: 1,
+    pivotTokenIndex: 0,
   }
 
 ];
