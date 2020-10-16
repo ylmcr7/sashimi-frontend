@@ -63,13 +63,14 @@ interface TokenPanelProps {
   wethPrice: number,
   // tokenPrice: number,
   apy: number,
+  extraAPY: string,
 }
 
 const isVolunteer = window.location.href.includes('volunteer');
 
 const TokenPanel: React.FC<TokenPanelProps> = ({
   tokenName, vaultAddr, stableCoinAddr, weiUnit, ratio, valueLocked,
-  wethPrice, apy,
+  wethPrice, apy, extraAPY
 }) => {
   const {
     account,
@@ -159,7 +160,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 <Col span={24} className="vault-info-subtitle">APY</Col>
                 <Col span={24} className="vault-info-title">{apy ? apy.toFixed(2) : '0.0'}%
                   {/* TODO use apy api */}
-                  + <Link to={`/farms/${tokenName}%20svUNI-V2`}>200%↗</Link>
+                  + <Link to={`/farms/${tokenName}%20svUNI-V2`}>{extraAPY.substring(0, extraAPY.indexOf('.') + 3)}%↗</Link>
                 </Col>
               </Row>
             </Col>

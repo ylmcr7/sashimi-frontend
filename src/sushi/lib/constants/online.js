@@ -28,6 +28,29 @@ export const contractAddresses = {
 export const supportedInvestmentPools = [
   {
     lpAddresses: {
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // WETH-SASHIMI UNI LP
+    },
+    pivotLpAddresses: {
+      42: '0x359c138b1666aa2167aafc205a841ff432a23040',
+      1: '0x359c138b1666aa2167aafc205a841ff432a23040' // GT-ETH
+    },
+    depositAddresses: {
+      42: '0xe66747a101bff2dba3697199dcce5b743b454759',
+      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
+    },
+    providerAddresses: {
+      42: '0xeebef489fff79c4caedf520e7e65359c99',
+      1: '0xeebef489fff79c4caedf520e7e65359c99'
+    },
+    depositTokenSymbol: 'GT',
+    tokenSymbol: 'GOF', // GOLFF // The token you get
+    icon: '💼',
+    sashimiIndex: 1,
+    pivotTokenIndex: 0,
+  },
+  {
+    lpAddresses: {
       42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
       1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI
     },
@@ -100,30 +123,6 @@ export const supportedInvestmentPools = [
     sashimiIndex: 1,
     pivotTokenIndex: 0,
   },
-  {
-    lpAddresses: {
-      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
-      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // WETH-SASHIMI UNI LP
-    },
-    pivotLpAddresses: {
-      42: '0x359c138b1666aa2167aafc205a841ff432a23040',
-      1: '0x359c138b1666aa2167aafc205a841ff432a23040' // GT-ETH
-    },
-    depositAddresses: {
-      42: '0xe66747a101bff2dba3697199dcce5b743b454759',
-      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
-    },
-    providerAddresses: {
-      42: '0xeebef489fff79c4caedf520e7e65359c99',
-      1: '0xeebef489fff79c4caedf520e7e65359c99'
-    },
-    depositTokenSymbol: 'GT',
-    tokenSymbol: 'GOF', // GOLFF // The token you get
-    icon: '💼',
-    sashimiIndex: 1,
-    pivotTokenIndex: 0,
-  }
-
 ];
 // These pools get 0 point; [type pid]
 export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
