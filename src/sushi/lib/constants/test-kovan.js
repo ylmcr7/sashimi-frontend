@@ -108,7 +108,28 @@ const xLPSupportedPools = [
   // },
 ];
 
+const sashimiPlatePools = [
+  {
+    pid: 5,
+    lpAddresses: {
+      42: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+      1: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+    },
+    tokenAddresses: {
+      42: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+      1: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+    },
+    uniV2LPAddress: '0xc4ddd76bfbdcecbee50907074d00a5eafa1c2efa',
+    name: 'SashimiPlate',
+    symbol: 'DAI-ETH svUNI-V2',
+    tokenSymbol: 'DAI',
+    icon: '👨‍👩‍👧',
+    isSashimiPlate: true,
+  },
+];
+
 export const supportedPools = [
+  ...sashimiPlatePools,
   ...xLPSupportedPools,
   {
     pid: 0,
@@ -216,7 +237,7 @@ export const supportedPools = [
 // VUE_APP_WBTC_ADDR = {"vaultAddr":"0xC25b2e8503a19b0379925bAc416912f2c1d263D6", "stableCoinAddr":"0x01105d4f5740F8550DB6B3Dfdd5eD99d20B76C52", "wei":"ether"}
 // VUE_APP_CHAIN_ID = 42
 // VUE_APP_CONTROLLER = 0xce2217024E4f88150457E5E9B673DD9db7e7a756 // can get strategies of a vault.
-export const vaultController = '0xce2217024E4f88150457E5E9B673DD9db7e7a756';
+export const vaultController = '0xD552d25aB6A1720f9b7952aB8598De6B80089225';
 export const vaults = [
   // {
   //   // tokenName: 'USDT',
@@ -257,5 +278,4 @@ export const vaults = [
   // }
 ];
 
-export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';

@@ -3,8 +3,8 @@ import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import vaultABI from '../constants/abi/vault/vaultABI.json'
-// import strategyABI from '../constants/abi/vault/strategyABI.json'
-// import controllerABI from '../constants/abi/vault/controllerABI.json'
+import strategyABI from '../constants/abi/vault/strategyABI.json'
+import controllerABI from '../constants/abi/vault/controllerABI.json'
 import { Contract } from 'web3-eth-contract'
 import BigNumber from "bignumber.js";
 
@@ -21,6 +21,22 @@ export const getVaultContract = (provider: provider, vaultContractAddress: strin
   return new web3.eth.Contract(
     (vaultABI as unknown) as AbiItem,
     vaultContractAddress,
+  );
+};
+
+export const getStrategyContract = (provider: provider, strategyContractAddress: string) => {
+  const web3 = new Web3(provider);
+  return new web3.eth.Contract(
+    (strategyABI as unknown) as AbiItem,
+    strategyContractAddress,
+  );
+};
+
+export const getControllerContract = (provider: provider, controllerContractAddress: string) => {
+  const web3 = new Web3(provider);
+  return new web3.eth.Contract(
+    (controllerABI as unknown) as AbiItem,
+    controllerContractAddress,
   );
 };
 

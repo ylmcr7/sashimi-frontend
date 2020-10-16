@@ -18,7 +18,7 @@ const Nav: React.FC = () => {
     const smVal = 3;
     const xsVal = 12;
     return (
-    <StyledRow gutter={16} justify="space-around">
+    <StyledRow gutter={18} justify="space-around">
       <Col sm={smVal} xs={xsVal}>
         <StyledLink
           target="_blank"
@@ -64,6 +64,11 @@ const Nav: React.FC = () => {
         <StyledLink target="_blank" href="https://sashimi.cool/files/sashimi_audit_report.pdf">
           Audit Report
         </StyledLink>
+      </Col>
+      <Col sm={2} xs={xsVal}>
+        <a href="/api/farms/getList" target="_blank" style={{color: '#FFF'}}>
+          APY API
+        </a>
       </Col>
     </StyledRow>
   )

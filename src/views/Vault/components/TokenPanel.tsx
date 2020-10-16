@@ -14,7 +14,13 @@ import wbtcImg from '../../../../src/assets/img/vault-coins/wbtc.svg';
 import '../Vault.less';
 import {UpOutlined, DownOutlined} from "@ant-design/icons/lib";
 import {provider} from "web3-core";
-import {getVaultContract, vaultDeposit, vaultWithdraw} from '../../../utils/vault';
+import {
+  getControllerContract,
+  getStrategyContract,
+  getVaultContract,
+  vaultDeposit,
+  vaultWithdraw
+} from '../../../utils/vault';
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import {getBalanceNumber} from "../../../utils/formatBalance";
 import {useVaultUserBalance} from "../../../hooks/vault/useVaultUserBalance";
@@ -23,8 +29,9 @@ import {getContract} from "../../../utils/erc20";
 import ButtonUnlockWallet from '../../../components/ButtonUnlockWallet/index'
 import useApprove from "../../../hooks/vault/useApprove";
 
-import { weiUnitDecimal } from '../../../sushi/lib/constants';
+import { weiUnitDecimal, vaultController } from '../../../sushi/lib/constants';
 import {getEthChainInfo} from "../../../utils/getEthChainInfo";
+import {Link} from "react-router-dom";
 
 const {
   ethscanType
@@ -39,7 +46,7 @@ const imgUrls = {
   DAI: daiImg,
   USDC: usdcImg,
   WBTC: wbtcImg,
-  'USDT-ETH': usdtImg,
+  'ETH-USDT': usdtImg,
   'DAI-ETH': daiImg,
   'USDC-ETH': usdcImg,
   'WBTC-ETH': wbtcImg,
@@ -51,19 +58,19 @@ interface TokenPanelProps {
   vaultAddr: string,
   stableCoinAddr: string,
   weiUnit: keyof typeof weiUnitDecimal,
-  uniAddressOrSymbolA: string,
-  uniAddressOrSymbolB: string,
   ratio: BigNumber,
   valueLocked: BigNumber,
   wethPrice: number,
   // tokenPrice: number,
   apy: number,
+  extraAPY: string,
 }
 
+const isVolunteer = window.location.href.includes('volunteer');
+
 const TokenPanel: React.FC<TokenPanelProps> = ({
-  tokenName, vaultAddr, stableCoinAddr, weiUnit,
-  uniAddressOrSymbolA, uniAddressOrSymbolB, ratio, valueLocked,
-  wethPrice, apy
+  tokenName, vaultAddr, stableCoinAddr, weiUnit, ratio, valueLocked,
+  wethPrice, apy, extraAPY
 }) => {
   const {
     account,
@@ -151,7 +158,10 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={6} md={7}>
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
-                <Col span={24} className="vault-info-title">{apy}%</Col>
+                <Col span={24} className="vault-info-title">{apy ? apy.toFixed(2) : '0.0'}%
+                  {/* TODO use apy api */}
+                  + <Link to={`/farms/${tokenName}%20svUNI-V2`}>{extraAPY.substring(0, extraAPY.indexOf('.') + 3)}%↗</Link>
+                </Col>
               </Row>
             </Col>
 
@@ -172,24 +182,55 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 </Col>
               </Row>
             </Col>
+
           </Row>
         </Col>
+        {isVolunteer && <Col span={24}>
+          <Button type="primary" onClick={() => {
+            if (!account) {
+              alert('Please login');
+              return;
+            }
+            vaultContract.methods.earn().send({from: account});
+          }}>
+            earn
+          </Button>
+          &nbsp;&nbsp;&nbsp;
+          <Button type="primary" onClick={async () => {
+            if (!account) {
+              alert('Please login');
+              return;
+            }
+            const controllerContract = getControllerContract(ethereum, vaultController);
+            const strategyAddress = await controllerContract.methods.strategies(stableCoinAddr).call();
+            const strategyContract = getStrategyContract(ethereum, strategyAddress);
+            await strategyContract.methods.harvest().send({from: account});
+          }}>
+            harvest
+          </Button>
+        </Col>}
         {/* Deposit */}
         <Row className={`vault-operation-panel ${panelHidden && 'vault-operation-panel-hidden'}`}>
-          <Col span={24} className="vault-exchange-ratio">
-            Deposit
-            <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
-            to farm (and dump) UNI for more DAI-ETH UNI-V2 LP tokens.
+
+          <Col span={24} className="vault-operation-info-container">
+            <div className="vault-operation-info-bg">
+              <div>
+                Deposit
+                <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
+                to farm (and dump) UNI for more {tokenName} UNI-V2 LP tokens.
+              </div>
+              <div>
+                Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {
+                minimumFractionDigits: 4,
+                maximumFractionDigits: 4,
+              })}
+              </div>
+              <div>
+                1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
+              </div>
+            </div>
           </Col>
-          <Col span={24} className="vault-exchange-ratio">
-            Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {
-            minimumFractionDigits: 4,
-            maximumFractionDigits: 4,
-          })}
-          </Col>
-          <Col span={24} className="vault-exchange-ratio">
-            1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
-          </Col>
+
           <Col span={24} md={12} className="vault-operation-card">
             <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(8)} {tokenName} UNI-V2 LP</div>
             <div className="vault-blank"/>

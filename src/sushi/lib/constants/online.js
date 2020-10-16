@@ -28,6 +28,29 @@ export const contractAddresses = {
 export const supportedInvestmentPools = [
   {
     lpAddresses: {
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // WETH-SASHIMI UNI LP
+    },
+    pivotLpAddresses: {
+      42: '0x359c138b1666aa2167aafc205a841ff432a23040',
+      1: '0x359c138b1666aa2167aafc205a841ff432a23040' // GT-ETH
+    },
+    depositAddresses: {
+      42: '0xe66747a101bff2dba3697199dcce5b743b454759',
+      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
+    },
+    providerAddresses: {
+      42: '0xeebef489fff79c4caedf520e7e65359c99',
+      1: '0xeebef489fff79c4caedf520e7e65359c99'
+    },
+    depositTokenSymbol: 'GT',
+    tokenSymbol: 'GOF', // GOLFF // The token you get
+    icon: '💼',
+    sashimiIndex: 1,
+    pivotTokenIndex: 0,
+  },
+  {
+    lpAddresses: {
       42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
       1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI
     },
@@ -99,8 +122,7 @@ export const supportedInvestmentPools = [
     icon: '🧳',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
-  }
-
+  },
 ];
 // These pools get 0 point; [type pid]
 export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
@@ -114,9 +136,8 @@ export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
 export const waitingInfo = {
-  waitingPool: [34],
-  // startTime: 1601479800000
-  startTime: 1601559000000
+  waitingPool: [34, 35, 36, 37],
+  startTime: 1602694800000
 };
 
 // 0928 UNI LP
@@ -198,6 +219,77 @@ const xLPSupportedPools = [
     symbol: '\xa0WBTC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🥓',
+  },
+];
+
+const newNormalPool1014 = [
+  {
+    pid: 34,
+    lpAddresses: {
+      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+    },
+    tokenAddresses: {
+      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+    },
+    uniV2LPAddress: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+    name: 'SashimiPlate Party!',
+    symbol: 'DAI-ETH svUNI-V2',
+    tokenSymbol: 'DAI',
+    icon: '👨‍👩‍👧',
+    isSashimiPlate: true,
+  },
+  {
+    pid: 35,
+    lpAddresses: {
+      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+    },
+    tokenAddresses: {
+      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+    },
+    uniV2LPAddress: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+    name: 'SashimiPlate Party!',
+    symbol: 'USDC-ETH svUNI-V2',
+    tokenSymbol: 'USDC',
+    icon: '👨‍👨‍👦',
+    isSashimiPlate: true,
+  },
+  {
+    pid: 36,
+    lpAddresses: {
+      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+    },
+    tokenAddresses: {
+      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+    },
+    uniV2LPAddress: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+    name: 'SashimiPlate Party!',
+    symbol: 'ETH-USDT svUNI-V2',
+    tokenSymbol: 'USDT',
+    icon: '👨‍👨‍👧',
+    isSashimiPlate: true,
+  },
+  {
+    pid: 37,
+    lpAddresses: {
+      42: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+      1: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+    },
+    tokenAddresses: {
+      42: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+      1: '0x81885d776D2963941ec7434F30D61B851E9697FA',
+    },
+    uniV2LPAddress: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
+    name: 'SashimiPlate Party!',
+    symbol: 'WBTC-ETH svUNI-V2',
+    tokenSymbol: 'WBTC',
+    icon: '👩‍👩‍👦',
+    isSashimiPlate: true,
   },
 ];
 
@@ -301,6 +393,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newNormalPool1014,
   ...newNormalPool0939,
   ...newNormalPools,
   // 0917
@@ -709,8 +802,6 @@ export const vaults = [
     lpTokenName: 'DAI-ETH',
     vaultAddr: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
     stableCoinAddr: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11', // LP token
-    uniAddressOrSymbolA: '0x6B175474E89094C44Da98b954EedeAC495271d0F', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,10, 0, 0))).getTime(), // use to get APY.
   },
@@ -719,18 +810,14 @@ export const vaults = [
     lpTokenName: 'USDC-ETH',
     vaultAddr: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
     stableCoinAddr: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc', // LP token
-    uniAddressOrSymbolA: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
   {
-    tokenName: 'USDT-ETH',
-    lpTokenName: 'USDT-ETH',
+    tokenName: 'ETH-USDT',
+    lpTokenName: 'ETH-USDT',
     vaultAddr: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
     stableCoinAddr: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852', // LP token
-    uniAddressOrSymbolA: '0xdac17f958d2ee523a2206206994597c13d831ec7', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
@@ -739,12 +826,9 @@ export const vaults = [
     lpTokenName: 'WBTC-ETH',
     vaultAddr: '0x81885d776D2963941ec7434F30D61B851E9697FA',
     stableCoinAddr: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940', // LP token
-    uniAddressOrSymbolA: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // DAI Address
-    uniAddressOrSymbolB: 'eth',
     wei: 'ether',
     startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
 ];
 
-export const vaultAPYAPI = 'http://39.98.34.153:8081/api/apy';
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';
