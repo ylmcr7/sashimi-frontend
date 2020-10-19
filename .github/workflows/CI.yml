@@ -49,8 +49,8 @@ jobs:
         bucket: ${{ secrets.OSS_BUCKET }}
         asset-path: ./sashimi-frontend
         target-path: /
-     - name: Invoke deployment hook
-       uses: jasongitmail/fast-webhook@v1
-       with:
-         url: ${{ secrets.WEBHOOK_URL }}
-         json: '{"hook": "233"}'
+    - name: Invoke deployment hook
+      uses: jasongitmail/fast-webhook@v1
+      with:
+        url: ${{ secrets.WEBHOOK_URL }}
+        json: '{"hook": "233"}'
