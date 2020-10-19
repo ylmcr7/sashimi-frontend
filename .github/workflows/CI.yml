@@ -21,7 +21,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn 
+    - run: npm install -g yarn
     - run: mkdir sashimi-frontend
     - run: yarn
     - run: npm run pkg:online
@@ -49,3 +49,8 @@ jobs:
         bucket: ${{ secrets.OSS_BUCKET }}
         asset-path: ./sashimi-frontend
         target-path: /
+     - name: Invoke deployment hook
+       uses: jasongitmail/fast-webhook@v1
+       with:
+         url: ${{ secrets.WEBHOOK_URL }}
+         json: '{"hook": "233"}'

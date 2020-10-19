@@ -40,8 +40,8 @@ export const supportedInvestmentPools = [
       1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
     },
     providerAddresses: {
-      42: '0xeebef489fff79c4caedf520e7e65359c99',
-      1: '0xeebef489fff79c4caedf520e7e65359c99'
+      42: '0xeebef489fff79c4caedf520e7e65359c99d47ea7',
+      1: '0xeebef489fff79c4caedf520e7e65359c99d47ea7'
     },
     depositTokenSymbol: 'GT',
     tokenSymbol: 'GOF', // GOLFF // The token you get
