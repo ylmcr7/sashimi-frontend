@@ -33,7 +33,7 @@ export const supportedInvestmentPools = [
     },
     pivotLpAddresses: {
       42: '0x359c138b1666aa2167aafc205a841ff432a23040',
-      1: '0x359c138b1666aa2167aafc205a841ff432a23040' // GT-ETH
+      1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
     },
     depositAddresses: {
       42: '0xe66747a101bff2dba3697199dcce5b743b454759',
