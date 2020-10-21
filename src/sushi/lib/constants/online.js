@@ -803,7 +803,6 @@ export const vaults = [
     vaultAddr: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
     stableCoinAddr: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11', // LP token
     wei: 'ether',
-    startTime: (new Date(Date.UTC(2020, 9, 13 ,10, 0, 0))).getTime(), // use to get APY.
   },
   {
     tokenName: 'USDC-ETH',
@@ -811,7 +810,6 @@ export const vaults = [
     vaultAddr: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
     stableCoinAddr: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc', // LP token
     wei: 'ether',
-    startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
   {
     tokenName: 'ETH-USDT',
@@ -819,7 +817,6 @@ export const vaults = [
     vaultAddr: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
     stableCoinAddr: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852', // LP token
     wei: 'ether',
-    startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
   {
     tokenName: 'WBTC-ETH',
@@ -827,8 +824,34 @@ export const vaults = [
     vaultAddr: '0x81885d776D2963941ec7434F30D61B851E9697FA',
     stableCoinAddr: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940', // LP token
     wei: 'ether',
-    startTime: (new Date(Date.UTC(2020, 9, 13 ,13, 0, 0))).getTime(), // use to get APY.
   },
+  {
+    tokenName: 'DAI',
+    lpTokenName: 'DAI',
+    vaultAddr: '0xe6cB949e11bEB2a7b48f4cb5bFD8724501cfdA91',
+    stableCoinAddr: '0x6b175474e89094c44da98b954eedeac495271d0f', // stable token
+    wei: 'ether',
+    isStable: true,
+    apyTemp: '7.19',
+  },
+  {
+    tokenName: 'USDT',
+    lpTokenName: 'USDT',
+    vaultAddr: '0x722669a18852c659110D4a1E44f9647Fc44EdCc2',
+    stableCoinAddr: '0xdAC17F958D2ee523a2206206994597C13D831ec7', // stable token
+    wei: 'mwei',
+    isStable: true,
+    apyTemp: '6.88',
+  },
+  {
+    tokenName: 'USDC',
+    lpTokenName: 'USDC',
+    vaultAddr: '0x4221330F24b26f20457f7c7c925CFc46b1541CA6',
+    stableCoinAddr: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // stable token
+    wei: 'mwei',
+    isStable: true,
+    apyTemp: '4.77',
+  }
 ];
 
 export const vaultStableTokenPriceAPI = 'http://39.98.34.153:8081/api/price';

@@ -48,6 +48,16 @@ const getStakingDollarValue = (wethValuesInStaking: any, wethDollarPrice: number
   return totalWethValue.isNaN() ? new BigNumber(0) : totalWethValue.div(10 ** 18).times(wethDollarPrice);
 };
 
+const getStakingDollarValueStable = (stablesBalance: any, vaults: any) => {
+  let totalDollar = new BigNumber(0);
+  vaults.forEach((vault: any, index: number) => {
+    if (vault.isStable) {
+      totalDollar = totalDollar.plus(new BigNumber(stablesBalance[index]).div(10 ** weiUnitDecimal[vault.wei]));
+    }
+  });
+  return totalDollar;
+};
+
 const {
   ethscanType
 } = getEthChainInfo();
@@ -66,6 +76,7 @@ const Vault: React.FC = () => {
   const [totalStableValue, setTotalStableValue] = useState(new BigNumber(0));
   const [totalUserStableValue, setUserTotalStableValue] = useState(new BigNumber(0));
   const [totalWethValueInStaking, setTotalWethValueInStaking] = useState([]);
+  const [totalStableInStaking, setTotalStableInStaking] = useState([]);
 
   const vaultsAPY = useVaultsAPY();
   const farmsAPYTemp = useFarmsAPY();
@@ -77,17 +88,18 @@ const Vault: React.FC = () => {
 
   const fetchTotalStakingValue = useCallback(async () => {
     if (ethereum && wethDollarPrice) {
+
       const vaultsContract = vaults.map((vault: any) => getVaultContract(ethereum, vault.vaultAddr));
 
-      // LP balance in Vault
+      // LP/stable balance in Vault
       const stablesBalancePromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultTotalBalance(vaultContract, account);
       }));
-      // svUNI-V2 Balance
+      // svUNI-V2/svStable(svDAI svUSDT) Balance
       const stablesUserBalancePromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultUserBalance(vaultContract, account);
       }));
-      // svUNI-V2 total supply of each pool
+      // svUNI-V2/svStable total supply of each pool
       const poolsLPTTotalSupplyPromise = Promise.all(vaultsContract.map((vaultContract: any) => {
         return getVaultTotalSupply(vaultContract, account);
       }));
@@ -106,24 +118,33 @@ const Vault: React.FC = () => {
         lpTokensTotalSupplyPromise, lpTokenWethValuePromise]);
 
       const exchangeRatioAndAPY = stablesBalance.map((stableBalance: any, index) => {
-        const apyTimePivot = (Date.now() - vaults[index].startTime) / timeADay;
+        // const apyTimePivot = (Date.now() - vaults[index].startTime) / timeADay;
         const balanceBN = new BigNumber(stableBalance);
         const lptBalanceBN = new BigNumber(poolsLPTTotalSupply[index] as number|string);
         const ratio = balanceBN.div(lptBalanceBN);
         return {
           ratio,
-          apy: ratio.isNaN() ? '0.000' : ratio.minus(1).div(apyTimePivot).times(365 * 100).toFixed(4)
+          // apy: ratio.isNaN() ? '0.000' : ratio.minus(1).div(apyTimePivot).times(365 * 100).toFixed(4)
         }
       });
 
-      const totalWethValueInStaking = stablesBalance.map((stableBalance: any, index: any) => {
-        const lpBalance = new BigNumber(stableBalance);
-        const totalLPBalance = new BigNumber(lpTokensTotalSupply[index] as number|string);
-        const wethValue = new BigNumber(lpTokenWethValue[index] as number|string);
-        return lpBalance.div(totalLPBalance).times(wethValue).times(2).toNumber();
+      const totalWethValueInStaking: number[] = [];
+      stablesBalance.forEach((stableBalance: any, index: any) => {
+        if (vaults[index] && vaults[index].isStable) {
+          totalWethValueInStaking.push(0);
+        } else {
+          const lpBalance = new BigNumber(stableBalance);
+          const totalLPBalance = new BigNumber(lpTokensTotalSupply[index] as number|string);
+          const wethValue = new BigNumber(lpTokenWethValue[index] as number|string);
+          totalWethValueInStaking.push(lpBalance.div(totalLPBalance).times(wethValue).times(2).toNumber());
+        }
       });
 
       const userWethValueInStaking = stablesUserBalance.map((stableUserBalance: any, index: any) => {
+        if (vaults[index] && vaults[index].isStable) {
+          return 0;
+        }
+
         const lptBalance = new BigNumber(stableUserBalance);
         const lpBalance = exchangeRatioAndAPY[index].ratio.times(lptBalance);
         const totalLPBalance = new BigNumber(lpTokensTotalSupply[index] as number|string);
@@ -131,13 +152,15 @@ const Vault: React.FC = () => {
         return lpBalance.div(totalLPBalance).times(wethValue).times(2).toNumber();
       });
 
-      const totalStakingDollar = getStakingDollarValue(totalWethValueInStaking, wethDollarPrice);
-      const userStakingDollar = getStakingDollarValue(userWethValueInStaking, wethDollarPrice);
+      const totalStakingDollar = getStakingDollarValue(totalWethValueInStaking, wethDollarPrice).plus(getStakingDollarValueStable(stablesBalance, vaults));
+      const userStakingDollar = getStakingDollarValue(userWethValueInStaking, wethDollarPrice).plus(getStakingDollarValueStable(stablesUserBalance, vaults));
 
       setTotalWethValueInStaking(totalWethValueInStaking);
       setExchangeRatioAndAPY(exchangeRatioAndAPY);
       setTotalStableValue(totalStakingDollar);
       setUserTotalStableValue(userStakingDollar);
+
+      setTotalStableInStaking(stablesBalance);
     }
   }, [block, account, ethereum, wethDollarPrice]);
 
@@ -209,8 +232,10 @@ const Vault: React.FC = () => {
           tokenName={vault.tokenName}
           vaultAddr={vault.vaultAddr}
           stableCoinAddr={vault.stableCoinAddr}
+          stableBalance={totalStableInStaking[index] ? new BigNumber(totalStableInStaking[index]) : new BigNumber(0)}
           weiUnit={vault.wei}
-          apy={Number.parseFloat(vaultsAPY[vault.tokenName])}
+          isStable={vault.isStable}
+          apy={Number.parseFloat(vaultsAPY[vault.tokenName] || vault.apyTemp || null)}
           extraAPY={farmsAPY[index] ? farmsAPY[index].yearlyROI : '0.00' }
           valueLocked={totalWethValueInStaking[index] ? new BigNumber(totalWethValueInStaking[index]) : new BigNumber(0)}
           wethPrice={wethDollarPrice}

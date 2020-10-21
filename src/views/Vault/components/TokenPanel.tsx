@@ -57,6 +57,7 @@ interface TokenPanelProps {
   tokenName: keyof typeof imgUrls,
   vaultAddr: string,
   stableCoinAddr: string,
+  stableBalance: BigNumber,
   weiUnit: keyof typeof weiUnitDecimal,
   ratio: BigNumber,
   valueLocked: BigNumber,
@@ -64,13 +65,15 @@ interface TokenPanelProps {
   // tokenPrice: number,
   apy: number,
   extraAPY: string,
+  isStable?: boolean
 }
 
 const isVolunteer = window.location.href.includes('volunteer');
 
 const TokenPanel: React.FC<TokenPanelProps> = ({
-  tokenName, vaultAddr, stableCoinAddr, weiUnit, ratio, valueLocked,
-  wethPrice, apy, extraAPY
+  tokenName, vaultAddr, stableCoinAddr, stableBalance,
+  weiUnit, ratio, valueLocked,
+  wethPrice, apy, extraAPY, isStable
 }) => {
   const {
     account,
@@ -132,6 +135,13 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
     }
   }, [account, ethereum]);
 
+  const walletTokenUnit = isStable ? '' : 'UNI-V2 LP';
+  const depositTokenUnit = isStable ? '' : 'svUNI-V2';
+  const vaultTokenName = isStable ? `sv${tokenName}` : tokenName;
+
+  const depositLinkInDesc = isStable
+    ? `https://etherscan.io/token/${stableCoinAddr}` : `https://info.uniswap.org/pair/${stableCoinAddr}`;
+
   return (
     <>
       {/* staking */}
@@ -148,8 +158,8 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                      href={`https://${ethscanType}etherscan.io/address/${vaultAddr}`} target="_blank">{tokenName} Vault ↗
                   </a>
                   <a className="vault-info-subtitle vault-display-block"
-                     href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank">
-                    {tokenName} UNI-V2 LP ↗
+                     href={depositLinkInDesc} target="_blank">
+                    {tokenName} {walletTokenUnit} ↗
                   </a>
                 </Col>
               </Row>
@@ -159,8 +169,8 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
                 <Col span={24} className="vault-info-title">{apy ? apy.toFixed(2) : '0.0'}%
-                  {/* TODO use apy api */}
-                  + <Link to={`/farms/${tokenName}%20svUNI-V2`}>{extraAPY.substring(0, extraAPY.indexOf('.') + 3)}%↗</Link>
+                  {!isStable &&
+                  <>+ <Link to={`/farms/${tokenName}%20svUNI-V2`}>{extraAPY.substring(0, extraAPY.indexOf('.') + 3)}%↗</Link></>}
                 </Col>
               </Row>
             </Col>
@@ -168,7 +178,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <Col span={0} md={8}>
               <Row justify="end" style={{flexDirection: "column", alignItems: "flex-end"}}>
                 <Col span={24} className="vault-info-subtitle">Available to deposit</Col>
-                <Col span={24} className="vault-info-title">{walletBalanceShow.toFixed(8)} {tokenName} UNI-V2 LP</Col>
+                <Col span={24} className="vault-info-title">{walletBalanceShow.toFixed(8)} {tokenName} {walletTokenUnit}</Col>
               </Row>
             </Col>
             <Col span={3} md={2}>
@@ -216,23 +226,25 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
             <div className="vault-operation-info-bg">
               <div>
                 Deposit
-                <a href={`https://info.uniswap.org/pair/${stableCoinAddr}`} target="_blank"> {tokenName} UNI-V2 LP ↗ </a>
-                to farm (and dump) UNI for more {tokenName} UNI-V2 LP tokens.
+                <a href={depositLinkInDesc} target="_blank"> {tokenName} {walletTokenUnit} ↗ </a>
+                to farm (and dump) UNI for more {tokenName} {walletTokenUnit} tokens.
               </div>
               <div>
-                Total value locked = ${valueLocked.div(10 ** 18).times(wethPrice).toNumber().toLocaleString('currency', {
+                Total value locked = ${(isStable
+                ? stableBalance.div(10 ** weiUnitDecimal[weiUnit]) : valueLocked.div(10 ** weiUnitDecimal[weiUnit])
+                  .times(wethPrice)).toNumber().toLocaleString('currency', {
                 minimumFractionDigits: 4,
                 maximumFractionDigits: 4,
               })}
               </div>
               <div>
-                1 {tokenName} svUNI-V2 = {ratio.toNumber()} {tokenName} UNI-V2 LP.
+                1 {tokenName} {depositTokenUnit} = {ratio.toNumber()} {vaultTokenName} {walletTokenUnit}.
               </div>
             </div>
           </Col>
 
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(8)} {tokenName} UNI-V2 LP</div>
+            <div className="vault-balance">Your Wallet: {walletBalanceShow.toFixed(8)} {tokenName} {walletTokenUnit}</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={walletBalanceShow} value={depositValueShow} onChange={(value ) => {
               const valueTemp = value || 0;
@@ -283,7 +295,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               </Col>
             </Row>
             <div className="vault-blank"/>
-            <div>{depositPercent}% = {depositValueShow} {tokenName} UNI-V2 LP</div>
+            <div>{depositPercent}% = {depositValueShow} {tokenName} {walletTokenUnit}</div>
             <div className="vault-blank"/>
             <div className="vault-button-container">
               <Spin spinning={depositButtonLoading}>
@@ -317,7 +329,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
           </Col>
           {/* Withdraw */}
           <Col span={24} md={12} className="vault-operation-card">
-            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(8)} {tokenName} svUNI-V2</div>
+            <div className="vault-balance">Your Balance: {vaultUserBalanceShow.toFixed(8)} {vaultTokenName} {depositTokenUnit}</div>
             <div className="vault-blank"/>
             <InputNumber className="vault-input-number" placeholder="0" max={vaultUserBalanceShow} value={withdrawValueShow} onChange={(value ) => {
               const valueTemp = value || 0;
@@ -368,7 +380,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               </Col>
             </Row>
             <div className="vault-blank"/>
-            <div>{withdrawPercent}% = {withdrawValueShow} {tokenName} svUNI-V2</div>
+            <div>{withdrawPercent}% = {withdrawValueShow} {tokenName} {depositTokenUnit}</div>
             <div className="vault-blank"/>
             <div className="vault-button-container">
               <Spin spinning={withdrawButtonLoading}>
