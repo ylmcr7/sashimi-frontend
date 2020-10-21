@@ -227,7 +227,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               <div>
                 Deposit
                 <a href={depositLinkInDesc} target="_blank"> {tokenName} {walletTokenUnit} ↗ </a>
-                to farm (and dump) UNI for more {tokenName} {walletTokenUnit} tokens.
+                {!isStable && 'to farm (and dump) UNI'} for more {tokenName} {walletTokenUnit} tokens.
               </div>
               <div>
                 Total value locked = ${(isStable
