@@ -67,6 +67,7 @@ export const getFarms = (sushi) => {
           lpBarAddress,
           lpBarContract,
           isSashimiPlate,
+          sashimiPlateInfo,
           sashimiPlateContract,
           uniV2LPContract,
         }) => ({
@@ -82,6 +83,7 @@ export const getFarms = (sushi) => {
           lpBarAddress,
           lpBarContract,
           isSashimiPlate,
+          sashimiPlateInfo,
           sashimiPlateContract,
           uniV2LPContract,
           earnToken: 'sashimi',
@@ -170,6 +172,7 @@ export const getTotalLPWethValue = async (
   lpBarContract, // not required
   routerContract,  // not required
   isSashimiPlate, // not required
+  sashimiPlateInfo, // not required
   sashimiPlateContract, // not required
   uniV2LPContract, // not required
 ) => {
@@ -177,15 +180,26 @@ export const getTotalLPWethValue = async (
   let tokenAmountWholeLP;
   let lpContractWeth;
   let portionLp;
+
+  let sashimiPlateStablePirceInEthValue = 0;
+  let sashimiPlateTotalStableEthValue = 0;
   // TODO: different function to get tokenAmountWholeLP/lpContractWeth/portionLp
   if (isSashimiPlate) {
-    // svUNI-V2 amount
+    // svUNI-V2/svStable(like svDAI svUSDT) amount
     tokenAmountWholeLP = await sashimiPlateContract.methods
       .totalSupply()
       .call();
     lpContractWeth = await wethContract.methods
       .balanceOf(uniV2LPContract.options.address)
       .call();
+    if (sashimiPlateInfo && sashimiPlateInfo.type === 2) {
+      const {mainTokenIndex, tokensDecimal} = sashimiPlateInfo;
+      const ethIndex = 1 - mainTokenIndex;
+      const reserves = await uniV2LPContract.methods.getReserves().call();
+      const ethBalance = new BigNumber(reserves[ethIndex]).div(10 ** tokensDecimal[ethIndex]);
+      const stableBalance = new BigNumber(reserves[mainTokenIndex]).div(10 ** tokensDecimal[mainTokenIndex]);
+      sashimiPlateStablePirceInEthValue = ethBalance.div(stableBalance);
+    }
   } else if (routerContract) {
     tokenAmountWholeLP = await routerContract.methods
       .getTokenInPair(
@@ -209,11 +223,11 @@ export const getTotalLPWethValue = async (
 
   // Get the share of lpContract that masterChefContract owns
   if (isSashimiPlate) {
-    // svUNI-V2 of masterChefContract
+    // svUNI-V2/svStable(like svUSDT) of masterChefContract
     const balance = await sashimiPlateContract.methods
       .balanceOf(masterChefContract.options.address)
       .call();
-    // svUNI-V2 totalSupply
+    // svUNI-V2/svStable totalSupply
     const totalSupply = await sashimiPlateContract.methods
       .totalSupply()
       .call();
@@ -223,6 +237,12 @@ export const getTotalLPWethValue = async (
     // UNI-V2 LP amount of the pool
     const totalLpOfSashimiPlate = await sashimiPlateContract.methods.balance().call();
     portionLp = new BigNumber(totalLpOfSashimiPlate).times(portionSV).div(totalSupplyUNIV2LP);
+    if (sashimiPlateInfo && sashimiPlateInfo.type === 2) {
+      const {mainTokenIndex, tokensDecimal} = sashimiPlateInfo;
+      const stableBalance = await sashimiPlateContract.methods.balance().call();
+      const stableBalanceOfMasterChef = new BigNumber(stableBalance).div(10 ** tokensDecimal[mainTokenIndex]).times(portionSV);
+      sashimiPlateTotalStableEthValue = stableBalanceOfMasterChef.times(sashimiPlateStablePirceInEthValue);
+    }
   } else {
     // When use LPBar insteadof LP, xLP:LP = 1:1;
     const balance = await (lpBarContract || lpContract).methods
@@ -250,12 +270,13 @@ export const getTotalLPWethValue = async (
     .div(new BigNumber(10).pow(18))
 
   const poolWeightInfo = await getPoolWeight(masterChefContract, pid);
+
   return {
     portionLp,
     tokenAmount,
     wethAmount,
-    totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
-    tokenPriceInWeth: lpWethWorth.div(tokenAmountWholeLP),
+    totalWethValue: sashimiPlateTotalStableEthValue ||totalLpWethValue.div(new BigNumber(10).pow(18)),
+    tokenPriceInWeth: sashimiPlateStablePirceInEthValue || lpWethWorth.div(tokenAmountWholeLP),
     poolWeight: poolWeightInfo.poolWeight,
     allocPoint: poolWeightInfo.allocPoint,
     totalAllocPoint: poolWeightInfo.totalAllocPoint,

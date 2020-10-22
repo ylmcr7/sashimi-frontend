@@ -1,5 +1,11 @@
 import { Contract } from 'web3-eth-contract'
 
+export interface SashimiPlateInfo {
+  mainTokenIndex?: number
+  tokensDecimal?: number[]
+  type: number
+}
+
 export interface Farm {
   pid: number
   name: string
@@ -15,6 +21,7 @@ export interface Farm {
   lpBarAddress?: string
   lpBarContract?: Contract
   isSashimiPlate?: boolean
+  sashimiPlateInfo?: SashimiPlateInfo
   sashimiPlateContract?: Contract
   uniV2LPAddress?: string
   uniV2LPContract?: Contract
