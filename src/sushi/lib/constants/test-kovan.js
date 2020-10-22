@@ -112,7 +112,7 @@ const sashimiPlatePools = [
   {
     pid: 5,
     lpAddresses: {
-      42: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
+      42: '0xc428db12ee200222488b6f94cafc373013fb1fb2', // extra: sashimiPlateContract use it
       1: '0xc428db12ee200222488b6f94cafc373013fb1fb2',
     },
     tokenAddresses: {
@@ -125,6 +125,28 @@ const sashimiPlatePools = [
     tokenSymbol: 'DAI',
     icon: '👨‍👩‍👧',
     isSashimiPlate: true,
+  },
+  {
+    pid: 6,
+    lpAddresses: {
+      42: '0x39448f758f597127d5f72a4b7c6f5595810ff23d',
+      1: '0x39448f758f597127d5f72a4b7c6f5595810ff23d',
+    },
+    tokenAddresses: {
+      42: '0x39448f758f597127d5f72a4b7c6f5595810ff23d',
+      1: '0x39448f758f597127d5f72a4b7c6f5595810ff23d',
+    },
+    uniV2LPAddress: '0xc4ddd76bfbdcecbee50907074d00a5eafa1c2efa',
+    name: 'SashimiPlate',
+    symbol: 'svDAI',
+    tokenSymbol: 'DAI',
+    icon: '👨‍👩‍',
+    isSashimiPlate: true,
+    sashimiPlateInfo: {
+      mainTokenIndex: 0, // DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 2,
+    },
   },
 ];
 

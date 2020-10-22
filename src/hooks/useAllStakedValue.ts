@@ -12,6 +12,7 @@ import {
   getTotalLPWethValue,
   getSashimiRouterContract
 } from '../sushi/utils'
+import { SashimiPlateInfo } from '../contexts/Farms/types';
 import {doublePools} from '../sushi/lib/constants';
 import useYam from './useYam'
 import useBlock from './useBlock'
@@ -46,6 +47,7 @@ const useAllStakedValue = () => {
           tokenContract,
           lpBarContract,
           isSashimiPlate,
+          sashimiPlateInfo,
           sashimiPlateContract,
           uniV2LPContract
         }: {
@@ -54,6 +56,7 @@ const useAllStakedValue = () => {
           tokenContract: Contract
           lpBarContract?: Contract
           isSashimiPlate?: boolean
+          sashimiPlateInfo?: SashimiPlateInfo
           sashimiPlateContract?: Contract
           uniV2LPContract?: Contract
         }) =>
@@ -67,6 +70,7 @@ const useAllStakedValue = () => {
             lpBarContract,
             doublePools.includes(pid) ? null : getSashimiRouterContract(yam),
             isSashimiPlate,
+            sashimiPlateInfo,
             sashimiPlateContract,
             uniV2LPContract
           )},

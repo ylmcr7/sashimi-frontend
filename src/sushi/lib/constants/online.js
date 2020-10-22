@@ -136,8 +136,8 @@ export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
 export const waitingInfo = {
-  waitingPool: [34, 35, 36, 37],
-  startTime: 1602694800000
+  waitingPool: [38, 39, 40],
+  startTime: 1603378800000
 };
 
 // 0928 UNI LP
@@ -219,6 +219,75 @@ const xLPSupportedPools = [
     symbol: '\xa0WBTC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🥓',
+  },
+];
+
+const newNormalPool1021 = [
+  {
+    pid: 38,
+    lpAddresses: {
+      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+    },
+    tokenAddresses: {
+      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+    },
+    uniV2LPAddress: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+    name: 'SashimiPlate Party!',
+    symbol: 'svDAI',
+    tokenSymbol: 'DAI',
+    icon: '👨‍👦',
+    isSashimiPlate: true,
+    sashimiPlateInfo: {
+      mainTokenIndex: 0, // DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 2,
+    },
+  },
+  {
+    pid: 39,
+    lpAddresses: {
+      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+    },
+    tokenAddresses: {
+      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+    },
+    uniV2LPAddress: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+    name: 'SashimiPlate Party!',
+    symbol: 'svUSDT',
+    tokenSymbol: 'USDT',
+    icon: '👨‍👧',
+    isSashimiPlate: true,
+    sashimiPlateInfo: {
+      mainTokenIndex: 1,
+      tokensDecimal: [18, 6],
+      type: 2,
+    },
+  },
+  {
+    pid: 40,
+    lpAddresses: {
+      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+    },
+    tokenAddresses: {
+      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+    },
+    uniV2LPAddress: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+    name: 'SashimiPlate Party!',
+    symbol: 'svUSDC',
+    tokenSymbol: 'USDC',
+    icon: '👩‍👦',
+    isSashimiPlate: true,
+    sashimiPlateInfo: {
+      mainTokenIndex: 0,
+      tokensDecimal: [6, 18],
+      type: 2,
+    },
   },
 ];
 
@@ -393,6 +462,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newNormalPool1021,
   ...newNormalPool1014,
   ...newNormalPool0939,
   ...newNormalPools,
