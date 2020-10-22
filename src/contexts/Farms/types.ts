@@ -4,10 +4,6 @@ export interface SashimiPlateInfo {
   mainTokenIndex?: number
   tokensDecimal?: number[]
   type: number
-  token0?: string
-  token0Decimal?: number
-  token1?: string
-  token1Decimal?: number
 }
 
 export interface Farm {
