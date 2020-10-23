@@ -20,7 +20,7 @@ import {
   getInvestmentContract,
   getSushiContract,
   getInvestments,
-  getSashimiRouterAddress
+  getSashimiRouterAddress, getDecimalByTokenName
 } from '../../../sushi/utils';
 
 import {getBalanceNumber} from "../../../utils/formatBalance";
@@ -124,6 +124,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [reservesRatio, setReservesRatio] = useState('-');
   const [depositAmount, setDepositAmount] = useState(new BigNumber(0));
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
+  const [profitEthValued, setProfitEthValued] = useState(new BigNumber(0));
   const [actualFundUsed, setActualFundUsed] = useState('-%');
   const investmentAPYs = useInvestmentAPYs();
   const { ethereum }: { ethereum: any } = useWallet()
@@ -160,11 +161,16 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           const sashimiETHPrice = lpEthTokenBalance.div(sashimiBalance);
 
           const pivotLpInfo = await investment.pivotLpContract.methods.getReserves().call();
-          const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]);
-          const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]);
+
+          const pivotTokenDecimal = getDecimalByTokenName(investment.depositTokenSymbol);
+          const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]).div(10 ** pivotTokenDecimal);
+          const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]).div(10 ** 18);
           const pivotTokenPrice = pivotEthTokenBalance.div(profitTokenBalance);
 
-          const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice);
+          const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice).times(0.25);
+          const pivotEthProfit = pivotTokenPrice.times(profit).times(0.75);
+          // const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice).times(0.25);
+          setProfitEthValued(pivotEthProfit);
           setProfitSashimiValued(sashimiValued);
         } catch(e) {
           console.log('investment: ', e);
@@ -232,7 +238,13 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <StyledInsight>
               <span>Profit</span>
               <span>
-                {getBalanceNumber(profitSashimiValued).toFixed(2) || '-'} Sashimi
+                {getBalanceNumber(profitSashimiValued).toFixed(3) || '-'} Sashimi
+              </span>
+            </StyledInsight>
+            <StyledInsight>
+              <span> </span>
+              <span>
+                {getBalanceNumber(profitEthValued).toFixed(8) || '-'} ETH
               </span>
             </StyledInsight>
 

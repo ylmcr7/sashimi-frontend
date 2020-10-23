@@ -11,9 +11,13 @@ export const contractAddresses = {
     42: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410',
     1: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410'
   },
+  // investment: {
+  //   42: '0x46641A3aA421beA0207Ead6d807c847a2f599943',
+  //   1: '0x8E6F2ADC3Df8F885CF2e06da6aeb4c80411d7C53' // staging
+  // },
   investment: {
-    42: '0x46641A3aA421beA0207Ead6d807c847a2f599943',
-    1: '0x8E6F2ADC3Df8F885CF2e06da6aeb4c80411d7C53' // staging
+    42: '0xc05114cEF1F2AeA879A6Cf8E0a6eB3B3F5d7f98f',
+    1: '0xc05114cEF1F2AeA879A6Cf8E0a6eB3B3F5d7f98f' // staging
   },
   masterChef: {
     42: '0xFC0F93aA4E79c0c5719ce8c74Cf33872F33a5c6E',
@@ -70,6 +74,31 @@ export const supportedInvestmentPools = [
     },
     depositTokenSymbol: 'GT',
     tokenSymbol: 'GOF', // Which token will I get, when I do the harvest？
+    icon: '👜',
+    sashimiIndex: 1,
+    pivotTokenIndex: 0,
+  },
+  // DeForce Investment
+  {
+    // CANDY - SASHIMI? pair
+    lpAddresses: {
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // ETH-SASHIMI
+    },
+    pivotLpAddresses: {
+      42: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+      1: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc' // USDC-ETH
+    },
+    depositAddresses: {
+      42: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // WETH in kovan, ERC20
+      1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' // USDC
+    },
+    providerAddresses: {
+      42: '0x043cC38464f558563689A1329972614D4Cd2E211',
+      1: '0x043cC38464f558563689A1329972614D4Cd2E211'
+    },
+    depositTokenSymbol: 'USDC',
+    tokenSymbol: 'DF', // Which token will I get, when I do the harvest？
     icon: '👜',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
