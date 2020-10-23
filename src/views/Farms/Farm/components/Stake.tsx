@@ -24,6 +24,7 @@ import useTokenBalance from '../../../../hooks/useTokenBalance'
 import useUnstake from '../../../../hooks/useUnstake'
 
 import { getBalanceNumber } from '../../../../utils/formatBalance'
+import { getDecimalFromSupportedPools } from '../../../../sushi/utils'
 
 interface StakeProps {
   lpContract: Contract
@@ -32,6 +33,8 @@ interface StakeProps {
 }
 
 const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
+  const decimal = getDecimalFromSupportedPools(pid);
+
   const [requestedApproval, setRequestedApproval] = useState(false)
 
   const allowance = useAllowance(lpContract)
@@ -78,7 +81,7 @@ const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>👨🏻‍🍳</CardIcon>
-            <Value value={getBalanceNumber(stakedBalance)} />
+            <Value value={getBalanceNumber(stakedBalance, decimal)} />
             <Label text={`${tokenName} Tokens Staked`} />
           </StyledCardHeader>
           <StyledCardActions>

@@ -9,6 +9,7 @@ import ModalTitle from '../ModalTitle'
 import TokenInput from '../TokenInput'
 
 import { getFullDisplayBalance } from '../../utils/formatBalance'
+import {getDecimalByTokenName} from "../../sushi/utils";
 
 export interface WithdrawModalProps extends ModalProps {
   max: BigNumber
@@ -27,8 +28,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
   const [val, setVal] = useState('')
   const [pendingTx, setPendingTx] = useState(false)
 
+  const decimal = getDecimalByTokenName(tokenName);
+
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max)
+    return getFullDisplayBalance(max, decimal)
   }, [max])
 
   const handleChange = useCallback(

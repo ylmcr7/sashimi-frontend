@@ -226,12 +226,12 @@ const newNormalPool1021 = [
   {
     pid: 38,
     lpAddresses: {
-      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
-      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      42: '0xe6cB949e11bEB2a7b48f4cb5bFD8724501cfdA91',
+      1: '0xe6cB949e11bEB2a7b48f4cb5bFD8724501cfdA91',
     },
     tokenAddresses: {
-      42: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
-      1: '0x56BB940D92AE9a45EBDc77e94C28B960CffD6168',
+      42: '0xe6cB949e11bEB2a7b48f4cb5bFD8724501cfdA91',
+      1: '0xe6cB949e11bEB2a7b48f4cb5bFD8724501cfdA91',
     },
     uniV2LPAddress: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
     name: 'SashimiPlate Party!',
@@ -248,17 +248,18 @@ const newNormalPool1021 = [
   {
     pid: 39,
     lpAddresses: {
-      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
-      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      42: '0x722669a18852c659110D4a1E44f9647Fc44EdCc2',
+      1: '0x722669a18852c659110D4a1E44f9647Fc44EdCc2',
     },
     tokenAddresses: {
-      42: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
-      1: '0xc5D00a4E730fC2e1C77764A74E5F1308A460de7F',
+      42: '0x722669a18852c659110D4a1E44f9647Fc44EdCc2',
+      1: '0x722669a18852c659110D4a1E44f9647Fc44EdCc2',
     },
-    uniV2LPAddress: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+    uniV2LPAddress: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
     name: 'SashimiPlate Party!',
     symbol: 'svUSDT',
     tokenSymbol: 'USDT',
+    decimal: 6,
     icon: '👨‍👧',
     isSashimiPlate: true,
     sashimiPlateInfo: {
@@ -270,17 +271,18 @@ const newNormalPool1021 = [
   {
     pid: 40,
     lpAddresses: {
-      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
-      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      42: '0x4221330F24b26f20457f7c7c925CFc46b1541CA6',
+      1: '0x4221330F24b26f20457f7c7c925CFc46b1541CA6',
     },
     tokenAddresses: {
-      42: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
-      1: '0x8E95bc97B0C1B88Aa8708206C85c06299F778648',
+      42: '0x4221330F24b26f20457f7c7c925CFc46b1541CA6',
+      1: '0x4221330F24b26f20457f7c7c925CFc46b1541CA6',
     },
-    uniV2LPAddress: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+    uniV2LPAddress: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
     name: 'SashimiPlate Party!',
     symbol: 'svUSDC',
     tokenSymbol: 'USDC',
+    decimal: 6,
     icon: '👩‍👦',
     isSashimiPlate: true,
     sashimiPlateInfo: {

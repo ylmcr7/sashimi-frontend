@@ -3,6 +3,7 @@ import { Contract } from 'web3-eth-contract'
 import ERC20Abi from './lib/abi/erc20.json'
 
 import BigNumber from 'bignumber.js'
+import { supportedPools, tokensDecimal } from './lib/constants'
 import UNIV2PairAbi from './lib/abi/uni_v2_lp';
 
 BigNumber.config({
@@ -299,11 +300,31 @@ export const getPoolStartTime = async (masterChefContract) => {
   return await masterChefContract.methods.starttime().call()
 }
 
+export const getDecimalFromSupportedPools = (pid) => {
+  const supportedPool = supportedPools.find(supportedPool => {
+    return supportedPool.pid === pid;
+  });
+  if (supportedPool.decimal === 0) {
+    return 0;
+  }
+  return supportedPool.decimal || 18;
+};
+
+export const getDecimalByTokenName = (tokenName) => {
+  if (tokensDecimal[tokenName.toUpperCase()] === 0) {
+    return 0;
+  }
+  return tokensDecimal[tokenName.toUpperCase()] || 18;
+
+};
+
 export const stake = async (masterChefContract, pid, amount, account) => {
+  const decimal = getDecimalFromSupportedPools(pid);
+
   return masterChefContract.methods
     .deposit(
       pid,
-      new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
+      new BigNumber(amount).times(new BigNumber(10).pow(decimal)).toString(),
     )
     .send({ from: account })
     .on('transactionHash', (tx) => {
@@ -313,10 +334,12 @@ export const stake = async (masterChefContract, pid, amount, account) => {
 }
 
 export const unstake = async (masterChefContract, pid, amount, account) => {
+  const decimal = getDecimalFromSupportedPools(pid);
+
   return masterChefContract.methods
     .withdraw(
       pid,
-      new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
+      new BigNumber(amount).times(new BigNumber(10).pow(decimal)).toString(),
     )
     .send({ from: account })
     .on('transactionHash', (tx) => {

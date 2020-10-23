@@ -10,6 +10,7 @@ import ModalTitle from '../ModalTitle'
 import TokenInput from '../TokenInput'
 
 import { getFullDisplayBalance } from '../../utils/formatBalance'
+import {getDecimalByTokenName} from "../../sushi/utils";
 
 export interface DepositModalProps extends ModalProps {
   max: BigNumber
@@ -28,8 +29,10 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const [val, setVal] = useState('')
   const [pendingTx, setPendingTx] = useState(false)
 
+  const decimal = getDecimalByTokenName(tokenName);
+
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max)
+    return getFullDisplayBalance(max, decimal)
   }, [max])
 
   const handleChange = useCallback(

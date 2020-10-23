@@ -169,7 +169,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               <Row justify="center" style={{flexDirection: "column", alignItems: "center"}}>
                 <Col span={24} className="vault-info-subtitle">APY</Col>
                 <Col span={24} className="vault-info-title">{apy ? apy.toFixed(2) : '0.0'}%
-                  {!isStable &&
+                  {isStable ? <>+ <Link to={`/farms/${vaultTokenName}`}>{extraAPY.substring(0, extraAPY.indexOf('.') + 3)}%↗</Link></> :
                   <>+ <Link to={`/farms/${tokenName}%20svUNI-V2`}>{extraAPY.substring(0, extraAPY.indexOf('.') + 3)}%↗</Link></>}
                 </Col>
               </Row>

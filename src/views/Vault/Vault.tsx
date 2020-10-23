@@ -82,7 +82,9 @@ const Vault: React.FC = () => {
   const farmsAPYTemp = useFarmsAPY();
   const farmsAPY = vaults.map((vault: any) => {
     return farmsAPYTemp.find((farmAPY: any) => {
-      return farmAPY.lpAddress.toLowerCase() === vault.stableCoinAddr.toLowerCase() && farmAPY.isPlate;
+      // vault: svUNI, svStable
+      return (farmAPY.lpAddress.toLowerCase() === vault.stableCoinAddr.toLowerCase() && farmAPY.isPlate)
+        || (farmAPY.lpAddress.toLowerCase() === vault.vaultAddr.toLowerCase() && farmAPY.isStable)
     });
   });
 

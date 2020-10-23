@@ -16,6 +16,13 @@ const WEI_UNIT_DECIMAL = {
   wbtc: 8,
 };
 
+const TOKENS_DECIMAL = {
+  USDT: 6,
+  USDC: 6,
+  SVUSDT: 6,
+  SVUSDC: 6
+};
+
 export const {
   contractAddresses,
   supportedInvestmentPools,
@@ -30,6 +37,7 @@ export const {
   vaults,
   vaultStableTokenPriceAPI,
   tokenPriceAPI = 'https://min-api.cryptocompare.com/data/price', // ?fsym=ETH&tsyms=USD
+  tokensDecimal = TOKENS_DECIMAL,
   weiUnitDecimal = WEI_UNIT_DECIMAL,
   timeADay = 86400000,
 } = {
