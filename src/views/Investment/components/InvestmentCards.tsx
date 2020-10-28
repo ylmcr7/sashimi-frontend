@@ -126,6 +126,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
   const [profitEthValued, setProfitEthValued] = useState(new BigNumber(0));
   const [actualFundUsed, setActualFundUsed] = useState('-%');
+  const [depositTokenDecimal, setDepositTokenDecimal] = useState(18);
   const investmentAPYs = useInvestmentAPYs();
   const { ethereum }: { ethereum: any } = useWallet()
   const apyInfo = investmentAPYs.find(apyInfo => {
@@ -163,6 +164,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           const pivotLpInfo = await investment.pivotLpContract.methods.getReserves().call();
 
           const pivotTokenDecimal = getDecimalByTokenName(investment.depositTokenSymbol);
+          setDepositTokenDecimal(pivotTokenDecimal);
           const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]).div(10 ** pivotTokenDecimal);
           const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]).div(10 ** 18);
           const pivotTokenPrice = pivotEthTokenBalance.div(profitTokenBalance);
@@ -232,7 +234,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <StyledInsight>
               <span>Deposit</span>
               <span>
-                {getBalanceNumber(depositAmount).toFixed(2)} {investment.depositTokenSymbol}
+                {getBalanceNumber(depositAmount, depositTokenDecimal).toFixed(2)} {investment.depositTokenSymbol}
               </span>
             </StyledInsight>
             <StyledInsight>
