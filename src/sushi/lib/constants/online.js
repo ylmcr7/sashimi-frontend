@@ -77,6 +77,7 @@ export const supportedInvestmentPools = [
     icon: '👜',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
+    hasRegularProfit: true,
   },
   {
     lpAddresses: {
@@ -100,6 +101,7 @@ export const supportedInvestmentPools = [
     icon: '👝',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
+    hasRegularProfit: true,
   },
   {
     lpAddresses: {
@@ -123,6 +125,7 @@ export const supportedInvestmentPools = [
     icon: '🧳',
     sashimiIndex: 1,
     pivotTokenIndex: 1,
+    hasRegularProfit: true,
   }
   // {
   //   lpAddresses: {
