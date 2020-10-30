@@ -253,13 +253,13 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             {/*  /!*</span>*!/*/}
             {/*</StyledInsight>*/}
             <StyledInsight>
-              <span>Demand Profit</span>
+              <span>Harvest Profit</span>
               <span>
                 {getBalanceNumber(profitEthValued).toFixed(8) || '-'} ETH
               </span>
             </StyledInsight>
             <StyledInsight>
-              <span>Regular Profit</span>
+              <span>Reserve Profit</span>
               <span>
                  {/*{apyInfo ? apyInfo.earn.amount != '0' ? parseFloat(apyInfo.earn.amount).toFixed(2) + `${apyInfo.earn.symbol}`: '-' : '-'}*/}
                  {apyInfo ? (apyInfo.earn.amount != '0' && investment.hasRegularProfit) ? `${regularProfitEthValued.toFixed(8)} ETH`: '-' : '-'}
