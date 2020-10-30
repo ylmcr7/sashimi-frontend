@@ -238,7 +238,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
               })}
               </div>
               <div>
-                1 {tokenName} {depositTokenUnit} = {ratio.toNumber()} {vaultTokenName} {walletTokenUnit}.
+                1 {vaultTokenName} {depositTokenUnit} = {ratio.toNumber()} {tokenName} {walletTokenUnit}.
               </div>
             </div>
           </Col>

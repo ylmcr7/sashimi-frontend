@@ -114,6 +114,7 @@ export const getInvestments = (sushi) => {
          sashimiIndex,
          pivotTokenIndex,
          providerAddress,
+         hasRegularProfit,
        }) => ({
         id: symbol,
         name,
@@ -130,6 +131,7 @@ export const getInvestments = (sushi) => {
         sashimiIndex,
         pivotTokenIndex,
         providerAddress,
+        hasRegularProfit,
         // earnToken: 'sushi',
         earnToken: 'sashimi',
         earnTokenAddress: sushi.contracts.sushi.options.address,

@@ -11,9 +11,14 @@ export const contractAddresses = {
     42: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410',
     1: '0xe4FE6a45f354E845F954CdDeE6084603CEDB9410'
   },
+  // before 1024
+  // investment: {
+  //   42: '0xC380130F2b3Fa820CE3d1092FDDBf0dA732D13C9',
+  //   1: '0x4ce106235B6d876c66117fdA1f6025E3Fb87D3ec'
+  // },
   investment: {
-    42: '0xC380130F2b3Fa820CE3d1092FDDBf0dA732D13C9',
-    1: '0x4ce106235B6d876c66117fdA1f6025E3Fb87D3ec'
+    42: '0x3F966FA1c0606e19047ed72068D2857677E07EF4',
+    1: '0x3F966FA1c0606e19047ed72068D2857677E07EF4'
   },
   masterChef: {
     42: '0x042036D6F0b5C246aA07Dd9688b46cf86Bd179C3', // aelf sushi new one 9.9
@@ -40,8 +45,8 @@ export const supportedInvestmentPools = [
       1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
     },
     providerAddresses: {
-      42: '0xeebef489fff79c4caedf520e7e65359c99d47ea7',
-      1: '0xeebef489fff79c4caedf520e7e65359c99d47ea7'
+      42: '0xE9886bBa3bA6A3C00144E1E068088eE879f560Cd',
+      1: '0xE9886bBa3bA6A3C00144E1E068088eE879f560Cd'
     },
     depositTokenSymbol: 'GT',
     tokenSymbol: 'GOF', // GOLFF // The token you get
@@ -49,80 +54,153 @@ export const supportedInvestmentPools = [
     sashimiIndex: 1,
     pivotTokenIndex: 0,
   },
+  // DeForce Investment
   {
     lpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // ETH-SASHIMI
     },
     pivotLpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+      42: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+      1: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11' // DAI-ETH
     },
     depositAddresses: {
-      42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
-      1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+      42: '0x6b175474e89094c44da98b954eedeac495271d0f', // WETH in kovan, ERC20
+      1: '0x6b175474e89094c44da98b954eedeac495271d0f' // DAI
     },
     providerAddresses: {
-      42: '0xeC0C65A04b985F1F162F13E7Df667bBF4804B621',
-      1: '0xeC0C65A04b985F1F162F13E7Df667bBF4804B621'
+      42: '0x30D75a1232c0d28aA53c43D47eF7D3441cfeD1E3',
+      1: '0x30D75a1232c0d28aA53c43D47eF7D3441cfeD1E3'
     },
-    depositTokenSymbol: 'WETH',
-    tokenSymbol: 'GOF', // GOLFF // The token you get
+    depositTokenSymbol: 'DAI',
+    tokenSymbol: 'DF', // Which token will I get, when I do the harvest？
     icon: '👜',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
+    hasRegularProfit: true,
   },
   {
     lpAddresses: {
-      42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
-      // 1: '0xaf46c4cf1cb2a669ce2f7bc1e7a53f0da8c7c574', // HT-SASHIMI UNI LP
-      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI UNI LP
-      // 1: '0xceea282be8da0f3f4b2bc57bfd89f4b7dd4454b1', // HT-SASHIMI SALP
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // ETH-SASHIMI
     },
     pivotLpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+      42: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc',
+      1: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc' // USDC-ETH
     },
     depositAddresses: {
-      42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
-      1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161' // Huobi
+      42: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // WETH in kovan, ERC20
+      1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' // USDC
     },
     providerAddresses: {
-      42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
-      1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
+      42: '0x34CF6e94Cb4d3f7f9679584753e4447244f7CBB9',
+      1: '0x34CF6e94Cb4d3f7f9679584753e4447244f7CBB9'
     },
-    depositTokenSymbol: 'HT',
-    tokenSymbol: 'GOF', // GOLFF // The token you get
+    depositTokenSymbol: 'USDC',
+    tokenSymbol: 'DF', // Which token will I get, when I do the harvest？
     icon: '👝',
     sashimiIndex: 1,
     pivotTokenIndex: 0,
+    hasRegularProfit: true,
   },
   {
     lpAddresses: {
-      42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
-      1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI UNI LP
+      42: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA',
+      1: '0x4b618087DaE7765823BC47fFbF38C8Ee8489F5CA', // ETH-SASHIMI
     },
     pivotLpAddresses: {
-      42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
-      1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+      42: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852',
+      1: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852' // ETH-USDT USDT-ETH
     },
     depositAddresses: {
-      42: '0x6b175474e89094c44da98b954eedeac495271d0f',
-      1: '0x6b175474e89094c44da98b954eedeac495271d0f' // DAI
+      42: '0xdac17f958d2ee523a2206206994597c13d831ec7', // WETH in kovan, ERC20
+      1: '0xdac17f958d2ee523a2206206994597c13d831ec7' // USDT
     },
-    // TODO: waiting contract deploy
     providerAddresses: {
-      // 42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
-      // 1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
-      42: '0x65d34f76B6a34BAfE0E03877C3ce68F79B18c394',
-      1: '0x65d34f76B6a34BAfE0E03877C3ce68F79B18c394'
+      42: '0x8010685EaE3228886D2Ce438c1C2C9066227da96',
+      1: '0x8010685EaE3228886D2Ce438c1C2C9066227da96'
     },
-    depositTokenSymbol: 'DAI',
-    tokenSymbol: 'GOF', // GOLFF // The token you get
+    depositTokenSymbol: 'USDT',
+    tokenSymbol: 'DF', // Which token will I get, when I do the harvest？
     icon: '🧳',
     sashimiIndex: 1,
-    pivotTokenIndex: 0,
-  },
+    pivotTokenIndex: 1,
+    hasRegularProfit: true,
+  }
+  // {
+  //   lpAddresses: {
+  //     42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+  //     1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI
+  //   },
+  //   pivotLpAddresses: {
+  //     42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+  //     1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+  //   },
+  //   depositAddresses: {
+  //     42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // WETH in kovan, ERC20
+  //     1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+  //   },
+  //   providerAddresses: {
+  //     42: '0xeC0C65A04b985F1F162F13E7Df667bBF4804B621',
+  //     1: '0xeC0C65A04b985F1F162F13E7Df667bBF4804B621'
+  //   },
+  //   depositTokenSymbol: 'WETH',
+  //   tokenSymbol: 'GOF', // GOLFF // The token you get
+  //   icon: '👜',
+  //   sashimiIndex: 1,
+  //   pivotTokenIndex: 0,
+  // },
+  // {
+  //   lpAddresses: {
+  //     42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
+  //     // 1: '0xaf46c4cf1cb2a669ce2f7bc1e7a53f0da8c7c574', // HT-SASHIMI UNI LP
+  //     1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI UNI LP
+  //     // 1: '0xceea282be8da0f3f4b2bc57bfd89f4b7dd4454b1', // HT-SASHIMI SALP
+  //   },
+  //   pivotLpAddresses: {
+  //     42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+  //     1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+  //   },
+  //   depositAddresses: {
+  //     42: '0x0FE180FC7548efbc2dEe32Eb208403639a01aaa5', // WETH in kovan, ERC20
+  //     1: '0x6f259637dcd74c767781e37bc6133cd6a68aa161' // Huobi
+  //   },
+  //   providerAddresses: {
+  //     42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
+  //     1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
+  //   },
+  //   depositTokenSymbol: 'HT',
+  //   tokenSymbol: 'GOF', // GOLFF // The token you get
+  //   icon: '👝',
+  //   sashimiIndex: 1,
+  //   pivotTokenIndex: 0,
+  // },
+  // {
+  //   lpAddresses: {
+  //     42: '0xb819c827a0dc04e403099310317bd75b8a0a43fa',
+  //     1: '0x4b618087dae7765823bc47ffbf38c8ee8489f5ca', // WETH-SASHIMI UNI LP
+  //   },
+  //   pivotLpAddresses: {
+  //     42: '0x7c2580099eF4c34B788d3f3A192817f35dd68f8A',
+  //     1: '0x9776a214272ab452f8c88c7576dcd0c6ffbfee14' // GOF-ETH
+  //   },
+  //   depositAddresses: {
+  //     42: '0x6b175474e89094c44da98b954eedeac495271d0f',
+  //     1: '0x6b175474e89094c44da98b954eedeac495271d0f' // DAI
+  //   },
+  //   // TODO: waiting contract deploy
+  //   providerAddresses: {
+  //     // 42: '0x9492d7d2CB08EEF7C825a8199a4704056C808518',
+  //     // 1: '0x9492d7d2CB08EEF7C825a8199a4704056C808518'
+  //     42: '0x65d34f76B6a34BAfE0E03877C3ce68F79B18c394',
+  //     1: '0x65d34f76B6a34BAfE0E03877C3ce68F79B18c394'
+  //   },
+  //   depositTokenSymbol: 'DAI',
+  //   tokenSymbol: 'GOF', // GOLFF // The token you get
+  //   icon: '🧳',
+  //   sashimiIndex: 1,
+  //   pivotTokenIndex: 0,
+  // },
 ];
 // These pools get 0 point; [type pid]
 export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];

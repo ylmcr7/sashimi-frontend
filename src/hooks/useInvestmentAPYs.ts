@@ -18,9 +18,15 @@ import useBlock from './useBlock'
 //         }
 //     ]
 // }
+interface Earn {
+  symbol: string,
+  amount: string,
+  address: string,
+}
 interface investmentAPY {
   APY: string,
-  key: string
+  key: string,
+  earn: Earn
 }
 export const useInvestmentAPYs = () => {
   const [investmentAPYs, setInvestmentAPYs] = useState([] as investmentAPY[]);

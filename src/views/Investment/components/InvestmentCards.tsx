@@ -20,7 +20,7 @@ import {
   getInvestmentContract,
   getSushiContract,
   getInvestments,
-  getSashimiRouterAddress
+  getSashimiRouterAddress, getDecimalByTokenName
 } from '../../../sushi/utils';
 
 import {getBalanceNumber} from "../../../utils/formatBalance";
@@ -29,6 +29,7 @@ import {Contract} from "web3-eth-contract";
 import {useWallet} from "use-wallet";
 import {useInvestmentAPYs} from "../../../hooks/useInvestmentAPYs";
 import {getBalance} from "../../../utils/erc20";
+import { contractAddresses } from "../../../sushi/lib/constants";
 
 interface Investment {
   name: string
@@ -48,6 +49,7 @@ interface Investment {
   sashimiIndex: number
   pivotTokenIndex: number
   providerAddress: string
+  hasRegularProfit?: boolean
 }
 
 interface InvestmentRow extends Investment {
@@ -77,7 +79,7 @@ const InvestmentCards: React.FC = () => {
       <StyleSubTitle>
         <a
           target="_blank"
-          href="https://etherscan.io/address/0x4ce106235B6d876c66117fdA1f6025E3Fb87D3ec">
+          href={`https://etherscan.io/address/${contractAddresses.investment[1]}`}>
           Click To Review The Contract
         </a>
         <ValueETH>
@@ -124,7 +126,11 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [reservesRatio, setReservesRatio] = useState('-');
   const [depositAmount, setDepositAmount] = useState(new BigNumber(0));
   const [profitSashimiValued, setProfitSashimiValued] = useState(new BigNumber(0));
+  const [profitEthValued, setProfitEthValued] = useState(new BigNumber(0));
+  const [regularProfitEthValued, setRegularProfitEthValued] = useState(new BigNumber(0));
   const [actualFundUsed, setActualFundUsed] = useState('-%');
+  const [depositTokenDecimal, setDepositTokenDecimal] = useState(18);
+
   const investmentAPYs = useInvestmentAPYs();
   const { ethereum }: { ethereum: any } = useWallet()
   const apyInfo = investmentAPYs.find(apyInfo => {
@@ -160,18 +166,29 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
           const sashimiETHPrice = lpEthTokenBalance.div(sashimiBalance);
 
           const pivotLpInfo = await investment.pivotLpContract.methods.getReserves().call();
-          const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]);
-          const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]);
+
+          const pivotTokenDecimal = getDecimalByTokenName(investment.depositTokenSymbol);
+          setDepositTokenDecimal(pivotTokenDecimal);
+          const profitTokenBalance = new BigNumber(pivotLpInfo[investment.pivotTokenIndex]).div(10 ** pivotTokenDecimal);
+          const pivotEthTokenBalance = new BigNumber(pivotLpInfo[1 - investment.pivotTokenIndex]).div(10 ** 18);
           const pivotTokenPrice = pivotEthTokenBalance.div(profitTokenBalance);
 
-          const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice);
+          const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice).times(0.25);
+          const pivotEthProfit = pivotTokenPrice.times(profit); //.times(0.75);
+          // const sashimiValued = pivotTokenPrice.times(profit).div(sashimiETHPrice).times(0.25);
+
+          if (apyInfo && apyInfo.earn && apyInfo.earn.amount) {
+            setRegularProfitEthValued(pivotTokenPrice.times(apyInfo.earn.amount));
+          }
+
+          setProfitEthValued(pivotEthProfit);
           setProfitSashimiValued(sashimiValued);
         } catch(e) {
           console.log('investment: ', e);
         }
       })();
     }
-  }, [investment, yam, investmentContract, sashimiContract]);
+  }, [investment, yam, investmentContract, sashimiContract, apyInfo]);
 
   useEffect(() => {
     fetchData();
@@ -226,13 +243,26 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <StyledInsight>
               <span>Deposit</span>
               <span>
-                {getBalanceNumber(depositAmount).toFixed(2)} {investment.depositTokenSymbol}
+                {getBalanceNumber(depositAmount, depositTokenDecimal).toFixed(2)} {investment.depositTokenSymbol}
+              </span>
+            </StyledInsight>
+            {/*<StyledInsight>*/}
+            {/*  <span>Demand Profit</span>*/}
+            {/*  /!*<span>*!/*/}
+            {/*  /!*  {getBalanceNumber(profitSashimiValued).toFixed(3) || '-'} Sashimi*!/*/}
+            {/*  /!*</span>*!/*/}
+            {/*</StyledInsight>*/}
+            <StyledInsight>
+              <span>Harvest Profit</span>
+              <span>
+                {getBalanceNumber(profitEthValued).toFixed(8) || '-'} ETH
               </span>
             </StyledInsight>
             <StyledInsight>
-              <span>Profit</span>
+              <span>Reserve Profit</span>
               <span>
-                {getBalanceNumber(profitSashimiValued).toFixed(2) || '-'} Sashimi
+                 {/*{apyInfo ? apyInfo.earn.amount != '0' ? parseFloat(apyInfo.earn.amount).toFixed(2) + `${apyInfo.earn.symbol}`: '-' : '-'}*/}
+                 {apyInfo ? (apyInfo.earn.amount != '0' && investment.hasRegularProfit) ? `${regularProfitEthValued.toFixed(8)} ETH`: '-' : '-'}
               </span>
             </StyledInsight>
 
