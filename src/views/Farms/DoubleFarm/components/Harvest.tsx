@@ -24,7 +24,7 @@ interface HarvestProps {
 }
 
 const Harvest: React.FC<HarvestProps> = ({ pid , lpBarContract}) => {
-  const earnings = useEarned(lpBarContract);
+  const earnings = useEarned(lpBarContract, true);
   const [pendingTx, setPendingTx] = useState(false);
   const { onLeave } = useLeave(lpBarContract);
 

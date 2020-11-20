@@ -30,6 +30,11 @@
         "internalType": "contract IStakingRewards",
         "name": "_uniStake",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_wETH",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -153,6 +158,13 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "approveMax",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -230,6 +242,44 @@
       }
     ],
     "name": "earned",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "earnedFromChef",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "earnedFromUniStaking",
     "outputs": [
       {
         "internalType": "uint256",
@@ -356,6 +406,32 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "perShareForChefHarvest",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "perShareForUniHarvest",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -577,10 +653,23 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "wETH",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
-        "name": "_account",
+        "name": "",
         "type": "address"
       }
     ],

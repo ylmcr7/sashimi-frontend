@@ -7,7 +7,7 @@ import { Contract } from 'web3-eth-contract'
 
 import useBlock from '../useBlock'
 
-const useEarned = (lpBarContract: Contract): BigNumber => {
+const useEarned = (lpBarContract: Contract, isEarnedFromChef = false): BigNumber => {
   const [earnings, setEarnings] = useState(new BigNumber(0));
   const {
     account,
@@ -17,7 +17,8 @@ const useEarned = (lpBarContract: Contract): BigNumber => {
 
   const fetchEarned = useCallback(async () => {
     if (lpBarContract) {
-      const result = await lpBarContract.methods.earned(account).call();
+      // const result = isEarnedFromChef ? await lpBarContract.methods.earnedFromChef(account).call() : await lpBarContract.methods.earned(account).call();
+      const result = isEarnedFromChef ? await lpBarContract.methods.earnedFromChef(account).call() : await lpBarContract.methods.earned(account).call();
       setEarnings(new BigNumber(result));
     }
   }, [account, ethereum, lpBarContract, block]);

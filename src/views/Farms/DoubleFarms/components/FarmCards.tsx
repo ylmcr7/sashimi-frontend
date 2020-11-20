@@ -114,7 +114,8 @@ const FarmCards: React.FC = () => {
       }
 
       const extraSashimiPerBlock = stakedValue[i]
-        ? stakedValue[i].portionLp.times(13.5).times(uniPrice).div(sushiPrice) : new BigNumber(0);
+        // ? stakedValue[i].portionLp.times(13.5).times(uniPrice).div(sushiPrice) : new BigNumber(0);
+        ? stakedValue[i].portionLp.times(0).times(uniPrice).div(sushiPrice) : new BigNumber(0);
       let farmWithStakedValue = {
         ...farm,
         ...stakedValue[i],
