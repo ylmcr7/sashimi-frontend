@@ -203,7 +203,11 @@ export const supportedInvestmentPools = [
   // },
 ];
 // These pools get 0 point; [type pid]
-export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
+// export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
+const unStakeOnlyPools1122 = [10, 12, 17, 21, 23, 24, 22, 29, 30, 31, 34, 35, 36, 37];
+// export const unStakeOnlyPools = [0, 10, 12, 17, 21, 23, 24, 22, 29, 30, 31, 34, 35, 36, 37];
+// export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25, ...unStakeOnlyPools1122];
+export const unStakeOnlyPools = [4, 13, 14, 15, 16, 18, 19, 20, 25, ...unStakeOnlyPools1122];
 // If is xxx-Sashimi Pool; [type pid]
 // Support sashimi pair only. Used in FarmCards.tsx
 export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24, 30];

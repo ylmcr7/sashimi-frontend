@@ -82,7 +82,8 @@ const FarmCards: React.FC = () => {
       : new BigNumber(0);
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
-  const SASHIMI_PER_BLOCK = new BigNumber(100)
+  // const SASHIMI_PER_BLOCK = new BigNumber(100)
+  const SASHIMI_PER_BLOCK = new BigNumber(0)
 
   let ethValueInSashimiNoWeight = new BigNumber(0);
   const unStakeOnlyPoolsRows: FarmWithStakedValue[][] = [[]];

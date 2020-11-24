@@ -21,7 +21,8 @@ const useAllEarnings = () => {
     const balances: Array<BigNumber> = await Promise.all(
       farms.map(({ pid, lpBarContract }: { pid: number, lpBarContract?: Contract }) => {
         if (lpBarContract) {
-          return lpBarContract.methods.earned(account).call();
+          // return lpBarContract.methods.earned(account).call();
+          return lpBarContract.methods.earnedFromChef(account).call();
         } else {
           return getEarned(masterChefContract, pid, account).catch(() => new BigNumber(0));
         }
