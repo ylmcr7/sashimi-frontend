@@ -217,9 +217,16 @@ export const hiddenPools = [101];
 export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
 
+const getWaitingPools = (start, end) => {
+  const array = [];
+  for (let i = 0; i <= end - start; i++) {
+    array.push(start + i);
+  }
+  return array;
+};
 export const waitingInfo = {
-  waitingPool: [38, 39, 40],
-  startTime: 1603378800000
+  waitingPool: getWaitingPools(41, 54),
+  startTime: 1606289400000
 };
 
 // 0928 UNI LP
@@ -301,6 +308,219 @@ const xLPSupportedPools = [
     symbol: '\xa0WBTC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🥓',
+  },
+];
+
+const newNormalPool1124 = [
+  {
+    pid: 41,
+    lpAddresses: {
+      42: '0x4C3909f3C254583F3E349dB4b7bf954CE5c4b0D0',
+      1: '0x4C3909f3C254583F3E349dB4b7bf954CE5c4b0D0',
+    },
+    tokenAddresses: {
+      42: '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9',
+      1: '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9',
+    },
+    name: 'AAVE',
+    symbol: 'AAVE-ETH SALP LP',
+    tokenSymbol: 'AAVE',
+    icon: '🍍',
+  },
+  {
+    pid: 42,
+    lpAddresses: {
+      42: '0x5915F96014a343f6A9BFB6863F3393b81E50a3B4',
+      1: '0x5915F96014a343f6A9BFB6863F3393b81E50a3B4',
+    },
+    tokenAddresses: {
+      42: '0x4fabb145d64652a948d72533023f6e7a623c7c53',
+      1: '0x4fabb145d64652a948d72533023f6e7a623c7c53',
+    },
+    name: 'BUSD',
+    symbol: 'BUSD-ETH SALP LP',
+    tokenSymbol: 'BUSD',
+    icon: '🥭',
+  },
+  {
+    pid: 43,
+    lpAddresses: {
+      42: '0x419539e88081dB92e34F26BC7308b9D85DD297E7',
+      1: '0x419539e88081dB92e34F26BC7308b9D85DD297E7',
+    },
+    tokenAddresses: {
+      42: '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07',
+      1: '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07',
+    },
+    name: 'OMG',
+    symbol: 'OMG-ETH SALP LP',
+    tokenSymbol: 'OMG',
+    icon: '🍑',
+  },
+  {
+    pid: 44,
+    lpAddresses: {
+      42: '0x19583A9EcE888C5E84FCfc865e076AA7c10a45cb',
+      1: '0x19583A9EcE888C5E84FCfc865e076AA7c10a45cb',
+    },
+    tokenAddresses: {
+      42: '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2',
+      1: '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2',
+    },
+    name: 'SUSHI',
+    symbol: 'SUSHI-ETH SALP LP',
+    tokenSymbol: 'SUSHI',
+    icon: '🍒',
+  },
+  {
+    pid: 45,
+    lpAddresses: {
+      42: '0x20978E3eD5716d526732156067968363C473e7c4',
+      1: '0x20978E3eD5716d526732156067968363C473e7c4',
+    },
+    tokenAddresses: {
+      42: '0xD533a949740bb3306d119CC777fa900bA034cd52',
+      1: '0xD533a949740bb3306d119CC777fa900bA034cd52',
+    },
+    name: 'SUSHI',
+    symbol: 'SUSHI-ETH SALP LP',
+    tokenSymbol: 'SUSHI',
+    icon: '🍈',
+  },
+  {
+    pid: 46,
+    lpAddresses: {
+      42: '0x8767CC91765Cb624777005CfFeBde6B2cf6481fb',
+      1: '0x8767CC91765Cb624777005CfFeBde6B2cf6481fb',
+    },
+    tokenAddresses: {
+      42: '0xc00e94Cb662C3520282E6f5717214004A7f26888',
+      1: '0xc00e94Cb662C3520282E6f5717214004A7f26888',
+    },
+    name: 'COMP',
+    symbol: 'COMP-ETH SALP LP',
+    tokenSymbol: 'COMP',
+    icon: '🍓',
+  },
+  {
+    pid: 47,
+    lpAddresses: {
+      42: '0xF2Bdb6D1a7BC18666940AdBCA8931AA9166A8AB5',
+      1: '0xF2Bdb6D1a7BC18666940AdBCA8931AA9166A8AB5',
+    },
+    tokenAddresses: {
+      42: '0x0000000000085d4780B73119b644AE5ecd22b376',
+      1: '0x0000000000085d4780B73119b644AE5ecd22b376',
+    },
+    name: 'TUSD',
+    symbol: 'TUSD-ETH SALP LP',
+    tokenSymbol: 'TUSD',
+    icon: '🍇',
+  },
+  {
+    pid: 48,
+    lpAddresses: {
+      42: '0x2c6a4f2f02a18782448c5b162ffae0907ac37e36',
+      1: '0x2c6a4f2f02a18782448c5b162ffae0907ac37e36',
+    },
+    tokenAddresses: {
+      42: '0x8ce9137d39326ad0cd6491fb5cc0cba0e089b6a9',
+      1: '0x8ce9137d39326ad0cd6491fb5cc0cba0e089b6a9',
+    },
+    name: 'SXP',
+    symbol: 'SXP-ETH SALP LP',
+    tokenSymbol: 'SXP',
+    icon: '🍉',
+  },
+  {
+    pid: 49,
+    lpAddresses: {
+      42: '0x267df9a4986a1cbf586c4d0d6f3b7ec48799f863',
+      1: '0x267df9a4986a1cbf586c4d0d6f3b7ec48799f863',
+    },
+    tokenAddresses: {
+      42: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
+      1: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
+    },
+    name: 'ELF',
+    symbol: 'ELF-USDT SALP LP',
+    tokenSymbol: 'ELF',
+    icon: '🍌',
+  },
+  {
+    pid: 50,
+    lpAddresses: {
+      42: '0xc6e811c8538883cf971f3fb49c40b7b73ab06db7',
+      1: '0xc6e811c8538883cf971f3fb49c40b7b73ab06db7',
+    },
+    tokenAddresses: {
+      42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'WBTC',
+    symbol: 'SASHIMI-WBTC SALP LP',
+    tokenSymbol: 'WBTC',
+    icon: '🍋',
+  },
+  {
+    pid: 51,
+    lpAddresses: {
+      42: '0x864c85da885b7c80f95ebd3c0de606494e8ee7e7',
+      1: '0x864c85da885b7c80f95ebd3c0de606494e8ee7e7',
+    },
+    tokenAddresses: {
+      42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'DAI',
+    symbol: 'SASHIMI-DAI SALP LP',
+    tokenSymbol: 'DAI',
+    icon: '🍊',
+  },
+  {
+    pid: 52,
+    lpAddresses: {
+      42: '0xdba059c900308f66040c689d2597e5833f883b0c',
+      1: '0xdba059c900308f66040c689d2597e5833f883b0c',
+    },
+    tokenAddresses: {
+      42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'UNI',
+    symbol: 'SASHIMI-UNI SALP LP',
+    tokenSymbol: 'UNI',
+    icon: '🍐',
+  },
+  {
+    pid: 53,
+    lpAddresses: {
+      42: '0x60d6ccc51519b2f7c01a882cd18b81a64c5a1fbe',
+      1: '0x60d6ccc51519b2f7c01a882cd18b81a64c5a1fbe',
+    },
+    tokenAddresses: {
+      42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'SUSHI',
+    symbol: 'SASHIMI-SUSHI SALP LP',
+    tokenSymbol: 'SUSHI',
+    icon: '🍎',
+  },
+  {
+    pid: 54,
+    lpAddresses: {
+      42: '0x13ef8c51bf82096ba7afa01a3c4c6fc74ad7aefb',
+      1: '0x13ef8c51bf82096ba7afa01a3c4c6fc74ad7aefb',
+    },
+    tokenAddresses: {
+      42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+    },
+    name: 'YFI',
+    symbol: 'SASHIMI-YFI SALP LP',
+    tokenSymbol: 'YFI',
+    icon: '🍏',
   },
 ];
 
@@ -546,6 +766,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newNormalPool1124,
   ...newNormalPool1021,
   ...newNormalPool1014,
   ...newNormalPool0939,
