@@ -44,7 +44,7 @@ export class Contracts {
         lpBarAddress: pool.lpBarAddresses ? pool.lpBarAddresses[networkId] : '',
         lpBarContract: pool.lpBarAddresses ? new this.web3.eth.Contract(LPBarAbi) : null,
         sashimiPlateContract: pool.isSashimiPlate ? new this.web3.eth.Contract(vaultABI) : null,
-        uniV2LPContract: pool.isSashimiPlate ? new this.web3.eth.Contract(UNIV2PairAbi) : null,
+        uniV2LPContract: pool.isSashimiPlate || pool.uniV2Pivot ? new this.web3.eth.Contract(UNIV2PairAbi) : null,
       }),
     );
 
@@ -85,8 +85,11 @@ export class Contracts {
         if (lpBarAddress && lpBarContract) {
           setProvider(lpBarContract, lpBarAddress)
         }
-        if (sashimiPlateContract && uniV2LPContract) {
+        // if (sashimiPlateContract && uniV2LPContract) {
+        if (sashimiPlateContract) {
           setProvider(sashimiPlateContract, lpAddress)
+        }
+        if (uniV2LPContract) {
           setProvider(uniV2LPContract, uniV2LPAddress)
         }
       },

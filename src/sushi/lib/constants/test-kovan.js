@@ -224,9 +224,17 @@ export const supportedPools = [
     },
     // Can not get eth value now;
     tokenAddresses: {
-      42: '0xB5685232b185cAdF7C5F58217722Ac40BC4ec45e',
-      1: '0xB5685232b185cAdF7C5F58217722Ac40BC4ec45e',
+      42: '0x59E8461b541Ef2C40383525Ff51eD646A51Ad455',
+      1: '0x59E8461b541Ef2C40383525Ff51eD646A51Ad455',
     },
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x88Bc3df0Cffc2eE15f764e0709aB119F9146c776', // USDT-ETH
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 6],
+      type: 10, // for normal pool
+    },
+    // Can not get apy directly
     name: 'ELF-USDT Party!',
     symbol: 'ELF-USDT UNI-V2 LP',
     tokenSymbol: 'ELF',

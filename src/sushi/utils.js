@@ -166,6 +166,7 @@ export const getEarned = async (masterChefContract, pid, account) => {
 }
 
 // TODO: 1. If we use xxxSwap not fork from uniswap, we need new methods to get value.
+// TODO: refactor, use strategy instead of if/else
 export const getTotalLPWethValue = async (
   masterChefContract,
   wethContract,
@@ -179,6 +180,9 @@ export const getTotalLPWethValue = async (
   sashimiPlateContract, // not required
   uniV2LPContract, // not required
 ) => {
+  if (sashimiPlateInfo && sashimiPlateInfo.type === 10) {
+    return await getTotalLPWethValueNormalPool(masterChefContract, wethContract, lpContract, tokenContract, pid, routerContract, sashimiPlateInfo, uniV2LPContract);
+  }
   // Get balance of the token address
   let tokenAmountWholeLP;
   let lpContractWeth;
@@ -285,6 +289,87 @@ export const getTotalLPWethValue = async (
     totalAllocPoint: poolWeightInfo.totalAllocPoint,
   }
 }
+
+// tokenInfo: {
+//   mainTokenIndex: 0, // DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+//   tokensDecimal: [18, 6],
+//   type: 3, // for normal pool. not required
+// },
+export const getTokenPriceInWeth = async (uniV2LPContract, tokenInfo) => {
+  const {mainTokenIndex} = tokenInfo;
+  const ethIndex = 1 - mainTokenIndex;
+  const reserves = await uniV2LPContract.methods.getReserves().call();
+  const ethBalance = new BigNumber(reserves[ethIndex]);//.div(10 ** tokensDecimal[ethIndex]);
+  const stableBalance = new BigNumber(reserves[mainTokenIndex]); //.div(10 ** tokensDecimal[mainTokenIndex]);
+  return ethBalance.div(stableBalance);
+};
+
+// like ELF-USDT
+export const getTotalLPWethValueNormalPool = async (
+  masterChefContract,
+  wethContract,
+  lpContract,
+  tokenContract,
+  pid,
+  routerContract,
+  sashimiPlateInfo,
+  uniV2LPContract
+) => {
+  let tokenAmountWholeLP;
+  let lpContractWeth;
+  if (routerContract) {
+    tokenAmountWholeLP = await routerContract.methods
+      .getTokenInPair(
+        lpContract.options.address,
+        tokenContract.options.address
+      ).call()
+  } else {
+    tokenAmountWholeLP = await tokenContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+  }
+
+  const tokenPriceInEthValue = await getTokenPriceInWeth(uniV2LPContract, sashimiPlateInfo);
+  lpContractWeth = tokenPriceInEthValue.times(tokenAmountWholeLP);
+
+  // Get the share of lpContract that masterChefContract owns
+  // When use LPBar insteadof LP, xLP:LP = 1:1;
+  const balance = await lpContract.methods
+    .balanceOf(masterChefContract.options.address)
+    .call()
+  // Convert that into the portion of total lpContract = p1
+  const totalSupply = await lpContract.methods.totalSupply().call()
+  // Return p1 * w1 * 2
+  const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
+
+  const tokenDecimals = await tokenContract.methods.decimals().call()
+
+  // Return p1 * w1 * 2
+  // const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
+  const lpWethWorth = new BigNumber(lpContractWeth)
+  const totalLpWethValue = portionLp.times(lpWethWorth).times(new BigNumber(2))
+  // Calculate
+  const tokenAmount = new BigNumber(tokenAmountWholeLP)
+    .times(portionLp)
+    .div(new BigNumber(10).pow(tokenDecimals))
+
+  const wethAmount = new BigNumber(lpContractWeth)
+    .times(portionLp)
+    .div(new BigNumber(10).pow(18))
+
+  const poolWeightInfo = await getPoolWeight(masterChefContract, pid);
+
+  return {
+    portionLp,
+    tokenAmount,
+    wethAmount,
+    totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
+    tokenPriceInWeth: lpWethWorth.div(tokenAmountWholeLP),
+    poolWeight: poolWeightInfo.poolWeight,
+    allocPoint: poolWeightInfo.allocPoint,
+    totalAllocPoint: poolWeightInfo.totalAllocPoint,
+  }
+};
 
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.methods

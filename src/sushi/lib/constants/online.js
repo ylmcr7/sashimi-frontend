@@ -382,9 +382,9 @@ const newNormalPool1124 = [
       42: '0xD533a949740bb3306d119CC777fa900bA034cd52',
       1: '0xD533a949740bb3306d119CC777fa900bA034cd52',
     },
-    name: 'SUSHI',
-    symbol: 'SUSHI-ETH SALP LP',
-    tokenSymbol: 'SUSHI',
+    name: 'CRV',
+    symbol: 'CRV-ETH SALP LP',
+    tokenSymbol: 'CRV',
     icon: '🍈',
   },
   {
@@ -442,6 +442,16 @@ const newNormalPool1124 = [
       42: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
       1: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
     },
+    // uniV2Pivot && uniV2LPAddress && sashimiPlateInfo,sashimiPlateInfo.type=10
+    // eg. you can get apy from pairs like ELF-USDT through ETH-USDT.
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x490ccb3c835597ff31e525262235487f9426312b', // ETH-USDT
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 6],
+      type: 10, // for normal pool
+    },
+
     name: 'ELF',
     symbol: 'ELF-USDT SALP LP',
     tokenSymbol: 'ELF',
