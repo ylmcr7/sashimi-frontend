@@ -296,11 +296,11 @@ export const getTotalLPWethValue = async (
 //   type: 3, // for normal pool. not required
 // },
 export const getTokenPriceInWeth = async (uniV2LPContract, tokenInfo) => {
-  const {mainTokenIndex} = tokenInfo;
+  const {mainTokenIndex, tokensDecimal} = tokenInfo;
   const ethIndex = 1 - mainTokenIndex;
   const reserves = await uniV2LPContract.methods.getReserves().call();
-  const ethBalance = new BigNumber(reserves[ethIndex]);//.div(10 ** tokensDecimal[ethIndex]);
-  const stableBalance = new BigNumber(reserves[mainTokenIndex]); //.div(10 ** tokensDecimal[mainTokenIndex]);
+  const ethBalance = new BigNumber(reserves[ethIndex]).div(10 ** tokensDecimal[ethIndex]);
+  const stableBalance = new BigNumber(reserves[mainTokenIndex]).div(10 ** tokensDecimal[mainTokenIndex]);
   return ethBalance.div(stableBalance);
 };
 
@@ -363,7 +363,7 @@ export const getTotalLPWethValueNormalPool = async (
     portionLp,
     tokenAmount,
     wethAmount,
-    totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(36)),
+    totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
     tokenPriceInWeth: lpWethWorth.div(tokenAmountWholeLP),
     poolWeight: poolWeightInfo.poolWeight,
     allocPoint: poolWeightInfo.allocPoint,
