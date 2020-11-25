@@ -118,7 +118,8 @@ const FarmCards: React.FC = () => {
             .times(SASHIMI_PER_BLOCK)
             .times(BLOCKS_PER_YEAR)
             .times(stakedValue[i].poolWeight)
-            .div(stakedValueCurrentTotalWethValue.lte(0.01) ? new BigNumber(0.01) : stakedValueCurrentTotalWethValue)
+            .div(stakedValueCurrentTotalWethValue.isNaN()
+              ? new BigNumber(0.01) : stakedValueCurrentTotalWethValue)
           : null,
       }
 

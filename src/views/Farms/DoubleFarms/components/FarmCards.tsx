@@ -160,6 +160,7 @@ const FarmCards: React.FC = () => {
   return (
     <StyledCards>
       <ValueETH>{ethValueInSashimiNoWeight.toNumber().toFixed(2)} WETH valued assets are making Sashimi in Beta.</ValueETH>
+      <OfflineTip>Sashimi’s “double farming” has been temporarily ended, you need to withdraw the UNI-V2 LP token and rewards <b>before November 30, 2020 (including 30 November, SGT).</b> After that, the double farming page will be temporarily closed.</OfflineTip>
       {!!rows[0].length ? rows.map((farmRow, i) => getStyleRow(farmRow, i, false))
       : (
         <StyledLoadingWrapper>
@@ -201,18 +202,18 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
     poolActive = startTime - Date.now() <= 0;
   }
 
-  let totalApy: any;
-  if (farm.apy && farm.apy.isNaN()) {
-    totalApy = '- %';
-  } else {
-    totalApy = farm.apy && farm.extraApy ? `${farm.extraApy
-        .plus(farm.apy)
-        .times(new BigNumber(100))
-        .toNumber()
-        .toLocaleString('en-US')
-        .slice(0, -1) || '-'}%`
-      : 'Loading ...';
-  }
+  let totalApy: any = '-';
+  // if (farm.apy && farm.apy.isNaN()) {
+  //   totalApy = '- %';
+  // } else {
+  //   totalApy = farm.apy && farm.extraApy ? `${farm.extraApy
+  //       .plus(farm.apy)
+  //       .times(new BigNumber(100))
+  //       .toNumber()
+  //       .toLocaleString('en-US')
+  //       .slice(0, -1) || '-'}%`
+  //     : 'Loading ...';
+  // }
 
   return (
     <StyledCardWrapper>
@@ -289,6 +290,15 @@ const RainbowLight = keyframes`
 
 const ValueETH = styled.div`
   color: #aa9585;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  // padding-bottom: ${(props) => props.theme.spacing[6]}px;
+`
+const OfflineTip = styled.div`
+  color: #D34A64;
   font-size: 18px;
   font-weight: 400;
   margin: 0;

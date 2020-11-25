@@ -363,7 +363,7 @@ export const getTotalLPWethValueNormalPool = async (
     portionLp,
     tokenAmount,
     wethAmount,
-    totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(18)),
+    totalWethValue: totalLpWethValue.div(new BigNumber(10).pow(36)),
     tokenPriceInWeth: lpWethWorth.div(tokenAmountWholeLP),
     poolWeight: poolWeightInfo.poolWeight,
     allocPoint: poolWeightInfo.allocPoint,

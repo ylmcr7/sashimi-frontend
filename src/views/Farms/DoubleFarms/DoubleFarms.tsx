@@ -33,12 +33,12 @@ const DoubleFarms: React.FC = () => {
                     <img src={chef} height="120" key="1" alt="sashimi-big"/>,
                     <img src={chef} height="80" key="2" alt="sashimi-small"/>
                   ]}
-                subtitle="Earn more SASHIMI by staking LP."
+                // subtitle="Earn more SASHIMI by staking LP."
                 title="Select Your Favorite Table (Beta)"
               />
-              <h1>This project is in beta. Use at your own risk.
-                You can turn to stake page and review the contract.
-              </h1>
+              {/*<h1>This project is in beta. Use at your own risk.*/}
+              {/*  You can turn to stake page and review the contract.*/}
+              {/*</h1>*/}
               <FarmCards />
             </Route>
             <Route path={`${path}/:farmId`}>

@@ -204,7 +204,7 @@ export const supportedInvestmentPools = [
 ];
 // These pools get 0 point; [type pid]
 // export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
-const unStakeOnlyPools1122 = [10, 12, 17, 21, 23, 24, 22, 29, 30, 31, 34, 35, 36, 37];
+const unStakeOnlyPools1122 = [10, 12, 17, 22, 29, 30, 31, 34, 35, 36, 37];
 // export const unStakeOnlyPools = [0, 10, 12, 17, 21, 23, 24, 22, 29, 30, 31, 34, 35, 36, 37];
 // export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25, ...unStakeOnlyPools1122];
 export const unStakeOnlyPools = [4, 13, 14, 15, 16, 18, 19, 20, 25, ...unStakeOnlyPools1122];
