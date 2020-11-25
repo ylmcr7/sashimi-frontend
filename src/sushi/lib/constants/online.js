@@ -439,8 +439,8 @@ const newNormalPool1124 = [
       1: '0x267df9a4986a1cbf586c4d0d6f3b7ec48799f863',
     },
     tokenAddresses: {
-      42: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
-      1: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
+      42: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
     },
     // uniV2Pivot && uniV2LPAddress && sashimiPlateInfo,sashimiPlateInfo.type=10
     // eg. you can get apy from pairs like ELF-USDT through ETH-USDT.

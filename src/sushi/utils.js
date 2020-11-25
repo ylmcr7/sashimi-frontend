@@ -299,8 +299,8 @@ export const getTokenPriceInWeth = async (uniV2LPContract, tokenInfo) => {
   const {mainTokenIndex, tokensDecimal} = tokenInfo;
   const ethIndex = 1 - mainTokenIndex;
   const reserves = await uniV2LPContract.methods.getReserves().call();
-  const ethBalance = new BigNumber(reserves[ethIndex]).div(10 ** tokensDecimal[ethIndex]);
-  const stableBalance = new BigNumber(reserves[mainTokenIndex]).div(10 ** tokensDecimal[mainTokenIndex]);
+  const ethBalance = new BigNumber(reserves[ethIndex]); //.div(10 ** tokensDecimal[ethIndex]);
+  const stableBalance = new BigNumber(reserves[mainTokenIndex]); //.div(10 ** tokensDecimal[mainTokenIndex]);
   return ethBalance.div(stableBalance);
 };
 
