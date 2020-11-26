@@ -36,7 +36,7 @@ const Nav: React.FC = () => {
         </StyledLink>
       </Col>
       <Col sm={smVal} xs={xsVal}>
-        <StyledLink target="_blank" href="https://discord.gg/zTdmUkb">
+        <StyledLink target="_blank" href="https://discord.com/invite/mSEc2uv">
           Discord
         </StyledLink>
       </Col>
