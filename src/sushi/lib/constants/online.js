@@ -467,6 +467,14 @@ const newNormalPool1124 = [
       42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d', // ETH-SASHIMI
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
+    },
+
     name: 'WBTC',
     symbol: 'SASHIMI-WBTC SALP LP',
     tokenSymbol: 'WBTC',
@@ -482,6 +490,14 @@ const newNormalPool1124 = [
       42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d', // ETH-SASHIMI
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
+    },
+
     name: 'DAI',
     symbol: 'SASHIMI-DAI SALP LP',
     tokenSymbol: 'DAI',
@@ -497,6 +513,14 @@ const newNormalPool1124 = [
       42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d', // ETH-SASHIMI
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
+    },
+
     name: 'UNI',
     symbol: 'SASHIMI-UNI SALP LP',
     tokenSymbol: 'UNI',
@@ -512,6 +536,14 @@ const newNormalPool1124 = [
       42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d', // ETH-SASHIMI
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
+    },
+
     name: 'SUSHI',
     symbol: 'SASHIMI-SUSHI SALP LP',
     tokenSymbol: 'SUSHI',
@@ -527,6 +559,14 @@ const newNormalPool1124 = [
       42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
       1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
     },
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d', // ETH-SASHIMI
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
+    },
+
     name: 'YFI',
     symbol: 'SASHIMI-YFI SALP LP',
     tokenSymbol: 'YFI',
