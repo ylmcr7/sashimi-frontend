@@ -204,15 +204,17 @@ export const supportedInvestmentPools = [
 ];
 // These pools get 0 point; [type pid]
 // export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25];
-const unStakeOnlyPools1122 = [10, 12, 17, 22, 29, 30, 31, 34, 35, 36, 37];
+const unStakeOnlyPools1215 = [6, 23, 24, 41, 44, 45, 46, 47, 48, 49, 51];
+// const unStakeOnlyPools1122 = [10, 12, 17, 22, 29, 30, 31, 34, 35, 36, 37]; remove 10 in 2020.12.15
+const unStakeOnlyPools1122 = [12, 17, 22, 29, 30, 31, 34, 35, 36, 37];
 // export const unStakeOnlyPools = [0, 10, 12, 17, 21, 23, 24, 22, 29, 30, 31, 34, 35, 36, 37];
 // export const unStakeOnlyPools = [0, 1, 3, 4, 5, 6, 8, 13, 14, 15, 16, 18, 19, 20, 21, 25, ...unStakeOnlyPools1122];
-export const unStakeOnlyPools = [4, 13, 14, 15, 16, 18, 19, 20, 25, ...unStakeOnlyPools1122];
+export const unStakeOnlyPools = [4, 13, 14, 15, 16, 18, 19, 20, 25, ...unStakeOnlyPools1122, ...unStakeOnlyPools1215];
 // If is xxx-Sashimi Pool; [type pid]
 // Support sashimi pair only. Used in FarmCards.tsx
 export const notETHPairPools = [10, 12, 13, 14, 15, 16, 22, 23, 24, 30];
 
-export const hiddenPools = [101];
+export const hiddenPools = [101, 55];
 
 export const doublePools = [26, 27, 28, 29, 101];
 export const unStakeOnlyDoublePools = [];
@@ -308,6 +310,26 @@ const xLPSupportedPools = [
     symbol: '\xa0WBTC-ETH UNI-V2 LP', // and blank to make it different with the normal farm symbol
     tokenSymbol: 'WETH',
     icon: '🥓',
+  },
+];
+
+const newHiddenPool1215 = [
+  // Lending, Hidden.
+  // Not lp, is ERC20 token named lSASHIMI
+  {
+    pid: 55,
+    lpAddresses: {
+      42: '0x5e199C36F9681a32c996E84C464824F6A868acbd',
+      1: '0x5e199C36F9681a32c996E84C464824F6A868acbd',
+    },
+    tokenAddresses: {
+      42: '0x5e199C36F9681a32c996E84C464824F6A868acbd',
+      1: '0x5e199C36F9681a32c996E84C464824F6A868acbd',
+    },
+    name: 'Hidden',
+    symbol: 'Hidden',
+    tokenSymbol: 'Lending',
+    icon: '🔥🔥',
   },
 ];
 
@@ -816,6 +838,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newHiddenPool1215,
   ...newNormalPool1124,
   ...newNormalPool1021,
   ...newNormalPool1014,

@@ -33,9 +33,15 @@ const links:Link[] = [
     text: 'Farms'
   },
   {
-    link: '/double-farms',
-    text: 'Double\xa0Farm(Beta)'
+    link: '/lending/#/',
+    text: 'Lending',
+    isExternal: true,
+    linkTarget: '_self'
   },
+  // {
+  //   link: '/double-farms',
+  //   text: 'Double\xa0Farm(Beta)'
+  // },
   {
     link: '/app/#/swap',
     text: 'Exchanges',
