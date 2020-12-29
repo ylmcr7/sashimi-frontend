@@ -183,7 +183,7 @@ const {
   chainId
 } = getEthChainInfo();
 const checkWHT = (address: string) => {
-  if (address.toLowerCase() === contractAddresses.weth[chainId]) {
+  if (address.toLowerCase() === contractAddresses.weth[chainId].toLowerCase()) {
     return 'ht'
   }
   return address;

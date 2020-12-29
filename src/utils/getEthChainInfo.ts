@@ -30,6 +30,13 @@ const CHAIN_ENV_MAP: any = {
     exploreURL: 'https://scan-testnet.hecochain.com',
     stakingPool: '0x1DaeD74ed1dD7C9Dabbe51361ac90A69d851234D'
   },
+  heco: {
+    chainId: 128,
+    rpcUrl: 'https://http-mainnet.hecochain.com',
+    ethscanType: '',
+    exploreURL: 'https://scan.hecochain.com',
+    stakingPool: '0x1DaeD74ed1dD7C9Dabbe51361ac90A69d851234D'
+  },
   kovan: {
     chainId: 42,
     rpcUrl: 'https://kovan.infura.io/',
