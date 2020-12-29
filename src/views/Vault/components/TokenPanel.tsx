@@ -34,7 +34,7 @@ import {getEthChainInfo} from "../../../utils/getEthChainInfo";
 import {Link} from "react-router-dom";
 
 const {
-  ethscanType
+  exploreURL
 } = getEthChainInfo();
 
 function formatter(value: any) {
@@ -155,7 +155,7 @@ const TokenPanel: React.FC<TokenPanelProps> = ({
                 </Col>
                 <Col className="vault-info-title">
                   <a className="vault-info-title vault-display-block"
-                     href={`https://${ethscanType}etherscan.io/address/${vaultAddr}`} target="_blank">{tokenName} Vault ↗
+                     href={`${exploreURL}/address/${vaultAddr}`} target="_blank">{tokenName} Vault ↗
                   </a>
                   <a className="vault-info-subtitle vault-display-block"
                      href={depositLinkInDesc} target="_blank">

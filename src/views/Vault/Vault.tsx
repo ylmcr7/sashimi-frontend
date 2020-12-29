@@ -59,7 +59,7 @@ const getStakingDollarValueStable = (stablesBalance: any, vaults: any) => {
 };
 
 const {
-  ethscanType
+  exploreURL
 } = getEthChainInfo();
 
 const Vault: React.FC = () => {
@@ -180,7 +180,7 @@ const Vault: React.FC = () => {
       <StyleSubTitle>
         <a
           target="_blank"
-          href={`https://${ethscanType}etherscan.io/address/${vaultController}`}>
+          href={`${exploreURL}/address/${vaultController}`}>
           Click To Review The Controller Contract
         </a>
       </StyleSubTitle>

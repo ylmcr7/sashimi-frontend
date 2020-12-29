@@ -32,38 +32,38 @@ const links:Link[] = [
     link: '/farms',
     text: 'Farms'
   },
-  {
-    link: '/double-farms',
-    text: 'Double\xa0Farm(Beta)'
-  },
+  // {
+  //   link: '/double-farms',
+  //   text: 'Double\xa0Farm(Beta)'
+  // },
   {
     link: '/app/#/swap',
     text: 'Exchanges',
     isExternal: true,
     linkTarget: '_self'
   },
-  {
-    link: '/staking',
-    text: 'Staking'
-  },
-  {
-    link: '/investment',
-    text: 'Investment'
-  },
-  {
-    link: '/vault',
-    text: 'Vault'
-  },
-  {
-    link: 'https://info.sashimi.cool/',
-    text: 'Info↗',
-    isExternal: true
-  },
-  {
-    link: 'https://snapshot.sashimi.cool/#/sashimi',
-    text: 'Proposals↗',
-    isExternal: true
-  }
+  // {
+  //   link: '/staking',
+  //   text: 'Staking'
+  // },
+  // {
+  //   link: '/investment',
+  //   text: 'Investment'
+  // },
+  // {
+  //   link: '/vault',
+  //   text: 'Vault'
+  // },
+  // {
+  //   link: 'https://info.sashimi.cool/',
+  //   text: 'Info↗',
+  //   isExternal: true
+  // },
+  // {
+  //   link: 'https://snapshot.sashimi.cool/#/sashimi',
+  //   text: 'Proposals↗',
+  //   isExternal: true
+  // }
 ];
 
 const OverLay = () => {

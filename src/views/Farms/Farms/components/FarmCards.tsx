@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   Button,
   Divider,
@@ -77,8 +77,12 @@ const FarmCards: React.FC = () => {
       ? stakedValue[sushiIndex].tokenPriceInWeth
       : new BigNumber(0)
 
-  const BLOCKS_PER_YEAR = new BigNumber(2336000)
-  const SASHIMI_PER_BLOCK = new BigNumber(100)
+  // ETH
+  // const BLOCKS_PER_YEAR = new BigNumber(2336000)
+  // const SASHIMI_PER_BLOCK = new BigNumber(100)
+  // HECO
+  const BLOCKS_PER_YEAR = new BigNumber(10512000); // block/3s
+  const SASHIMI_PER_BLOCK = new BigNumber(0.2);
 
   let ethValueInSashimiNoWeight = new BigNumber(0);
   const unStakeOnlyPoolsRows: FarmWithStakedValue[][] = [[]];
@@ -170,7 +174,23 @@ interface FarmCardProps {
   unStakeOnly?: Boolean
 }
 
+let farmExchangeAddURL: {
+  [key: string]: string
+} = {};
 const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
+
+  const [exchangeAddURL, setExchangeAddURL] = useState(farmExchangeAddURL[farm.pid] || '');
+  useEffect(() => {
+    const getTokens = async () => {
+      const tokens = await Promise.all([
+        farm.lpContract.methods.token0().call(),
+        farm.lpContract.methods.token1().call()
+      ]);
+      farmExchangeAddURL[farm.pid] = `/app/#/add/${tokens[0]}/${tokens[1]}`;
+      setExchangeAddURL(`/app/#/add/${tokens[0]}/${tokens[1]}`);
+    };
+    getTokens();
+  }, [farm]);
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const {hours, minutes, seconds, days} = countdownProps;
@@ -248,7 +268,9 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
                   </Button> :  <Button
                     size="large"
                     type="primary"
-                    href={`https://info.sashimi.cool/pair/${farm.lpTokenAddress}`}
+                    disabled={exchangeAddURL === ''}
+                    // href={`https://info.sashimi.cool/pair/${farm.lpTokenAddress}`}
+                    href={exchangeAddURL}
                     target="_blank"
                     block
                   >

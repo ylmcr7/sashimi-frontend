@@ -8,8 +8,8 @@ import {contractAddresses} from '../../../sushi/lib/constants';
 import {getEthChainInfo} from "../../../utils/getEthChainInfo";
 
 const {
-    ethscanType,
-    chainId
+  exploreURL,
+  chainId
 } = getEthChainInfo();
 
 const contractAddressesTemp = contractAddresses as {[index: string]:any};
@@ -22,7 +22,7 @@ const Nav: React.FC = () => {
       <Col sm={smVal} xs={xsVal}>
         <StyledLink
           target="_blank"
-          href={`https://${ethscanType}etherscan.io/address/${contractAddressesTemp.sushi[chainId]}#code`}
+          href={`${exploreURL}/address/${contractAddressesTemp.sushi[chainId]}#code`}
         >
           Sashimi Contract
         </StyledLink>
@@ -30,7 +30,7 @@ const Nav: React.FC = () => {
       <Col sm={4} xs={xsVal}>
         <StyledLink
           target="_blank"
-          href={`https://${ethscanType}etherscan.io/address/${contractAddressesTemp.masterChef[chainId]}#code`}
+          href={`${exploreURL}/address/${contractAddressesTemp.masterChef[chainId]}#code`}
         >
           MasterChef Contract
         </StyledLink>

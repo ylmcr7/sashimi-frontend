@@ -28,7 +28,7 @@ import Value from '../../Value'
 import {getEthChainInfo} from "../../../utils/getEthChainInfo";
 
 const {
-  ethscanType
+  exploreURL
 } = getEthChainInfo();
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
@@ -63,7 +63,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
         <Spacer />
         <Button
-          href={`https://${ethscanType}etherscan.io/address/${account}`}
+          href={`${exploreURL}/address/${account}`}
           size="large"
           block
           type="primary"

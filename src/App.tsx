@@ -20,12 +20,12 @@ import useModal from './hooks/useModal'
 
 import FAQ from './views/FAQ'
 import Farms from './views/Farms/Farms'
-import DoubleFarms from './views/Farms/DoubleFarms'
+// import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
-import Staking from './views/Staking'
-import Investment from './views/Investment'
-import Vault from './views/Vault'
-import ComingSoon from './views/ComingSoon'
+// import Staking from './views/Staking'
+// import Investment from './views/Investment'
+// import Vault from './views/Vault'
+// import ComingSoon from './views/ComingSoon'
 
 import { getEthChainInfo } from './utils/getEthChainInfo'
 
@@ -55,24 +55,24 @@ const App: React.FC = () => {
               <Route path="/farms">
                 <Farms />
               </Route>
-              <Route path="/double-farms">
-                <DoubleFarms />
-              </Route>
-              <Route path="/staking">
-                <Staking />
-              </Route>
-              <Route path="/investment">
-                <Investment />
-              </Route>
+              {/*<Route path="/double-farms">*/}
+              {/*  <DoubleFarms />*/}
+              {/*</Route>*/}
+              {/*<Route path="/staking">*/}
+              {/*  <Staking />*/}
+              {/*</Route>*/}
+              {/*<Route path="/investment">*/}
+              {/*  <Investment />*/}
+              {/*</Route>*/}
               <Route path="/faq">
                 <FAQ />
               </Route>
-              <Route path="/exchanges">
-                <ComingSoon title={'Sashimi Swap'}/>
-              </Route>
-              <Route path="/vault">
-                <Vault />
-              </Route>
+              {/*<Route path="/exchanges">*/}
+              {/*  <ComingSoon title={'Sashimi Swap'}/>*/}
+              {/*</Route>*/}
+              {/*<Route path="/vault">*/}
+              {/*  <Vault />*/}
+              {/*</Route>*/}
             </Switch>
           </StyledContent>
           <StyledFooter>

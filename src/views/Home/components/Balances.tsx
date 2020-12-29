@@ -21,9 +21,12 @@ import { getSushiAddress } from '../../../sushi/utils'
 import BigNumber from 'bignumber.js'
 import CountUp from 'react-countup'
 import { getEthChainInfo } from '../../../utils/getEthChainInfo';
+import {contractAddresses} from "../../../sushi/lib/constants";
 
 const {
-  stakingPool
+  stakingPool,
+  exploreURL,
+  chainId
 } = getEthChainInfo();
 
 const PendingRewards: React.FC = () => {
@@ -116,16 +119,16 @@ const Balances: React.FC = () => {
       <TotalSupply>
         {account && <div>
           Total Sashimi Supply: {(100000000 - getBalanceNumber(burnedSashimi)).toLocaleString('currency', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-          <a href="https://etherscan.io/token/0xC28E27870558cF22ADD83540d2126da2e4b464c2" target="_blank"> Contract</a>
+          <a href={`${exploreURL}/address/${contractAddresses.sushi[chainId]}`} target="_blank"> Contract</a>
         </div>}
-        {account && <div>
-          Total Sashimi Burned: {getBalanceNumber(burnedSashimi).toLocaleString('currency', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-          <a href="https://etherscan.io/token/0xC28E27870558cF22ADD83540d2126da2e4b464c2?a=0x000000000000000000000000000000000000dead" target="_blank"> Burn Record</a>
-        </div>}
-        {account && <div>
-          Total in Sashimi Treasury: {getBalanceNumber(fishFeedBalance).toLocaleString('currency', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-          <a href="https://etherscan.io/address/0x84ee348617563944ffd4a23843e086a7dc0224f3#tokentxns" target="_blank"> Treasury Record</a>
-        </div>}
+        {/*{account && <div>*/}
+        {/*  Total Sashimi Burned: {getBalanceNumber(burnedSashimi).toLocaleString('currency', {minimumFractionDigits: 2, maximumFractionDigits: 2})}*/}
+        {/*  <a href={`${exploreURL}/token/0xC28E27870558cF22ADD83540d2126da2e4b464c2?a=0x000000000000000000000000000000000000dead`} target="_blank"> Burn Record</a>*/}
+        {/*</div>}*/}
+        {/*{account && <div>*/}
+        {/*  Total in Sashimi Treasury: {getBalanceNumber(fishFeedBalance).toLocaleString('currency', {minimumFractionDigits: 2, maximumFractionDigits: 2})}*/}
+        {/*  <a href={`${exploreURL}/address/0x84ee348617563944ffd4a23843e086a7dc0224f3#tokentxns`} target="_blank"> Treasury Record</a>*/}
+        {/*</div>}*/}
       </TotalSupply>
       <StyledWrapper>
         <StyledCard>

@@ -1,13 +1,15 @@
 import * as testKovan from './constants/test-kovan';
 import * as online from './constants/online';
 import * as onlineTest from './constants/online-test';
+import * as hecoTest from './constants/heco-test';
 
 const CHAIN_ENV = process.env.REACT_APP_CHAIN_ENV || 'main';
 
 const output = {
   main: online,
   kovan: testKovan,
-  'online-test': onlineTest
+  'online-test': onlineTest,
+  'heco-test': hecoTest
 };
 
 const WEI_UNIT_DECIMAL = {
