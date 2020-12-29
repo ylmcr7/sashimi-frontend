@@ -67,7 +67,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           size="large"
           block
           type="primary"
-        >View on Etherscan</Button>
+        >
+          {/*View on Etherscan*/}
+          View on Hecoscan
+        </Button>
         <Spacer />
         <Button
           onClick={handleSignOutClick}
