@@ -33,6 +33,8 @@ import {
   waitingInfo
 } from '../../../../sushi/lib/constants';
 import sashimiLog from '../../../../assets/img/logo_sashimi.png';
+import {getEthChainInfo} from "../../../../utils/getEthChainInfo";
+import {contractAddresses} from "../../../../sushi/lib/constants";
 
 interface FarmWithStakedValue extends Farm, StakedValue {
   apy: BigNumber,
@@ -177,6 +179,15 @@ interface FarmCardProps {
 let farmExchangeAddURL: {
   [key: string]: string
 } = {};
+const {
+  chainId
+} = getEthChainInfo();
+const checkWHT = (address: string) => {
+  if (address.toLowerCase() === contractAddresses.weth[chainId]) {
+    return 'ht'
+  }
+  return address;
+};
 const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
 
   const [exchangeAddURL, setExchangeAddURL] = useState(farmExchangeAddURL[farm.pid] || '');
@@ -186,8 +197,8 @@ const FarmCard: React.FC<FarmCardProps> = ({farm, unStakeOnly = false}) => {
         farm.lpContract.methods.token0().call(),
         farm.lpContract.methods.token1().call()
       ]);
-      farmExchangeAddURL[farm.pid] = `/app/#/add/${tokens[0]}/${tokens[1]}`;
-      setExchangeAddURL(`/app/#/add/${tokens[0]}/${tokens[1]}`);
+      farmExchangeAddURL[farm.pid] = `/app/#/add/${checkWHT(tokens[0])}/${checkWHT(tokens[1])}`;
+      setExchangeAddURL(`/app/#/add/${checkWHT(tokens[0])}/${checkWHT(tokens[1])}`);
     };
     getTokens();
   }, [farm]);
