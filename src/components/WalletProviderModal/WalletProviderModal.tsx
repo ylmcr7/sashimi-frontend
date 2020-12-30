@@ -37,14 +37,14 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               title="Metamask"
             />
           </StyledWalletCard>
-          <Spacer size="sm" />
-          <StyledWalletCard>
-            <WalletCard
-              icon={<img src={walletConnectLogo} style={{ height: 24 }} />}
-              onConnect={() => connect('walletconnect')}
-              title="WalletConnect"
-            />
-          </StyledWalletCard>
+          {/*<Spacer size="sm" />*/}
+          {/*<StyledWalletCard>*/}
+          {/*  <WalletCard*/}
+          {/*    icon={<img src={walletConnectLogo} style={{ height: 24 }} />}*/}
+          {/*    onConnect={() => connect('walletconnect')}*/}
+          {/*    title="WalletConnect"*/}
+          {/*  />*/}
+          {/*</StyledWalletCard>*/}
         </StyledWalletsWrapper>
       </ModalContent>
 
@@ -65,7 +65,7 @@ const StyledWalletsWrapper = styled.div`
 `
 
 const StyledWalletCard = styled.div`
-  flex-basis: calc(50% - ${(props) => props.theme.spacing[2]}px);
+  flex-basis: calc(100% - ${(props) => props.theme.spacing[2]}px);
 `
 
 export default WalletProviderModal
