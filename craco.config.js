@@ -21,7 +21,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://kovan-test.sashimi.cool', // target: 'http://kovan-test.nftshard.com',
+        target: 'https://kovan-test.sashimi.cool',
         changeOrigin: true,
         secure: true
       }
