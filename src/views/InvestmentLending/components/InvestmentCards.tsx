@@ -203,7 +203,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                   size="large"
                   type="primary"
                   block
-                  disabled={supplyProfitEthValued.isEqualTo(0)}
+                  disabled={supplyProfitEthValued.isEqualTo(0) && farmProfitEthValued.isEqualTo(0)}
                   onClick={async () => {
                     if (investmentContract) {
                       investmentContract.methods.harvest(investment.depositAddress).send({from: account});

@@ -40,7 +40,7 @@ export const supportedLendingInvestmentPools = [
   },
   {
     lpAddress: '0xc1c56af45d463a798d4ff5590c2d7d1b2ec8fbea', // WETH-SASHIMI
-    providerAddress: '0x3e331490E12C95eD0789a84cdEd069ec194c130d', // SASHIMI vault provider
+    providerAddress: '0xB267E85F798796f21f246BdEe06D458dDf863Ee0', // SASHIMI vault provider
     depositAddress: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
     depositTokenDecimal: 18,
     depositTokenSymbol: 'SASHIMI',
