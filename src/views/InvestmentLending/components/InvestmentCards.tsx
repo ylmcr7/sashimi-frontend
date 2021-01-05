@@ -152,11 +152,17 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
     }
     const investmentLendingContract = getInvestmentLendingContract(ethereum, investment.providerAddress);
 
-    const [reservesPoints, depositAmount, depositTokenBalanceInRouter, earnedCurrent] = await Promise.all([
-      investmentContract.methods.reservesRatios(investment.depositAddress).call(),
-      investmentContract.methods.deposits(investment.depositAddress).call(),
-      getBalance(ethereum, investment.depositAddress, getSashimiRouterAddress(yam)),
-      investmentLendingContract.methods.earnedCurrent().call()
+    const [
+      reservesPoints,
+      depositAmount, depositTokenBalanceInRouter,
+      earnedCurrent, sashimiBalanceOfProvider
+    ] = await Promise.all([
+      // TODO: catch -> request log for monitor
+      investmentContract.methods.reservesRatios(investment.depositAddress).call().catch(() => 0),
+      investmentContract.methods.deposits(investment.depositAddress).call().catch(() => 0),
+      getBalance(ethereum, investment.depositAddress, getSashimiRouterAddress(yam)).catch(() => 0),
+      investmentLendingContract.methods.earnedCurrent().call().catch(() => [0, 0]),
+      sashimiContract.methods.balanceOf(investment.providerAddress).call().catch(() => 0),
     ]);
 
     const depositAmountBN = new BigNumber(depositAmount);
@@ -170,7 +176,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
     setActualFundUsed(actualFundUsed);
 
     setSupplyProfitEthValued(new BigNumber(earnedCurrent[0]).times(tokenWethPrice));
-    setFarmProfitEthValued(new BigNumber(earnedCurrent[1]).times(sashimiWethPrice));
+    setFarmProfitEthValued(new BigNumber(earnedCurrent[1]).plus(sashimiBalanceOfProvider).times(sashimiWethPrice));
 
   }, [investment, yam, investmentContract, sashimiContract, sashimiRouterContract, sashimiWethPrice, tokenWethPrice]);
 
