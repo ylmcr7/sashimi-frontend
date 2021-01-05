@@ -18,11 +18,20 @@ module.exports = {
       },
     },
   ],
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://kovan-test.sashimi.cool', // target: 'http://kovan-test.nftshard.com',
+        changeOrigin: true,
+        secure: true
+      }
+    }
+  },
   webpack: {
     devServer: {
       hot: false,
       inline: false,
-      reload: false
+      reload: false,
     }
   },
   babel: {

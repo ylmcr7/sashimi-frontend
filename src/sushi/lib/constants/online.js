@@ -42,7 +42,7 @@ export const supportedInvestmentPools = [
     },
     depositAddresses: {
       42: '0xe66747a101bff2dba3697199dcce5b743b454759',
-      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // DAI
+      1: '0xe66747a101bff2dba3697199dcce5b743b454759' // GT
     },
     providerAddresses: {
       42: '0xE9886bBa3bA6A3C00144E1E068088eE879f560Cd',

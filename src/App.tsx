@@ -24,6 +24,7 @@ import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
 import Staking from './views/Staking'
 import Investment from './views/Investment'
+import InvestmentLending from './views/InvestmentLending';
 import Vault from './views/Vault'
 import ComingSoon from './views/ComingSoon'
 
@@ -62,7 +63,11 @@ const App: React.FC = () => {
                 <Staking />
               </Route>
               <Route path="/investment">
-                <Investment />
+                {/*<Investment />*/}
+                <InvestmentLending />
+              </Route>
+              <Route path="/investment-lend">
+                <InvestmentLending />
               </Route>
               <Route path="/faq">
                 <FAQ />
