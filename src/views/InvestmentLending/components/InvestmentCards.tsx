@@ -118,7 +118,6 @@ const InvestmentCards: React.FC = () => {
 }
 
 interface InvestmentCardProps {
-  // investment: InvestmentRow,
   investment: IInvestment,
   yam: typeof Yam,
   investmentContract: any,
@@ -142,40 +141,34 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
   const [supplyProfitEthValued, setSupplyProfitEthValued] = useState(new BigNumber(0));
   const [farmProfitEthValued, setFarmProfitEthValued] = useState(new BigNumber(0));
   const [actualFundUsed, setActualFundUsed] = useState('-%');
-  // const [depositTokenDecimal, setDepositTokenDecimal] = useState(18);
 
   const tokenWethPrice = useTokenWethPriceByRouter(sashimiRouterContract, investment.lpAddress, investment.depositAddress);
 
-  // const investmentAPYs = useInvestmentAPYs();
   const { ethereum }: { ethereum: any } = useWallet()
-  // const apyInfo = investmentAPYs.find(apyInfo => {
-  //   const key = apyInfo.key.toUpperCase();
-  //   if (key.includes(investment.tokenSymbol.toUpperCase()) && key.includes(investment.depositTokenSymbol.toUpperCase())) {
-  //     return true;
-  //   }
-  // });
 
   const fetchData = useCallback(async () => {
     if (!yam || !ethereum || !investmentContract || !sashimiRouterContract || sashimiWethPrice.eq(0) || tokenWethPrice.eq(0)) {
       return;
     }
+    const investmentLendingContract = getInvestmentLendingContract(ethereum, investment.providerAddress);
 
-    const reservesPoints = await investmentContract.methods.reservesRatios(investment.depositAddress).call();
-    const depositAmount = await investmentContract.methods.deposits(investment.depositAddress).call();
+    const [reservesPoints, depositAmount, depositTokenBalanceInRouter, earnedCurrent] = await Promise.all([
+      investmentContract.methods.reservesRatios(investment.depositAddress).call(),
+      investmentContract.methods.deposits(investment.depositAddress).call(),
+      getBalance(ethereum, investment.depositAddress, getSashimiRouterAddress(yam)),
+      investmentLendingContract.methods.earnedCurrent().call()
+    ]);
+
     const depositAmountBN = new BigNumber(depositAmount);
 
     setReservesRatio(`${reservesPoints / 100}%`);
     setDepositAmount(depositAmountBN);
 
-    const depositTokenBalanceInRouter = await getBalance(ethereum, investment.depositAddress, getSashimiRouterAddress(yam));
     const depositTokenBalanceInRouterBN = new BigNumber(depositTokenBalanceInRouter);
     const actualFundPoolBN = depositTokenBalanceInRouterBN.plus(depositAmountBN);
     const actualFundUsed = `${(new BigNumber(100)).minus(depositAmountBN.div(actualFundPoolBN).times(100)).toFixed(2)}%`;
     setActualFundUsed(actualFundUsed);
 
-    const investmentLendingContract = getInvestmentLendingContract(ethereum, investment.providerAddress);
-
-    const earnedCurrent = await investmentLendingContract.methods.earnedCurrent().call();
     setSupplyProfitEthValued(new BigNumber(earnedCurrent[0]).times(tokenWethPrice));
     setFarmProfitEthValued(new BigNumber(earnedCurrent[1]).times(sashimiWethPrice));
 
@@ -219,7 +212,6 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                   size="large"
                   type="primary"
                   block
-                  disabled={supplyProfitEthValued.isEqualTo(0)}
                   onClick={async () => {
                     if (investmentContract) {
                       investmentContract.methods.reBalance(investment.depositAddress).send({from: account});
@@ -237,12 +229,6 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
                 {getBalanceNumber(depositAmount, investment.depositTokenDecimal).toFixed(2)} {investment.depositTokenSymbol}
               </span>
             </StyledInsight>
-            {/*<StyledInsight>*/}
-            {/*  <span>Demand Profit</span>*/}
-            {/*  /!*<span>*!/*/}
-            {/*  /!*  {getBalanceNumber(profitSashimiValued).toFixed(3) || '-'} Sashimi*!/*/}
-            {/*  /!*</span>*!/*/}
-            {/*</StyledInsight>*/}
             <StyledInsight>
               <span>Supply Profit</span>
               <span>

@@ -16,16 +16,18 @@ export const useTokenWethPriceByRouter = (sashimiRouterContract: any, lpAddress:
       setTokenWethPrice(new BigNumber(1));
     }
 
-    const tokenAmountWholeLP = await sashimiRouterContract.methods
+    const tokenAmountWholeLPPromise = sashimiRouterContract.methods
       .getTokenInPair(
         lpAddress,
         tokenAddress
       ).call();
-    const lpContractWeth = await sashimiRouterContract.methods
+    const lpContractWethPromise = sashimiRouterContract.methods
       .getTokenInPair(
         lpAddress,
         wethAddress
       ).call();
+
+    const [tokenAmountWholeLP, lpContractWeth] = await Promise.all([tokenAmountWholeLPPromise, lpContractWethPromise]);
 
     setTokenWethPrice(new BigNumber(lpContractWeth).div(tokenAmountWholeLP));
   }, [ethereum, sashimiRouterContract, lpAddress, tokenAddress]);
