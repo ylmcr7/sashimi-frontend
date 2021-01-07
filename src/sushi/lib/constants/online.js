@@ -1,3 +1,5 @@
+import * as tokenIcons from './tokenIcons';
+
 export const contractAddresses = {
   sushi: {
     42: '0x89d5F2E52D36b85e72e25e8fE46d709D445c03Fc', // aelf sushi new one 9.9
@@ -28,7 +30,76 @@ export const contractAddresses = {
     42: '0xA050886815CFc52a24B9C4aD044ca199990B6690', // aelf sushi
     1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // sushi use
   },
-}
+};
+
+export const sashimiAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2';
+export const wethAddress = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
+export const wethSashimiLpPAddress = '0x3fa4b0b3053413684d0b658689ede7907bb4d69d';
+export const supportedLendingInvestmentPools = [
+  {
+    lpAddress: '0x3fa4b0b3053413684d0b658689ede7907bb4d69d', // WETH-SASHIMI
+    providerAddress: '0x7Bc801A840a7c2c027f4E5e48Bf618348B0bCE2B', // ETH vault provider
+    depositAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'WETH',
+    tokenSymbol: 'WETH',
+    icon: tokenIcons.eth,
+  },
+  {
+    lpAddress: '0x51214310ac356b26df2a9caf3895398e533c4fa9', // DAI-ETH
+    providerAddress: '0xfdeDB338C5E5A26ed5816091DFAF34B5616Cf2F4', // DAI vault provider
+    depositAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'DAI',
+    tokenSymbol: 'DAI',
+    icon: tokenIcons.dai,
+  },
+  {
+    lpAddress: '0x64a9d29305b9847ceee21558d3ce1f8e85ee4496', // USDC-ETH
+    providerAddress: '0x7cf0569A5d1602068f2C1425BFE8352fD6d8B942', // USDC vault provider
+    depositAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    depositTokenDecimal: 6,
+    depositTokenSymbol: 'USDC',
+    tokenSymbol: 'USDC',
+    icon: tokenIcons.usdc,
+  },
+  {
+    lpAddress: '0x490ccb3c835597ff31e525262235487f9426312b', // USDT-ETH
+    providerAddress: '0x33A057E6061e3849954578E3Ae0Ae15e615E72Cf', // USDT vault provider
+    depositAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    depositTokenDecimal: 6,
+    depositTokenSymbol: 'USDT',
+    tokenSymbol: 'USDT',
+    icon: tokenIcons.usdt,
+  },
+  {
+    lpAddress: '0x04d7eecd7decfc5cc335e4ba5fb6bb09a581be01', // WBTC-ETH
+    providerAddress: '0x194402BC8Adcc11a77873996361efe40E9dcdfCb', // WBTC vault provider
+    depositAddress: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+    depositTokenDecimal: 8,
+    depositTokenSymbol: 'WBTC',
+    tokenSymbol: 'WBTC',
+    icon: tokenIcons.wbtc,
+  },
+  {
+    lpAddress: '0x18492965eef77d1a101d77a394c32178090e98a6', // YFI-ETH
+    providerAddress: '0xd3D3fc25B836a8fD49026787C4406F5791f891bE', // YFI vault provider
+    depositAddress: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'YFI',
+    tokenSymbol: 'YFI',
+    icon: tokenIcons.yfi,
+  },
+  {
+    lpAddress: '0x28e240e04113877bf99354e1e4f43a79e59c535a', // ELF-ETH
+    providerAddress: '0x206D84982e032950E3F87d64f86C7c4C7cb60FCC', // ELF vault provider
+    depositAddress: '0xbf2179859fc6D5BEE9Bf9158632Dc51678a4100e',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'ELF',
+    tokenSymbol: 'ELF',
+    icon: tokenIcons.elf,
+  },
+];
 
 export const supportedInvestmentPools = [
   {

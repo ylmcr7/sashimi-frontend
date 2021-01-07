@@ -189,7 +189,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
       <Card>
         <CardContent>
           <StyledContent>
-            <CardIcon>{investment.icon}</CardIcon>
+            <img src={investment.icon} alt="token-icon" style={{width: '80px', height: '80px'}}/>
             <StyledTitle>Invest {investment.depositTokenSymbol.toUpperCase()}</StyledTitle>
             { investment.providerAddress ? <a
               target="_blank"

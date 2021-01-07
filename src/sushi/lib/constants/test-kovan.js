@@ -1,3 +1,5 @@
+import * as tokenIcons from './tokenIcons';
+
 export const contractAddresses = {
   sushi: {
     42: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
@@ -36,7 +38,7 @@ export const supportedLendingInvestmentPools = [
     depositTokenDecimal: 18,
     depositTokenSymbol: 'WETH',
     tokenSymbol: 'WETH',
-    icon: '👜',
+    icon: tokenIcons.eth,
   },
   {
     lpAddress: '0xc1c56af45d463a798d4ff5590c2d7d1b2ec8fbea', // WETH-SASHIMI
@@ -45,7 +47,7 @@ export const supportedLendingInvestmentPools = [
     depositTokenDecimal: 18,
     depositTokenSymbol: 'SASHIMI',
     tokenSymbol: 'SASHIMI',
-    icon: '💼',
+    icon: tokenIcons.elf,
   },
   {
     lpAddress: '0xb3aeed31edbf9a646d76342a60c5f206761828a7', // WETH-ELF
@@ -54,7 +56,7 @@ export const supportedLendingInvestmentPools = [
     depositTokenDecimal: 18,
     depositTokenSymbol: 'ELF',
     tokenSymbol: 'ELF',
-    icon: '👝',
+    icon: tokenIcons.elf,
   },
 ];
 
