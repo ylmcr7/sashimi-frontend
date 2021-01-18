@@ -238,7 +238,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = (
             <StyledInsight>
               <span>Supply Profit</span>
               <span>
-                {getBalanceNumber(supplyProfitEthValued, investment.depositTokenDecimal).toFixed(8) || '-'} ETH
+                {getBalanceNumber(supplyProfitEthValued, 18).toFixed(8) || '-'} ETH
               </span>
             </StyledInsight>
             <StyledInsight>
