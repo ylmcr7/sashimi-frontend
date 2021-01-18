@@ -1,3 +1,5 @@
+import * as tokenIcons from './tokenIcons';
+
 export const contractAddresses = {
   sushi: {
     42: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
@@ -12,8 +14,8 @@ export const contractAddresses = {
     1: '0x31DB862DF7be09718a860c46ab17CA57966e69ed'
   },
   investment: {
-    42: '0xc16121A9e3fC61037ee83b4C4d0AE06ef92326A5',
-    1: '0xc16121A9e3fC61037ee83b4C4d0AE06ef92326A5' // staging
+    42: '0x68E8BA00A4A580a4852DDF03028259141Bc80b93',
+    1: '0x68E8BA00A4A580a4852DDF03028259141Bc80b93' // staging
   },
   masterChef: {
     42: '0x9e41322574f00232f4f092b8d29db11c46fe7496',
@@ -24,6 +26,39 @@ export const contractAddresses = {
     1: '0xA050886815CFc52a24B9C4aD044ca199990B6690',
   },
 };
+
+export const sashimiAddress = '0x4986843fde2b0dae6bdc54c8e16567614ea8786f';
+export const wethAddress = '0xA050886815CFc52a24B9C4aD044ca199990B6690';
+export const wethSashimiLpPAddress = '0xc1c56af45d463a798d4ff5590c2d7d1b2ec8fbea';
+export const supportedLendingInvestmentPools = [
+  {
+    lpAddress: '0xc1c56af45d463a798d4ff5590c2d7d1b2ec8fbea', // WETH-SASHIMI
+    providerAddress: '0xfda70451c3716365E037993703854a5f3763Caae', // ETH vault provider
+    depositAddress: '0xA050886815CFc52a24B9C4aD044ca199990B6690',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'WETH',
+    tokenSymbol: 'WETH',
+    icon: tokenIcons.eth,
+  },
+  {
+    lpAddress: '0xc1c56af45d463a798d4ff5590c2d7d1b2ec8fbea', // WETH-SASHIMI
+    providerAddress: '0xB267E85F798796f21f246BdEe06D458dDf863Ee0', // SASHIMI vault provider
+    depositAddress: '0x4986843fde2b0dae6bdc54c8e16567614ea8786f',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'SASHIMI',
+    tokenSymbol: 'SASHIMI',
+    icon: tokenIcons.elf,
+  },
+  {
+    lpAddress: '0xb3aeed31edbf9a646d76342a60c5f206761828a7', // WETH-ELF
+    providerAddress: '0xe638E752acE06044213c45aef907ab3d30872742', // ELF vault provider
+    depositAddress: '0xB5685232b185cAdF7C5F58217722Ac40BC4ec45e',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'ELF',
+    tokenSymbol: 'ELF',
+    icon: tokenIcons.elf,
+  },
+];
 
 export const supportedInvestmentPools = [
   {
