@@ -54,11 +54,11 @@ const links:Link[] = [
   //   link: '/vault',
   //   text: 'Vault'
   // },
-  // {
-  //   link: 'https://info.sashimi.cool/',
-  //   text: 'Info↗',
-  //   isExternal: true
-  // },
+  {
+    link: 'https://heco-info.sashimi.cool/',
+    text: 'Info↗',
+    isExternal: true
+  },
   // {
   //   link: 'https://snapshot.sashimi.cool/#/sashimi',
   //   text: 'Proposals↗',
