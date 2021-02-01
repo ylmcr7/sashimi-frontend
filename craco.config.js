@@ -18,11 +18,21 @@ module.exports = {
       },
     },
   ],
+  devServer: {
+    proxy: {
+      '/api': {
+        // target: 'https://kovan-test.sashimi.cool',
+        target: 'https://sashimi.cool',
+        changeOrigin: true,
+        secure: true
+      }
+    }
+  },
   webpack: {
     devServer: {
       hot: false,
       inline: false,
-      reload: false
+      reload: false,
     }
   },
   babel: {
