@@ -69,6 +69,11 @@ const links:Link[] = [
     link: 'https://snapshot.sashimi.cool/#/sashimi',
     text: 'Proposals↗',
     isExternal: true
+  },
+  {
+    link: 'https://v2.sashimi.cool/',
+    text: 'V2↗',
+    isExternal: true
   }
 ];
 
