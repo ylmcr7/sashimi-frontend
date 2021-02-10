@@ -81,6 +81,7 @@ const links:Link[] = [
     link: 'https://heco.sashimi.cool/',
     text: 'Heco',
     linkTarget: '_self',
+    isExternal: true,
     isMobile: true,
   },
 ];
