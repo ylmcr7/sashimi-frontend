@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 
 import Container from '../Container'
@@ -7,11 +7,15 @@ import Logo from '../Logo'
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
 import Spacer from "../Spacer";
+import {Context} from "../../contexts/Mobile";
 
 interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = () => {
+  const {
+    isMobile
+  } = useContext(Context);
   return (
     <StyledTopBar>
       <StyledContainer size="lg">
@@ -21,7 +25,7 @@ const TopBar: React.FC<TopBarProps> = () => {
           </StyledLogoWrapper>
           <StyledMobileWrapper>
             <Nav />
-            <Spacer />
+            {isMobile && <Spacer />}
             <StyledAccountButtonWrapper>
               <AccountButton />
             </StyledAccountButtonWrapper>
