@@ -5,7 +5,7 @@ import {
   Button,
   Menu
 } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
+import { MenuOutlined, DownOutlined } from '@ant-design/icons';
 import {
   If,
   Then,
@@ -21,6 +21,7 @@ interface Link {
   text?: string,
   isExternal?: boolean
   linkTarget?: string
+  isMobile?: boolean
 }
 
 const links:Link[] = [
@@ -74,8 +75,41 @@ const links:Link[] = [
     link: 'https://v2.sashimi.cool/',
     text: 'V2↗',
     isExternal: true
-  }
+  },
+  // In Ethereum Chain Only
+  {
+    link: 'https://heco.sashimi.cool/',
+    text: 'Heco',
+    linkTarget: '_self',
+    isMobile: true,
+  },
 ];
+
+const chains = [
+  {
+    link: 'https://heco.sashimi.cool/',
+    text: 'Heco',
+    linkTarget: '_self',
+  },
+  // {
+  //   link: 'https://v2.sashimi.cool/',
+  //   text: 'Ethereum',
+  //   linkTarget: '_self',
+  // }
+];
+const chainSelect = () => {
+  return (
+    <Menu>
+      {
+        chains.map((item, index) => {
+          return <Menu.Item key={index}>
+            <StyledAbsoluteLink href={item.link} target={item.linkTarget || '_blank'}>{item.text}</StyledAbsoluteLink>
+          </Menu.Item>
+        })
+      }
+    </Menu>
+  )
+};
 
 const OverLay = () => {
   return (
@@ -117,12 +151,24 @@ const Nav: React.FC = () => {
       <Else>
         <StyledNav>
           {
-            links.map((v, index) => v.isExternal ? (
-              <StyledAbsoluteLink href={v.link} target={v.linkTarget || '_blank'} key={index}>{v.text}</StyledAbsoluteLink>
-            ) : (
-              <StyledLink exact activeClassName="active" to={v.link} key={index}>{v.text}</StyledLink>
-            ))
+            links.map((v, index) => {
+              if (v.isMobile) {
+                return null;
+              }
+              return v.isExternal ? (
+                <StyledAbsoluteLink href={v.link} target={v.linkTarget || '_blank'} key={index}>{v.text}</StyledAbsoluteLink>
+              ) : (
+                <StyledLink exact activeClassName="active" to={v.link} key={index}>{v.text}</StyledLink>
+              )
+            })
           }
+          <div>
+            <Dropdown overlay={chainSelect}>
+              <Button>
+                Ethereum <DownOutlined />
+              </Button>
+            </Dropdown>
+          </div>
         </StyledNav>
       </Else>
     </If>
