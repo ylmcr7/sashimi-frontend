@@ -66,9 +66,10 @@ const links:Link[] = [
   //   isExternal: true
   // }
   {
-    link: 'https://v2.sashimi.cool/',
+    link: 'https://sashimi.cool',
     text: 'Ethereum',
     linkTarget: '_self',
+    isExternal: true,
     isMobile: true,
   },
 ];
@@ -80,7 +81,7 @@ const chains = [
   //   linkTarget: '_self',
   // },
   {
-    link: 'https://v2.sashimi.cool/',
+    link: 'https://sashimi.cool',
     text: 'Ethereum',
     linkTarget: '_self',
   }
