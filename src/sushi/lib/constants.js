@@ -3,6 +3,8 @@ import * as online from './constants/online';
 import * as onlineTest from './constants/online-test';
 import * as hecoTest from './constants/heco-test';
 import * as hecoMain from './constants/heco';
+import * as bscTest from './constants/bsc-test';
+import * as bscMain from './constants/bsc';
 
 const CHAIN_ENV = process.env.REACT_APP_CHAIN_ENV || 'main';
 
@@ -12,6 +14,8 @@ const output = {
   'online-test': onlineTest,
   'heco-test': hecoTest,
   heco: hecoMain,
+  'bsc-test': bscTest, // 97
+  bsc: bscMain, // 56
 };
 
 const WEI_UNIT_DECIMAL = {
@@ -44,6 +48,7 @@ export const {
   tokensDecimal = TOKENS_DECIMAL,
   weiUnitDecimal = WEI_UNIT_DECIMAL,
   timeADay = 86400000,
+  wethName = 'bnb'
 } = {
   ...output[CHAIN_ENV],
 };

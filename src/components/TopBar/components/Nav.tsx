@@ -84,6 +84,11 @@ const chains = [
     link: 'https://sashimi.cool',
     text: 'Ethereum',
     linkTarget: '_self',
+  },
+  {
+    link: 'https://heco.sashimi.cool',
+    text: 'Heco',
+    linkTarget: '_self',
   }
 ];
 const chainSelect = () => {
@@ -154,7 +159,7 @@ const Nav: React.FC = () => {
           <div>
             <Dropdown overlay={chainSelect}>
               <Button>
-                Heco <DownOutlined />
+                Bsc <DownOutlined />
               </Button>
             </Dropdown>
           </div>

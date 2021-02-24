@@ -34,7 +34,7 @@ import {
 } from '../../../../sushi/lib/constants';
 import sashimiLog from '../../../../assets/img/logo_sashimi.png';
 import {getEthChainInfo} from "../../../../utils/getEthChainInfo";
-import {contractAddresses} from "../../../../sushi/lib/constants";
+import {contractAddresses, wethName} from "../../../../sushi/lib/constants";
 
 interface FarmWithStakedValue extends Farm, StakedValue {
   apy: BigNumber,
@@ -184,7 +184,9 @@ const {
 } = getEthChainInfo();
 const checkWHT = (address: string) => {
   if (address.toLowerCase() === contractAddresses.weth[chainId].toLowerCase()) {
-    return 'ht'
+    return wethName;
+    // return 'ht'
+    // return 'bnb'
   }
   return address;
 };

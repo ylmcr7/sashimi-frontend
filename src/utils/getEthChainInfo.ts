@@ -43,7 +43,21 @@ const CHAIN_ENV_MAP: any = {
     ethscanType: 'kovan.',
     exploreURL: 'https://kovan.etherscan.io',
     stakingPool: '0x1DaeD74ed1dD7C9Dabbe51361ac90A69d851234D'
-  }
+  },
+  'bsc-test': {
+    chainId: 97,
+    rpcUrl: 'https://data-seed-prebsc-1-s2.binance.org:8545',
+    ethscanType: '',
+    exploreURL: 'https://testnet.bscscan.com',
+    stakingPool: '0x0449dF5a5e69D61584dd6A6b486a5cF5E33EC1ED'
+  },
+  bsc: {
+    chainId: 56,
+    rpcUrl: 'https://bsc-dataseed.binance.org',
+    ethscanType: '',
+    exploreURL: 'https://bscscan.com',
+    stakingPool: '0x0449dF5a5e69D61584dd6A6b486a5cF5E33EC1ED'
+  },
 };
 
 export function getEthChainInfo(): CHAIN_INFO {
