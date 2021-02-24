@@ -26,10 +26,10 @@ export const contractAddresses = {
     56: '0x3F966FA1c0606e19047ed72068D2857677E07EF4',
   },
   masterChef: {
-    42: '0x0449dF5a5e69D61584dd6A6b486a5cF5E33EC1ED', // aelf sushi new one 9.9
-    1: '0x0449dF5a5e69D61584dd6A6b486a5cF5E33EC1ED', // aelf master
-    97: '0x0449dF5a5e69D61584dd6A6b486a5cF5E33EC1ED', // aelf master
-    56: '0x0449dF5a5e69D61584dd6A6b486a5cF5E33EC1ED', // aelf master
+    42: '0x5b33B63ea2812BFEC36107147216d327C7F0310b', // aelf sushi new one 9.9
+    1: '0x5b33B63ea2812BFEC36107147216d327C7F0310b', // aelf master
+    97: '0x5b33B63ea2812BFEC36107147216d327C7F0310b', // aelf master
+    56: '0x5b33B63ea2812BFEC36107147216d327C7F0310b', // aelf master
   },
   // WHT for heco, WBNB for bsc
   weth: {

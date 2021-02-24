@@ -34,7 +34,7 @@ import {
 } from '../../../../sushi/lib/constants';
 import sashimiLog from '../../../../assets/img/logo_sashimi.png';
 import {getEthChainInfo} from "../../../../utils/getEthChainInfo";
-import {contractAddresses, wethName} from "../../../../sushi/lib/constants";
+import {contractAddresses, wethName, sashimiPerBlock} from "../../../../sushi/lib/constants";
 
 interface FarmWithStakedValue extends Farm, StakedValue {
   apy: BigNumber,
@@ -84,7 +84,7 @@ const FarmCards: React.FC = () => {
   // const SASHIMI_PER_BLOCK = new BigNumber(100)
   // HECO
   const BLOCKS_PER_YEAR = new BigNumber(10512000); // block/3s
-  const SASHIMI_PER_BLOCK = new BigNumber(0.2);
+  const SASHIMI_PER_BLOCK = new BigNumber(sashimiPerBlock);
 
   let ethValueInSashimiNoWeight = new BigNumber(0);
   const unStakeOnlyPoolsRows: FarmWithStakedValue[][] = [[]];

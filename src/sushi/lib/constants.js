@@ -48,7 +48,8 @@ export const {
   tokensDecimal = TOKENS_DECIMAL,
   weiUnitDecimal = WEI_UNIT_DECIMAL,
   timeADay = 86400000,
-  wethName = 'bnb'
+  wethName = 'bnb',
+  sashimiPerBlock = 0.375,
 } = {
   ...output[CHAIN_ENV],
 };

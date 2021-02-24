@@ -21,7 +21,7 @@ import { getSushiAddress } from '../../../sushi/utils'
 import BigNumber from 'bignumber.js'
 import CountUp from 'react-countup'
 import { getEthChainInfo } from '../../../utils/getEthChainInfo';
-import {contractAddresses} from "../../../sushi/lib/constants";
+import {contractAddresses, sashimiPerBlock} from "../../../sushi/lib/constants";
 
 const {
   stakingPool,
@@ -162,7 +162,7 @@ const Balances: React.FC = () => {
             <Footnote>
               New rewards per block
               {/* TODO: Follow the plan */}
-              <FootnoteValue>0.2 SASHIMI</FootnoteValue>
+              <FootnoteValue>{sashimiPerBlock} SASHIMI</FootnoteValue>
             </Footnote>
           </CardContent>
         </StyledCard>
