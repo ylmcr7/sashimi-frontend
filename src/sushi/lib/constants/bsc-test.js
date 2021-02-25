@@ -67,6 +67,25 @@ export const waitingInfo = {
 // 0928 Normal Farm -> SASHIMI LP
 export const supportedPools = [
   {
+    pid: 1,
+    lpAddresses: {
+      42: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
+      1: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
+      97: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
+      56: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
+    },
+    tokenAddresses: {
+      42: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1',
+      1: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1',
+      97: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1', // sashimi
+      56: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1',
+    },
+    name: 'Sashimi Party!',
+    symbol: 'SASHIMI-BNB SALP LP',
+    tokenSymbol: 'SASHIMI',
+    icon: '🍣',
+  },
+  {
     pid: 0,
     lpAddresses: {
       42: '0x4dbCb8BC649d9ef27Aa00daE17d13C9bE8dC8416',
@@ -86,24 +105,50 @@ export const supportedPools = [
     icon: '🍎',
   },
   {
-    pid: 1,
+    pid: 2,
     lpAddresses: {
-      42: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
-      1: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
-      97: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
-      56: '0x9B73498a5b2eD5f5Eb28f7859ee04bF2A505EBfB',
+      42: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
+      1: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
+      97: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
+      56: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
     },
     tokenAddresses: {
-      42: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1',
-      1: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1',
-      97: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1', // sashimi
-      56: '0xFCB644FF1872412bff732dE4F2EBB5fa4F27f0C1',
+      42: '0x86b8AC6E084B8fF4E851716Ca8c3F8E5BAdb099e',
+      1: '0x86b8AC6E084B8fF4E851716Ca8c3F8E5BAdb099e', // ETH
+      97: '0x86b8AC6E084B8fF4E851716Ca8c3F8E5BAdb099e',
+      56: '0x86b8AC6E084B8fF4E851716Ca8c3F8E5BAdb099e',
     },
-    name: 'Sashimi Party!',
-    symbol: 'SASHIMI-BNB SALP LP',
-    tokenSymbol: 'SASHIMI',
-    icon: '🍣',
+    // uniV2Pivot && uniV2LPAddress && sashimiPlateInfo,sashimiPlateInfo.type=10
+    // eg. you can get apy from pairs like ELF-USDT through ETH-USDT.
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x4dbCb8BC649d9ef27Aa00daE17d13C9bE8dC8416', // ETH-BNB
+    sashimiPlateInfo: {
+      mainTokenIndex: 0, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
+    },
+    name: 'USDT—ETH',
+    symbol: 'USDT—ETH SALP LP',
+    tokenSymbol: 'USDT',
+    icon: '🍌',
   },
+  // {
+  //   pid: 2,
+  //   lpAddresses: {
+  //     42: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
+  //     1: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
+  //     256: '0x4678E85e3773AB142cC46afC8D57B078792eBf74',
+  //   },
+  //   tokenAddresses: {
+  //     42: '0x04f535663110a392a6504839beed34e019fdb4e0',
+  //     1: '0x04f535663110a392a6504839beed34e019fdb4e0',
+  //     256: '0x04f535663110a392a6504839beed34e019fdb4e0',
+  //   },
+  //   name: 'USDT—ETH',
+  //   symbol: 'USDT—ETH SALP',
+  //   tokenSymbol: 'ETH',
+  //   icon: '🍐',
+  // },
   // {
   //   pid: 1,
   //   lpAddresses: {
