@@ -298,8 +298,8 @@ const getWaitingPools = (start, end) => {
   return array;
 };
 export const waitingInfo = {
-  waitingPool: getWaitingPools(41, 54),
-  startTime: 1606289400000
+  waitingPool: getWaitingPools(56, 57),
+  startTime: 1614248282008
 };
 
 // 0928 UNI LP
@@ -401,6 +401,57 @@ const newHiddenPool1215 = [
     symbol: 'Hidden',
     tokenSymbol: 'Lending',
     icon: '🔥🔥',
+  },
+];
+
+const newNormalPool20210225 = [
+  {
+    pid: 56,
+    lpAddresses: {
+      42: '0xB50C6C684305cEC944d8BD4b7CE9e4a315aA4793',
+      1: '0xB50C6C684305cEC944d8BD4b7CE9e4a315aA4793',
+    },
+    tokenAddresses: {
+      42: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+    },
+    // uniV2Pivot && uniV2LPAddress && sashimiPlateInfo,sashimiPlateInfo.type=10
+    // eg. you can get apy from pairs like ELF-USDT through ETH-USDT.
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x490ccb3c835597ff31e525262235487f9426312b', // ETH-USDT
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 6],
+      type: 10, // for normal pool
+    },
+    name: 'renBTC',
+    symbol: 'renBTC-USDT SALP LP',
+    tokenSymbol: 'renBTC',
+    icon: '🌮',
+  },
+  {
+    pid: 57,
+    lpAddresses: {
+      42: '0x5c5CAb005510F72eB23c332848B0C7D26E3078Ea',
+      1: '0x5c5CAb005510F72eB23c332848B0C7D26E3078Ea',
+    },
+    tokenAddresses: {
+      42: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+    },
+    // uniV2Pivot && uniV2LPAddress && sashimiPlateInfo,sashimiPlateInfo.type=10
+    // eg. you can get apy from pairs like ELF-USDT through ETH-USDT.
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x490ccb3c835597ff31e525262235487f9426312b', // ETH-USDT
+    sashimiPlateInfo: {
+      mainTokenIndex: 1, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 6],
+      type: 10, // for normal pool
+    },
+    name: 'WBTC',
+    symbol: 'WBTC-USDT SALP LP',
+    tokenSymbol: 'WBTC',
+    icon: '🌯',
   },
 ];
 
@@ -909,6 +960,7 @@ export const supportedPools = [
     tokenSymbol: 'SASHIMI',
     icon: '🍣',
   },
+  ...newNormalPool20210225,
   ...newHiddenPool1215,
   ...newNormalPool1124,
   ...newNormalPool1021,
