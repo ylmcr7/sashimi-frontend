@@ -84,7 +84,12 @@ const chains = [
     link: 'https://sashimi.cool',
     text: 'Ethereum',
     linkTarget: '_self',
-  }
+  },
+  {
+    link: 'https://bsc.sashimi.cool/',
+    text: 'Bsc',
+    linkTarget: '_self',
+  },
 ];
 const chainSelect = () => {
   return (
