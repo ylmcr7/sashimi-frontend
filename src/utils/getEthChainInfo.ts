@@ -27,14 +27,14 @@ const CHAIN_ENV_MAP: any = {
     chainId: 256,
     rpcUrl: 'https://http-testnet.hecochain.com',
     ethscanType: '',
-    exploreURL: 'https://scan-testnet.hecochain.com',
+    exploreURL: 'https://testnet.hecoinfo.com',
     stakingPool: '0x130989912317e155189a522beaf63cb80bc69e72'
   },
   heco: {
     chainId: 128,
     rpcUrl: 'https://http-mainnet.hecochain.com',
     ethscanType: '',
-    exploreURL: 'https://scan.hecochain.com',
+    exploreURL: 'https://hecoinfo.com',
     stakingPool: '0x06c7b472261f788634b62214adbb6d26795d85f9'
   },
   kovan: {
