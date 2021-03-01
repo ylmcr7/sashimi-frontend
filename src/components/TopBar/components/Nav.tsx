@@ -62,7 +62,7 @@ const links:Link[] = [
   //   text: 'Vault'
   // },
   {
-    link: 'https://heco-info.sashimi.cool/',
+    link: 'https://bsc-info.sashimi.cool',
     text: 'Info↗',
     isExternal: true
   },
@@ -165,7 +165,7 @@ const Nav: React.FC = () => {
           <div>
             <Dropdown overlay={chainSelect}>
               <Button>
-                Bsc <DownOutlined />
+                BSC <DownOutlined />
               </Button>
             </Dropdown>
           </div>
