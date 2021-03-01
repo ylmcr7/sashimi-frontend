@@ -94,7 +94,7 @@ const chains = [
   },
   {
     link: 'https://bsc.sashimi.cool/',
-    text: 'Bsc',
+    text: 'BSC',
     linkTarget: '_self',
   },
   // {
