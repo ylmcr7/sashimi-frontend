@@ -92,6 +92,11 @@ const chains = [
     text: 'Heco',
     linkTarget: '_self',
   },
+  {
+    link: 'https://bsc.sashimi.cool/',
+    text: 'Bsc',
+    linkTarget: '_self',
+  },
   // {
   //   link: 'https://v2.sashimi.cool/',
   //   text: 'Ethereum',
