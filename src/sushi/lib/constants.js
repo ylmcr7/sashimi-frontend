@@ -33,7 +33,11 @@ const TOKENS_DECIMAL = {
 
 export const {
   contractAddresses,
+  sashimiAddress,
+  wethAddress,
+  wethSashimiLpPAddress,
   supportedInvestmentPools,
+  supportedLendingInvestmentPools,
   unStakeOnlyPools,
   notETHPairPools,
   hiddenPools,

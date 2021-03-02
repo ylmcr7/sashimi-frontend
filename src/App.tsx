@@ -23,6 +23,7 @@ import Farms from './views/Farms/Farms'
 // import DoubleFarms from './views/Farms/DoubleFarms'
 import Home from './views/Home'
 // import Staking from './views/Staking'
+import InvestmentLending from './views/InvestmentLending'
 // import Investment from './views/Investment'
 // import Vault from './views/Vault'
 // import ComingSoon from './views/ComingSoon'
@@ -64,6 +65,9 @@ const App: React.FC = () => {
               {/*<Route path="/investment">*/}
               {/*  <Investment />*/}
               {/*</Route>*/}
+              <Route path="/investment">
+                <InvestmentLending />
+              </Route>
               <Route path="/faq">
                 <FAQ />
               </Route>
