@@ -94,16 +94,44 @@ export const supportedPools = [
       56: '0xA9c03F057b92622CAC0B3cE0Cdf39A4b95202be3',
     },
     tokenAddresses: {
-      42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
-      1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
-      97: '0xC28E27870558cF22ADD83540d2126da2e4b464c2', // Sashimi
-      56: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+      42: '0x55d398326f99059fF775485246999027B3197955',
+      1: '0x55d398326f99059fF775485246999027B3197955', // USDT
+      97: '0x55d398326f99059fF775485246999027B3197955',
+      56: '0x55d398326f99059fF775485246999027B3197955',
+    },
+    // uniV2Pivot && uniV2LPAddress && sashimiPlateInfo,sashimiPlateInfo.type=10
+    // eg. you can get apy from pairs like ELF-USDT through ETH-USDT.
+    uniV2Pivot: true,
+    uniV2LPAddress: '0x0c3675E1ddE92f708E1C67f5C7A86451b4b0531B', // USDT-BNB
+    sashimiPlateInfo: {
+      mainTokenIndex: 0, // eg. DAI-ETH, DAI-> 0, ETH-DAI, DAI-> 1
+      tokensDecimal: [18, 18],
+      type: 10, // for normal pool
     },
     name: 'USDT-Sashimi',
     symbol: 'USDT-Sashimi SALP',
-    tokenSymbol: 'USDT',
+    tokenSymbol: 'SASHIMI',
     icon: '🍻',
   },
+  // {
+  //   pid: 1,
+  //   lpAddresses: {
+  //     42: '0xA9c03F057b92622CAC0B3cE0Cdf39A4b95202be3',
+  //     1: '0xA9c03F057b92622CAC0B3cE0Cdf39A4b95202be3',
+  //     97: '0xA9c03F057b92622CAC0B3cE0Cdf39A4b95202be3',
+  //     56: '0xA9c03F057b92622CAC0B3cE0Cdf39A4b95202be3',
+  //   },
+  //   tokenAddresses: {
+  //     42: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+  //     1: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+  //     97: '0xC28E27870558cF22ADD83540d2126da2e4b464c2', // Sashimi
+  //     56: '0xC28E27870558cF22ADD83540d2126da2e4b464c2',
+  //   },
+  //   name: 'USDT-Sashimi',
+  //   symbol: 'USDT-Sashimi SALP',
+  //   tokenSymbol: 'USDT',
+  //   icon: '🍻',
+  // },
   {
     pid: 2,
     lpAddresses: {
