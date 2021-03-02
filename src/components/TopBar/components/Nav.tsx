@@ -53,10 +53,10 @@ const links:Link[] = [
   //   link: '/staking',
   //   text: 'Staking'
   // },
-  // {
-  //   link: '/investment',
-  //   text: 'Investment'
-  // },
+  {
+    link: '/investment',
+    text: 'Investment'
+  },
   // {
   //   link: '/vault',
   //   text: 'Vault'
