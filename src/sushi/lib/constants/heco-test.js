@@ -41,38 +41,49 @@ export const wethAddress = '0x5b2da6f42ca09c77d577a12bead0446148830687';
 export const wethSashimiLpPAddress = '0x5a29604c3d7577172b9be9cadd4f50453096817d'; // HT-SASHIMI
 export const supportedLendingInvestmentPools = [
   {
-    lpAddress: '0x4bdae212b51dcc2c65bce6be40d7aff9ef953527', // USDT-HT
+    lpAddress: '0x66Ec163991f890F4DdaE20c910Ad3E6e59c00C26', // USDT-HT
     providerAddress: '0x2d695cB23B7fc2e7Dd8611c98F2BF7E5Dd70c0ed', // USDT vault provider
-    depositAddress: '0x04f535663110a392a6504839beed34e019fdb4e0',
-    // converterOptions: {
-    //   lpAddresses: [
-    //     '0x2CBCD540254eD60b7021F90892B4a260C38C6744' // HT-DAI
-    //   ],
-    //   pivotTokenAddresses: [
-    //     '0x9F7217D3F6eA3BE2D6cd6098c494B10A1c8fC243' // DAI
-    //   ]
-    // },
+    depositAddress: '0x01cA93a4c823251E7a8F0b1806bff83b89FA7E25',
     depositTokenDecimal: 18,
     depositTokenSymbol: 'USDT',
     tokenSymbol: 'USDT',
     icon: tokenIcons.usdt,
   },
   {
+    lpAddress: '0xA2A9aea1647dA2370756edb4713Bcda13b09ef0d', // HT-HUSD
+    providerAddress: '0x2fd87D8D4C54fF6fdeeb0178d789d9E5dE55fc91', // HUSD vault provider
+    depositAddress: '0x7276e496B7B8A155c3257c2b0889c47a55D4f002',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'HUSD',
+    tokenSymbol: 'HUSD',
+    icon: tokenIcons.husd,
+  },
+  {
     lpAddress: '0xE8e520BE769Ef3d45BD80C07b9Cd16d95309F531', // ETH-HT
     providerAddress: '0xcEa73A8d9a801c9E35c37aA9c50f81903856Dd3C', // ETH vault provider
     depositAddress: '0x5879180423f5D35a34721501a24F1116A446EC53',
-    // converterOptions: {
-    //   lpAddresses: [
-    //     '0x0c3675E1ddE92f708E1C67f5C7A86451b4b0531B'
-    //   ],
-    //   pivotTokenAddresses: [
-    //     '0x55d398326f99059fF775485246999027B3197955'
-    //   ]
-    // },
     depositTokenDecimal: 18,
     depositTokenSymbol: 'ETH',
     tokenSymbol: 'ETH',
     icon: tokenIcons.eth,
+  },
+  {
+    lpAddress: '0x589Bf5BEb31ED9D4dE685596D7923730fa73E942', // HT-HBTC
+    providerAddress: '0xBa00BCB6688eA56247B9b72ECE1E9745A6CC1643', // ETH vault provider
+    depositAddress: '0x5bE1a23a43afb38351F34D949C98fb338666d6E3',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'HBTC',
+    tokenSymbol: 'HBTC',
+    icon: tokenIcons.hbtc,
+  },
+  {
+    lpAddress: '0xE8e520BE769Ef3d45BD80C07b9Cd16d95309F531', // ETH-HT
+    providerAddress: '0x8a031E2e15625419055EbD24e6629b05Dd513370', // HT vault provider
+    depositAddress: '0x5b2da6f42ca09c77d577a12bead0446148830687',
+    depositTokenDecimal: 18,
+    depositTokenSymbol: 'HT',
+    tokenSymbol: 'HT',
+    icon: tokenIcons.ht,
   },
   // {
   //   lpAddress: '0x0c3675E1ddE92f708E1C67f5C7A86451b4b0531B', // USDT-WBNB
