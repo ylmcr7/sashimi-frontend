@@ -53,7 +53,7 @@ export const supportedLendingInvestmentPools = [
     lpAddress: '0xA2A9aea1647dA2370756edb4713Bcda13b09ef0d', // HT-HUSD
     providerAddress: '0x2fd87D8D4C54fF6fdeeb0178d789d9E5dE55fc91', // HUSD vault provider
     depositAddress: '0x7276e496B7B8A155c3257c2b0889c47a55D4f002',
-    depositTokenDecimal: 18,
+    depositTokenDecimal: 8,
     depositTokenSymbol: 'HUSD',
     tokenSymbol: 'HUSD',
     icon: tokenIcons.husd,
