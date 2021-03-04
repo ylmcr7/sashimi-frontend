@@ -29,7 +29,11 @@ const TOKENS_DECIMAL = {
 
 export const {
   contractAddresses,
+  sashimiAddress,
+  wethAddress,
+  wethSashimiLpPAddress,
   supportedInvestmentPools,
+  supportedLendingInvestmentPools,
   unStakeOnlyPools,
   notETHPairPools,
   hiddenPools,
@@ -44,6 +48,7 @@ export const {
   tokensDecimal = TOKENS_DECIMAL,
   weiUnitDecimal = WEI_UNIT_DECIMAL,
   timeADay = 86400000,
+  wethName = 'ht'
 } = {
   ...output[CHAIN_ENV],
 };

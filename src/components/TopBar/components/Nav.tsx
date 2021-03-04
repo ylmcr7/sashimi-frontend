@@ -33,6 +33,12 @@ const links:Link[] = [
     link: '/farms',
     text: 'Farms'
   },
+  {
+    link: '/lending/#/',
+    text: 'Lending',
+    isExternal: true,
+    linkTarget: '_self'
+  },
   // {
   //   link: '/double-farms',
   //   text: 'Double\xa0Farm(Beta)'
@@ -47,10 +53,10 @@ const links:Link[] = [
   //   link: '/staking',
   //   text: 'Staking'
   // },
-  // {
-  //   link: '/investment',
-  //   text: 'Investment'
-  // },
+  {
+    link: '/investment',
+    text: 'Investment'
+  },
   // {
   //   link: '/vault',
   //   text: 'Vault'
