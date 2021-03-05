@@ -2,8 +2,10 @@ name: build and upload releas
 
 on:
   push:
-    tags:
-    - 'v*'
+    push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ] 
 jobs:
   build:
     strategy:
