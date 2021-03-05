@@ -3,9 +3,9 @@ name: build and upload releas
 on:
   push:
     push:
-    branches: [ main ]
+    branches: [ release ]
   pull_request:
-    branches: [ main ] 
+    branches: [ release ] 
 jobs:
   build:
     strategy:
