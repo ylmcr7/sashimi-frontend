@@ -1,39 +1,42 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow will install Deno and run tests across stable and nightly builds on Windows, Ubuntu and macOS.
-# For more information see: https://github.com/denolib/setup-deno
-
-name: Deno
+name: build and upload release
 
 on:
   push:
-    branches: [release]
-  pull_request:
-    branches: [release]
-
+    tags:
+    - 'v*'
 jobs:
-  test:
-    runs-on: ${{ matrix.os }} # runs a test on Ubuntu, Windows and macOS
-
+  build:
     strategy:
       matrix:
-        deno: ["v1.x", "nightly"]
-        os: [macOS-latest, windows-latest, ubuntu-latest]
-
+        platform: [ubuntu-latest]
+        node-version: [14.x]
+    runs-on: ${{ matrix.platform }}
     steps:
-      - name: Setup repo
-        uses: actions/checkout@v2
-
-      - name: Setup Deno
-        uses: denolib/setup-deno@c7d7968ad4a59c159a777f79adddad6872ee8d96
-        with:
-          deno-version: ${{ matrix.deno }} # tests across multiple Deno versions
-
-      - name: Cache Dependencies
-        run: deno cache deps.ts
-
-      - name: Run Tests
-        run: deno test -A --unstable
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install -g yarn
+    - run: mkdir sashimi-frontend
+    - run: yarn
+    - run: npm run pkg:online
+      env:
+        CI: true
+    - run: cp build-online.tar.gz sashimi-frontend/
+    - run: npm run pkg:online-test
+      env:
+        CI: true
+    - run: cp build-online-test.tar.gz sashimi-frontend/
+    - run: npm run pkg:kovan
+      env:
+        CI: true
+    - run: cp build-kovan.tar.gz sashimi-frontend/
+    - name: Release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "sashimi-frontend/*.tar.gz"
+        tags: true
+        draft: true
